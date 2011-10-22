@@ -1,0 +1,60 @@
+body {
+    margin: 0 auto;
+    width: 780px;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 18px;
+    line-height: 1.5em;
+}
+
+a {
+    color: #333;
+}
+a:hover {
+    text-decoration: none;
+}
+
+h1, h2 {
+    font-weight: normal;
+    letter-spacing: -0.02em;
+}
+
+time {
+    color: #666;
+    font-size: 18px;
+    font-style: italic;
+    margin-left: 10px;
+}
+
+body > header {
+    background-color: #ddd;
+    padding: 20px 15px 15px 15px;
+    margin: 0 -15px;
+}
+
+.postPreview {
+    margin: 30px 0;
+}
+
+.postPreview > header {
+    margin: 5px 0;
+}
+.postPreview > header > h1 {
+    display: inline;
+    font-size: 24px;
+}
+
+.post {
+    margin: 30px 0;
+}
+
+.post > header {
+    margin: 5px 0;
+}
+.post > header > a {
+    display: block;
+    margin-bottom: 10px;
+}
+.post > header > h1 {
+    display: inline;
+    font-size: 30px;
+}

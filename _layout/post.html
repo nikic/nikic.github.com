@@ -1,0 +1,26 @@
+---
+layout: default
+---
+<section class="post">
+    <header>
+        <a href="/">&laquo; Back to article overview.</a>
+        <h1>{{ post.title }}</h1>
+        <time datetime="{{ post.date | date_to_string: '%Y-%m-%d' }}" pubdate>
+            {{ post.date | date_to_string: '%d. %B %Y' }}
+        </time>
+    </header>
+    <section>
+        {{ content }}
+    </section>
+    <footer>
+        <div id="disqus_thread"></div>
+        <script>
+            (function() {
+                var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                dsq.src = 'http://nikic.disqus.com/embed.js';
+                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+            })();
+        </script>
+        <a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+    </footer>
+</section>
