@@ -2,12 +2,12 @@
 layout: default
 title: nikic's Blog
 ---
-{% for post in posts %}
+{% for post in site.posts %}
 <section class="postPreview">
     <header>
         <h1><a href="{{ post.url }}">{{ post.title }}</a></h1>
-        <time datetime="{{ post.date | date_to_string: '%Y-%m-%d' }}" pubdate>
-            {{ post.date | date_to_string: '%d. %B %Y' }}
+        <time datetime="{{ post.date | date: '%Y-%m-%d' }}" pubdate>
+            {{ post.date | date: '%d. %B %Y' }}
         </time>
     </header>
     <section>

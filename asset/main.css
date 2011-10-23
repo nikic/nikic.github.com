@@ -25,6 +25,19 @@ time {
     margin-left: 10px;
 }
 
+code {
+    font-family: monospace;
+}
+
+pre {
+    font-size: 14px;
+    line-height: 1.3em;
+}
+
+strong {
+    font-weight: bold;
+}
+
 body > header {
     background-color: #ddd;
     padding: 20px 15px 15px 15px;
@@ -48,7 +61,7 @@ body > header {
 }
 
 .post > header {
-    margin: 5px 0;
+    margin: 15px 0;
 }
 .post > header > a {
     display: block;
@@ -56,5 +69,9 @@ body > header {
 }
 .post > header > h1 {
     display: inline;
-    font-size: 30px;
+    font-size: 32px;
+}
+.post > section > h2 {
+    font-size: 28px;
+    margin: 10px 0;
 }
