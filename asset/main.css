@@ -38,6 +38,10 @@ strong {
     font-weight: bold;
 }
 
+p {
+    margin: 10px 0;
+}
+
 body > header {
     background-color: #ddd;
     padding: 20px 15px 15px 15px;
