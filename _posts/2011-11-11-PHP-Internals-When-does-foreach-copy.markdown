@@ -42,8 +42,9 @@ There are two problems with this:
 When does foreach copy?
 -----------------------
 
-Whether or not `foreach` copies the array depends on two things: Whether the iterated array is
-referenced and how hight it's `refcount` is.
+Whether or not `foreach` copies the array and how much of it depends on three things: Whether the
+iterated array is referenced, how high its `refcount` is and whether the iteration is done by
+reference.
 
 ### Not referenced, refcount == 1
 
@@ -69,7 +70,7 @@ internal array pointer. This is expected behavior and thus doesn't need to be pr
 
 The following code looks very similar to the previous one. The only difference is that the array is
 now passed as an argument. This seems like an insignificant difference, but it does change the
-behavior of `foreach`: It now **will** copy the array structure ([proof][3]), but **not** the values.
+behavior of `foreach`: It now **will** copy the array structure, but **not** the values ([proof][3]).
 
 {% highlight php %}
 <?php
@@ -85,10 +86,10 @@ function test($array) {
 This might seem odd at first: Why would it copy when the array is passed through an argument, but
 not if it is defined in the function? The reason is that the array `zval` is now shared between
 multiple variables: The `$array` variable outside the function and the `$array` variable inside it.
-If `foreach` now were to change use the array without copying it would not only change the array pointer
-of the `$array` variable in the function, but also the `$array` variable outside the function. Thus
-`foreach` needs to copy the array structure (the hash table). The values on the other hand still can
-share zvals and thus don't need to be copied.
+If `foreach` would iterate the array without copying its structure it would not only change the array
+pointer of the `$array` variable in the function, but also the pointer of the `$array` variable outside
+the function. Thus `foreach` needs to copy the array structure (i.e. the hash table). The values on
+the other hand still can share zvals and thus don't need to be copied.
 
 ### Referenced
 
@@ -118,16 +119,17 @@ The above examples were all iterating by value. For iteration by reference the s
 the additional value reference changes copying behavior of the array *values* (the behavior about
 *structure* copying stays).
 
-The case "Not referenced, refcount = 1" stays. By reference iteration means we want to change the
-original array, if there are any changes to the `$value`, so the array isn't copied ([proof][5]).
+The case "Not referenced, refcount == 1" doesn't change. By reference iteration means we want to
+change the original array if there are any changes to the `$value`, so the array isn't copied
+([proof][5]).
 
 The case "Referenced" also stays the same, as in this case a change to `$value` should change all
 variables referencing the iterated array ([proof][6]).
 
-Only the case "Not referenced, refcount > 1" changes. In this case now both the array structure and
-its values needs to be copied. The array structure because otherwise the array pointer of the
-`$array` variable outside the function would be changed and the values because a change to `$value`
-would also change the outside `$array` variable.
+Only the "Not referenced, refcount > 1" case change, as now both the array structure and its values
+need are be copied. The array structure because otherwise the array pointer of the `$array` variable
+outside the function would change and the values because a change to `$value` would also change the
+outside `$array` values.
 
 Summary
 -------

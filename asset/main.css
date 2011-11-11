@@ -32,11 +32,14 @@ code {
 pre {
     font-size: 14px;
     line-height: 1.3em;
-    padding: 3px;
+    padding: 5px;
 }
 
 strong {
     font-weight: bold;
+}
+em {
+    font-style: italic;
 }
 
 p {
@@ -44,7 +47,7 @@ p {
 }
 
 ul, ol {
-    margin-left: 20px;
+    margin-left: 30px;
 }
 ul {
     list-style: circle;
