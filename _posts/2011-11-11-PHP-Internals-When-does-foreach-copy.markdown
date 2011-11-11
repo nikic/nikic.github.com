@@ -58,7 +58,7 @@ test();
 function test() {
     $array = range(0, 100000);
     foreach ($array as $key => $value) {
-
+        // ...
     }
 }
 {% endhighlight %}
@@ -70,7 +70,9 @@ internal array pointer. This is expected behavior and thus doesn't need to be pr
 
 The following code looks very similar to the previous one. The only difference is that the array is
 now passed as an argument. This seems like an insignificant difference, but it does change the
-behavior of `foreach`: It now **will** copy the array structure, but **not** the values ([proof][3]).
+behavior of `foreach`: It now **will** copy the array structure, but **not** the values ([proof][3];
+if you want to see that this is really only the structure being copied compare [this][8] and [that][9]
+script. The first only copies the structure, the second copies both).
 
 {% highlight php %}
 <?php
@@ -78,7 +80,7 @@ $array = range(0, 100000);
 test($array);
 function test($array) {
     foreach ($array as $key => $value) {
-
+        // ...
     }
 }
 {% endhighlight %}
@@ -102,7 +104,7 @@ $array = range(0, 100000);
 test($array);
 function test(&$array) {
     foreach ($array as $key => $value) {
-
+        // ...
     }
 }
 {% endhighlight %}
@@ -150,3 +152,5 @@ To summarize:
  [5]: http://codepad.viper-7.com/VkqVQ1
  [6]: http://codepad.viper-7.com/qKMkDo
  [7]: http://codepad.viper-7.com/O584we
+ [8]: http://codepad.viper-7.com/nNX1Rt
+ [9]: http://codepad.viper-7.com/lQC1K6

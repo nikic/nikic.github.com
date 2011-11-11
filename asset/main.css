@@ -47,10 +47,10 @@ p {
 }
 
 ul, ol {
-    margin-left: 30px;
+    margin-left: 40px;
 }
 ul {
-    list-style: circle;
+    list-style: disc;
 }
 ol {
     list-style: decimal;
