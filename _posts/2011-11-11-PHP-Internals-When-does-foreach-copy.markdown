@@ -1,6 +1,6 @@
 ---
 layout: post
-title: PHP internals: When does foreach copy?
+title: "PHP internals: When does foreach copy?"
 excerpt: PHP's foreach language construct sometimes copies the array it iterates and sometimes does not. This post analyzes when and why this happens.
 ---
 **Important**: This post requires some knowledge of PHP's internal workings, namely `zval`s,
