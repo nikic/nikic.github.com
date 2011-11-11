@@ -36,7 +36,7 @@ There are two problems with this:
 
  1. [Microoptimization is evil][1]. Usually it only wastes your time and doesn't give any measurable
     performance improvements.
- 2. The copying behavior of `foreach` is somewhat more complicated than most people know. Often the
+ 2. The copying behavior of `foreach` is somewhat more complicated than most people think. Often the
     "optimized" variant happens to be slower than the original.
 
 When does foreach copy?
