@@ -42,6 +42,11 @@ p {
     margin: 10px 0;
 }
 
+ul {
+    list-style: circle;
+    margin-left: 20px;
+}
+
 body > header {
     background-color: #ddd;
     padding: 20px 15px 15px 15px;

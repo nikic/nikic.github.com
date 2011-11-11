@@ -12,6 +12,7 @@ use it, because they think it is slow. One reason usually named is that `foreach
 it iterates. Thus some people recommend to write:
 
 {% highlight php %}
+<?php
 $keys = array_keys($array);
 $size = count($array);
 for ($i = 0; $i < $size; $i++) {
@@ -25,6 +26,7 @@ for ($i = 0; $i < $size; $i++) {
 Instead of the much more intuitive and straightforward:
 
 {% highlight php %}
+<?php
 foreach ($array as $key => $value) {
     // ...
 }
@@ -50,6 +52,7 @@ In the below code `$array` is not referenced and has a refcount of `1`. In this 
 the iterated array if it isn't referenced.
 
 {% highlight php %}
+<?php
 test();
 function test() {
     $array = range(0, 100000);
@@ -69,6 +72,7 @@ now passed as an argument. This seems like an insignificant difference, but it d
 behavior of `foreach`: It now **will** copy the array structure ([proof][3]), but **not** the values.
 
 {% highlight php %}
+<?php
 $array = range(0, 100000);
 test($array);
 function test($array) {
@@ -92,6 +96,7 @@ The next case is very similar to the previous one. The only difference is that t
 by reference. In this case the array again will **not** be copied ([proof][4]).
 
 {% highlight php %}
+<?php
 $array = range(0, 100000);
 test($array);
 function test(&$array) {
