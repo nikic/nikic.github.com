@@ -79,3 +79,7 @@ body > header {
     font-size: 28px;
     margin: 10px 0;
 }
+.post > section > h3 {
+    font-size: 24px;
+    margin: 10px 0;
+}
