@@ -128,10 +128,10 @@ change the original array if there are any changes to the `$value`, so the array
 The case "Referenced" also stays the same, as in this case a change to `$value` should change all
 variables referencing the iterated array ([proof][6]).
 
-Only the "Not referenced, refcount > 1" case change, as now both the array structure and its values
+Only the "Not referenced, refcount > 1" case changes, as now both the array structure and its values
 need are be copied. The array structure because otherwise the array pointer of the `$array` variable
 outside the function would change and the values because a change to `$value` would also change the
-outside `$array` values.
+outside `$array` values ([proof][7]).
 
 Summary
 -------
