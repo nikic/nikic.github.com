@@ -7,8 +7,8 @@ So, you tried installing [PEAR][0] on Windows using their [`go-pear.phar` instal
 some unknown reason - didn't work? Then you still have one options left: Installing it by hand. This
 is slightly more cumbersome than just running an installer, but at least it works.
 
-1. Download PEAR
-----------------
+Download PEAR
+-------------
 
 First [download the PEAR package][2], extract the `.tgz` file (e.g. using [7-Zip][3]) so you get a
 `.tar` file. Extract that file again into some folder (e.g. `PEAR-files/`). If you enter that folder
@@ -22,8 +22,8 @@ Go into the `PEAR-x.y.z/` folder, where `x.y.z` is the PEAR version you download
 files to the location you want to install PEAR in (I'll use the `D:\htdocs\PEAR` path in this
 example).
 
-2. Write a pear.bat
--------------------
+Write a pear.bat
+----------------
 
 Unless you happen to be the rare case where the `pear.bat` just works you will now need to create a
 custom `pear.bat` file (it's located in the `script/` directory). Open the file in some text editor
@@ -59,8 +59,8 @@ also adjust the other env variables, though changing some of them will require y
 actions. E.g. if you wnat to change the `BIN_DIR` to `%PREFIX%\bin` you'll need to rename the
 `scripts/` folder too.
 
-3. Download additional packages
--------------------------------
+Download additional packages
+----------------------------
 
 If you now open the command line, `cd` into the `scripts/` dir and run `pear` all you will get is
 a bunch of `include` errors. This is because `PEAR` requires some more packages to function. You'll
@@ -83,8 +83,8 @@ If you now try `pear install --alldeps pear.phpunit.de/PHPUnit` again everything
 PEAR should have created a `PHPUnit/` directory in your installation path and there should be a
 `phpunit.bat` in your `scripts/` directory.
 
-4. Adjusting your include_path
-------------------------------
+Adjusting your include_path
+---------------------------
 
 The last step is to add your PEAR installation to the `include_path`. Just open your `php.ini` and
 find the line specifying the `include_path`. Replace it with:
