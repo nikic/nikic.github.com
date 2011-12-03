@@ -74,7 +74,7 @@ yet another folder named `Console/`. Copy this folder into your `PEAR` installat
 
 If you now run `pear` again it should work fine. Run some commands, like `pear update-channels` and
 `pear config-set auto_discover 1`. Both should work fine. But if you now run
-`pear install --alldepspear.phpunit.de/PHPUnit` you'll again get a bunch of errors. This is because
+`pear install --alldeps pear.phpunit.de/PHPUnit` you'll again get a bunch of errors. This is because
 PEAR requires two further packages: [Archive_Tar][6] and [Structures_Graph][7]. You can install them
 in the same manner as the Console_Getopt package. Only difference is that these packages may also
 contain `docs/` and `tests/` directories. Just copy them, too.
