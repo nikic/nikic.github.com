@@ -27,7 +27,7 @@ Write a pear.bat
 
 Unless you happen to be the rare case where the `pear.bat` just works you will now need to create a
 custom `pear.bat` file (it's located in the `script/` directory). Open the file in some text editor
-(e.g. [Notepad++]) and insert the following:
+(e.g. [Notepad++][4]) and insert the following:
 
     @ECHO OFF
 
@@ -56,7 +56,7 @@ custom `pear.bat` file (it's located in the `script/` directory). Open the file 
 Change the `PREFIX` variable to your PEAR installation directory (i.e. the location you moved the
 files to). Also change the `PHP_PEAR_PHP_BIN` variable to the PHP binary you want to use. You can
 also adjust the other env variables, though changing some of them will require you to take further
-actions. E.g. if you wnat to change the `BIN_DIR` to `%PREFIX%\bin` you'll need to rename the
+actions. E.g. if you want to change the `BIN_DIR` to `%PREFIX%\bin` you'll need to rename the
 `scripts/` folder too.
 
 Download additional packages
