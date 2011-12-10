@@ -27,6 +27,11 @@ time {
 
 code {
     font-family: monospace;
+    background-color: #eaeaea;
+}
+
+code > pre {
+    background-color: transparent;
 }
 
 pre {
