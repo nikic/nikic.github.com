@@ -49,8 +49,8 @@ similarly to `\R`:
  * `/(*CR)./`: `.` matches everything apart from CR (`\r`) characters
  * `/(*ANYCRLF)./`: `.` matches everything apart from CRLF style newlines, i.e. everything apart
    from CRLF, LF or CR.
- * `/(*ANY)./`: `.` matches everything apart from Unicode newline sequences (ASCII) [see above]
- * `/(*ANY)./u`: `.` matches everything apart from Unicode newline sequences (any) [see above]
+ * `/(*ANY)./`: `.` matches everything apart from Unicode newline sequences (ASCII)
+ * `/(*ANY)./u`: `.` matches everything apart from Unicode newline sequences (any)
  * `/./`: What this matches depends on how PCRE was compiled, but the default is to behave as if
     `(*LF)` was specified. I.e. unless you compiled PCRE with some other newline configuration `.`
     will match everything apart from `\n`.
@@ -93,8 +93,8 @@ characters. So it does *not* contain the VT vertical tab character. The POSIX ch
 `[:space:]` on the other hand includes the vertical tab, too.
 
 The `\pZ` Unicode character property for separators does *not* contain the "classic" newlines. But
-there are two special, PCRE specific, character properties for that purpose: `p{Xsp}` contains `pZ`
-as well as LF, CR and FF. `p{Xps}` additionally contains VT.
+there are two special, PCRE specific, character properties for that purpose: `p{Xsp}` contains `\pZ`
+as well as LF, CR and FF. `\p{Xps}` additionally contains VT.
 
 Those two Unicode properties are also internally used in `UCP` mode (`UCP` mode makes the normal
 `\s` style character groups behave like the Unicode character properties). I.e. `(*UCP)\s` is
