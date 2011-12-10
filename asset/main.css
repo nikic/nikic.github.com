@@ -30,7 +30,7 @@ code {
     background-color: #eaeaea;
 }
 
-code > pre {
+pre > code {
     background-color: transparent;
 }
 
