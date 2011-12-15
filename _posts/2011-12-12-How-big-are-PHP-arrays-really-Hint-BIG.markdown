@@ -150,7 +150,7 @@ The Zend MM allocator
 ---------------------
 
 C unlike PHP does not manage memory for you. You need to keep track of your allocations yourself.
-For this purposed PHP uses a custum memory manager that is optimized specifially for it's needs:
+For this purposed PHP uses a custom memory manager that is optimized specifially for it's needs:
 [The Zend Memory Manager][12]. The Zend MM is based on [Doug Lea's malloc][13] and adds some PHP
 specific optimizations and features (like memory limit, cleaning up after each request and stuff
 like that).
@@ -237,7 +237,7 @@ which is 144 bytes in total. For 100000 elements that's 14400000 bytes aka 13.73
 Wait, there's another 0.24 MB left!
 -----------------------------------
 
-Those last 0.24 MB are due to uninitionalized buckets: The size of the real C array storing the
+Those last 0.24 MB are due to uninitialized buckets: The size of the real C array storing the
 buckets should ideally be approximately the same as the number of array elements stored. This way
 you have the least number of collisions (unless you want to waste lots of memory.) But PHP obviously
 can't reallocate the whole array every time an element is added - that would be *reeeally* slow.
