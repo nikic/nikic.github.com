@@ -50,12 +50,12 @@ the different components involved:
 
 The above numbers will vary depending on your operating system, your compiler and your compile
 options. E.g. if you compile PHP with debug or with thread-safety, you will get different numbers.
-But I think that the above numbers are what you will see on an average 64-bit production build of
-PHP 5.3 on Linux.
+But I think that the sizes given above are what you will see on an average 64-bit production build
+of PHP 5.3 on Linux.
 
-If you mutiply those 144 bytes by our 100000 elements you get 14400000 bytes, which is 13.73 MB.
+If you multiply those 144 bytes by our 100000 elements you get 14400000 bytes, which is 13.73 MB.
 That's pretty close to the real number - the rest is mostly pointers for uninitialized buckets, but
-that I'll cover later.
+I'll cover that later.
 
 Now, if you want to have a more detailed analysis of the values mentioned above, read on :)
 
@@ -254,6 +254,32 @@ itself, variables, etc.)
 
 Mystery *really* solved.
 
+What does this tell us?
+-----------------------
+
+**PHP ain't C**. That's all this should tell us. You can't expect that a super dynamic language like
+PHP has the same highly efficient memory usage that C has. You just can't.
+
+But if you do want to save memory you could consider using an [`SplFixedArray`][15] for large,
+static arrays.
+
+Have a look a this modified script:
+
+{% highlight php %}
+<?php
+$startMemory = memory_get_usage();
+$array = new SplFixedArray(100000);
+for ($i = 0; $i < 100000; ++$i) {
+    $array[$i] = $i;
+}
+echo memory_get_usage() - $startMemory, ' bytes';
+{% endhighlight %}
+
+It basically does the same thing, but if you run it, you'll notice that it uses "only" 5600640
+bytes. That's 56 bytes per element and thus much less than the normal 144. This is because a fixed
+array doesn't need the bucket structure: So it only requires a zval (48 bytes) and a pointer (8
+bytes), giving us the observed 56 bytes.
+
   [2]: http://codepad.viper-7.com/pjB3Wm
   [3]: http://en.wikipedia.org/wiki/Union_%28computer_science%29
   [4]: http://lxr.php.net/opengrok/xref/PHP_5_4/Zend/zend.h#307
@@ -267,3 +293,4 @@ Mystery *really* solved.
   [12]: http://php.net/manual/en/internals2.memory.php
   [13]: http://g.oswego.edu/dl/html/malloc.html
   [14]: http://lxr.php.net/xref/PHP_5_4/Zend/zend_alloc.c#336
+  [15]: http://php.net/SplFixedArray
