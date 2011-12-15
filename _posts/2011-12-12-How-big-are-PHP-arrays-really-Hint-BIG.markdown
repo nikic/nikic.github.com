@@ -1,7 +1,7 @@
 ---
 layout: post
 title: How big are PHP arrays (and values) really? (Hint: BIG!)
-excerpt:
+excerpt: PHP's memory usage might seem atrocious to some - twenty times more than the optimum you would have in C. This post tries to explain those numbers and why they are necessary.
 ---
 Upfront I want to thank [Johannes][7] and [Tyrael][8] for their help in finding some of the more
 hidden memory usage.
