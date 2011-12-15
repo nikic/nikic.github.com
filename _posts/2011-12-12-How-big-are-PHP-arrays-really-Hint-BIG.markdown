@@ -276,9 +276,9 @@ echo memory_get_usage() - $startMemory, ' bytes';
 {% endhighlight %}
 
 It basically does the same thing, [but if you run it][16], you'll notice that it uses "only" 5600640
-bytes. That's 56 bytes per element and thus much less than the normal 144. This is because a fixed
-array doesn't need the bucket structure: So it only requires a zval (48 bytes) and a pointer (8
-bytes), giving us the observed 56 bytes.
+bytes. That's 56 bytes per element and thus much less than the 144 bytes per element a normal array
+uses. This is because a fixed array doesn't need the bucket structure: So it only requires one zval
+(48 bytes) and one pointer (8 bytes) for each element, giving us the observed 56 bytes.
 
   [2]: http://codepad.viper-7.com/pjB3Wm
   [3]: http://en.wikipedia.org/wiki/Union_%28computer_science%29
