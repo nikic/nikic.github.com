@@ -275,7 +275,7 @@ for ($i = 0; $i < 100000; ++$i) {
 echo memory_get_usage() - $startMemory, ' bytes';
 {% endhighlight %}
 
-It basically does the same thing, but if you run it, you'll notice that it uses "only" 5600640
+It basically does the same thing, [but if you run it][16], you'll notice that it uses "only" 5600640
 bytes. That's 56 bytes per element and thus much less than the normal 144. This is because a fixed
 array doesn't need the bucket structure: So it only requires a zval (48 bytes) and a pointer (8
 bytes), giving us the observed 56 bytes.
@@ -294,3 +294,4 @@ bytes), giving us the observed 56 bytes.
   [13]: http://g.oswego.edu/dl/html/malloc.html
   [14]: http://lxr.php.net/xref/PHP_5_4/Zend/zend_alloc.c#336
   [15]: http://php.net/SplFixedArray
+  [16]: http://codepad.viper-7.com/mznxIH
