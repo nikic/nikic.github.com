@@ -150,7 +150,7 @@ The Zend MM allocator
 ---------------------
 
 C unlike PHP does not manage memory for you. You need to keep track of your allocations yourself.
-For this purposed PHP uses a custom memory manager that is optimized specifially for its needs:
+For this purpose PHP uses a custom memory manager that is optimized specifially for its needs:
 [The Zend Memory Manager][12]. The Zend MM is based on [Doug Lea's malloc][13] and adds some PHP
 specific optimizations and features (like memory limit, cleaning up after each request and stuff
 like that).
