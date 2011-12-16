@@ -72,7 +72,7 @@ typedef union _zvalue_value {
     double dval;              // For floats (doubles)
     struct {                  // For strings
         char *val;            //     consisting of the string itself
-        int len;              //     and it's length
+        int len;              //     and its length
     } str;
     HashTable *ht;            // For arrays (hash tables)
     zend_object_value obj;    // For objects
@@ -85,7 +85,7 @@ you'll get the value interpreted as an integer. If you use `zvalue_value->ht` on
 value will be interpreted as a pointer to a hashtable (aka array).
 
 But let's not get too much into this here. Important for us only is that the size of a `union`
-equals the size of it's largest component. The largest component here is the string struct (the
+equals the size of its largest component. The largest component here is the string struct (the
 `zend_object_value` struct has the same size as the `str` struct, but I'll leave that out for
 simplicity). The string struct stores a pointer (8 bytes) and an integer (4 bytes), which is 12
 bytes in total. Due to memory alignment (structs with 12 bytes aren't cool because they aren't a
@@ -100,7 +100,7 @@ The `zval` struct
 -----------------
 
 And this is quite logical - the union only stores the value itself, but PHP obviously also needs to
-store it's type and some garbage collection information. The structure holding this information is
+store its type and some garbage collection information. The structure holding this information is
 called a `zval` and you may have already have heard of it. For more information on why PHP needs it
 I'd recommend to read [an article by Sara Golemon][5]. Anyways, this struct is [defined as
 follows][10]:
@@ -114,7 +114,7 @@ struct _zval_struct {
 };
 {% endhighlight %}
 
-The size of a struct is determined by the sum of the sizes of it's components: The `zvalue_value` is
+The size of a struct is determined by the sum of the sizes of its components: The `zvalue_value` is
 16 bytes (as computed above), the `zend_uint` is 4 bytes and the `zend_uchar`s are 1 byte each.
 That's a total of 22 bytes. Again due to memory alignment the real size will be 24 bytes though.
 
@@ -140,7 +140,7 @@ typedef struct _zval_gc_info {
 {% endhighlight %}
 
 As you can see Zend only adds a union on top of it, which consists of two pointers. As you hopefully
-remember the size of a union is the size of it's largest component: Both union components are
+remember the size of a union is the size of its largest component: Both union components are
 pointers, thus both have a size of 8 bytes. So the size of the union is 8 bytes too.
 
 If we add that on top of the 24 bytes we already have we get 32 bytes. Multiply that by the 100000
@@ -150,7 +150,7 @@ The Zend MM allocator
 ---------------------
 
 C unlike PHP does not manage memory for you. You need to keep track of your allocations yourself.
-For this purposed PHP uses a custom memory manager that is optimized specifially for it's needs:
+For this purposed PHP uses a custom memory manager that is optimized specifially for its needs:
 [The Zend Memory Manager][12]. The Zend MM is based on [Doug Lea's malloc][13] and adds some PHP
 specific optimizations and features (like memory limit, cleaning up after each request and stuff
 like that).
