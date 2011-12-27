@@ -76,7 +76,7 @@ the class name did not allow me to. If my application had used [dependency injec
 time I could have easily extended `DB` and passed the new instance. But the singleton prevented.
 What I did instead was somethink looking roughly like this:
 
-{% hightlight php %}
+{% highlight php %}
 <?php
 // original DB class
 class _DB { /* ... */ }
@@ -105,7 +105,7 @@ and hard to test.
 Similarly most other plain uses of class names are code smell too. This also applies to the `new`
 operator:
 
-{% hightlight php %}
+{% highlight php %}
 <?php
 class House {
     public function __construct() {
