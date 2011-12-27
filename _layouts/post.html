@@ -5,7 +5,7 @@ layout: default
     <header>
         <a href="/">&laquo; Back to article overview.</a>
         <h1>{{ page.title }}</h1>
-        <time datetime="{{ post.date | date: '%Y-%m-%d' }}" pubdate>
+        <time datetime="{{ page.date | date: '%Y-%m-%d' }}" pubdate>
             {{ page.date | date: '%d. %B %Y' }}
         </time>
     </header>
