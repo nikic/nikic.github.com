@@ -91,7 +91,7 @@ One last point to consider: Remember when I said "You can easily access the DB f
 `DB::getInstance()`". Well, actually that's a bad thing too. Read "from anywhere" as "globally" and
 translate to "A singleton is a global variable with a fancy name." When you learned PHP you were
 probably told that it's evil to use the `global` keyword. But by using a singleton you are doing
-just that: creating global state. This creates non-obvious dependencies and thus makes you app hard
+just that: creating global state. This creates non-obvious dependencies and thus makes your app hard
 to reuse and test.
 
 Tight coupling
