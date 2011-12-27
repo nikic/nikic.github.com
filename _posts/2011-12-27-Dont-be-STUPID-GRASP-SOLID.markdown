@@ -1,7 +1,7 @@
 ---
 layout: post
-title: Don't be STUPID: GRASP SOLID!
-excerpt: Introducing STUPID: Singleton, Tight Coupling, Untestability, Premature Optimization, Indescriptive Naming, Duplication.
+title: "Don't be STUPID: GRASP SOLID!"
+excerpt: "Introducing STUPID: Singleton, Tight Coupling, Untestability, Premature Optimization, Indescriptive Naming, Duplication."
 ---
 Ever heard of [SOLID][1] code? Probably: It is a term describing a collection of design principles
 for "good code" that was coined by Robert C. Martin (aka ["uncle bob"][2]), our beloved evangelist
