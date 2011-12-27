@@ -155,9 +155,12 @@ Premature Optimization
 
 Here is a code snippet from an old version of a website I wrote:
 
-    if (isset($frm['title_german'][strcspn($frm['title_german'], '<>')])) {
-        // ...
-    }
+{% highlight php %}
+<?php
+if (isset($frm['title_german'][strcspn($frm['title_german'], '<>')])) {
+    // ...
+}
+{% endhighlight %}
 
 Guess what it does!
 
@@ -172,17 +175,23 @@ expression will be `true`.
 
 So why did I write this unintelligible piece of code? Why didn't I write this instead:
 
-    if (strlen($frm['title_german']) == strcspn($frm['title_german'], '<>'))) {
-        // ...
-    }
+{% highlight php %}
+<?php
+if (strlen($frm['title_german']) == strcspn($frm['title_german'], '<>'))) {
+    // ...
+}
+{% endhighlight %}
 
 Because some days ago I read that `isset` is so much faster than `strlen`... But that code still is
 not particularly intelligible, because you need to know the exact semantics of the `strcspn`
 function (which probably most PHP programmers do not). So why not just write this:
 
-    if (preg_match('(<|>)', $frm['title_german'])) {
-        // ...
-    }
+{% highlight php %}
+<?php
+if (preg_match('(<|>)', $frm['title_german'])) {
+    // ...
+}
+{% endhighlight %}
 
 Because I read that regex is slow... (Which by the way is mostly a lie: regular expressions are
 much faster and much more powerful than you think.)
