@@ -265,6 +265,11 @@ GRASP stands for General Responsibility Assignment Software Principles, which ar
 
 Happy coding and a happy new year to you!
 
+PS: If you wonder where STUPID comes from: The idea [came up][13] on the [PHP chatroom on
+StackOverlow][10] and the individual components were formed by edorian ([StackOverflow][10],
+[Github][11], [Twitter][12]), [James][14] and me. Gordon ([StackOverflow][16], [Github][17],
+[Twitter][18]) [came up][15] with the title of this blog post.
+
   [1]: http://en.wikipedia.org/wiki/SOLID_%28object-oriented_design%29
   [2]: http://cleancoder.posterous.com/
   [3]: http://en.wikipedia.org/wiki/Don%27t_repeat_yourself
@@ -274,3 +279,12 @@ Happy coding and a happy new year to you!
   [7]: http://php.net/strcspn
   [8]: http://www.martinfowler.com/articles/injection.html
   [9]: http://en.wikipedia.org/wiki/GRASP_%28object-oriented_design%29
+  [10]: http://chat.stackoverflow.com/rooms/11/php
+  [11]: https://github.com/edorian
+  [12]: http://twitter.com/#!/__edorian
+  [13]: http://chat.stackoverflow.com/transcript/11?m=2182205#2182205
+  [14]: http://stackoverflow.com/users/336242/james-butler
+  [15]: https://twitter.com/#!/go_oh/status/150187219020300288
+  [16]: http://stackoverflow.com/users/208809/gordon
+  [17]: https://github.com/gooh
+  [18]: http://twitter.com/#!/go_oh
