@@ -53,7 +53,7 @@ PHP internally uses hashtables to store arrays. The above creates a hashtable wi
 (i.e. all keys will have the same hash).
 
 For those who don't know how hashtables work: When you write `$array[$key]` in PHP the `$key` is run
-through a fast hash function that yield an integer. This integer is then used as an offset into a
+through a fast hash function that yields an integer. This integer is then used as an offset into a
 "real" C array (here "array" means "chunk of memory").
 
 Because every hash function has collisions this C array doesn't actually store the value we want,
@@ -81,7 +81,7 @@ in binary.
 So basically the table mask removes all bits that are greater than the hashtable size. And this is
 what we are exploiting: `0 & 0111111 = 0`, but `1000000 & 0111111 = 0` too, so is
 `10000000 & 0111111 = 0` and `11000000 & 0111111 = 0`. As long as we keep those lower bits the same
-the result of the hash will always be the same.
+the result of the hash will also stay the same.
 
 So if we insert a total of 64 elements, the first one 0, the second one 64, the third one 128, the
 fourth one 192, etc., all of those elements will have the same hash (namely 0) and all will be put
@@ -92,9 +92,9 @@ Why is that so abysmally slow?
 ------------------------------
 
 Well, for every insertion PHP has to traverse the whole linked list, element for element. On the
-first insertion it need to traverse 0 element (there is nothing there yet). On the second one it
+first insertion it needs to traverse 0 elements (there is nothing there yet). On the second one it
 traverses 1 element. On the third one 2, on the fourth 3 and on the 64th one 63. Those who know
 a little bit of math probably know that `0+1+2+3+...+(n-1) = (n-1)*(n-2)/2`. So the number of
-elements to traverse is quadratic. For 64 elements it's `62*62/2 = 1953` traversations. For
+elements to traverse is quadratic. For 64 elements it's `62*63/2 = 1953` traversations. For
 `2^16 = 65536` it's `65534*65535/2=2147385345`. As you see, the numbers grow fast. And with the
 number of iteration grows the execution time.
