@@ -36,10 +36,15 @@ $endTime = microtime(true);
 echo 'Inserting ', $size, ' good elements took ', $endTime - $startTime, ' seconds', "\n";
 {% endhighlight %}
 
-Try it yourself and wonder (I intentionally don't provide an online demo at the amazing Viper-7
-codepad this time so that it doesn't get overloaded.) You may need to adjust the number `16` in the
-`$size = pow(2, 16);` line based on what hardware you have. I would start with `14` and increase it
-one at a time.
+Try it yourself! You may need to adjust the number `16` in the `$size = pow(2, 16);` line based on
+what hardware you have. I would start with `14` and increase it one at a time. By the way, I
+intentionally don't provide an online demo at the amazing Viper-7 codepad this time so that it
+doesn't get overloaded.
+
+Here is a sample output from my machine:
+
+    Inserting 65536 evil elements took 32.726480007172 seconds
+    Inserting 65536 good elements took 0.014460802078247 seconds
 
 How does this work?
 -------------------
