@@ -95,7 +95,7 @@ Well, for every insertion PHP has to traverse the whole linked list, element for
 first insertion it needs to traverse 0 elements (there is nothing there yet). On the second one it
 traverses 1 element. On the third one 2, on the fourth 3 and on the 64th one 63. Those who know
 a little bit of math probably know that `0+1+2+3+...+(n-1) = (n-1)*(n-2)/2`. So the number of
-elements to traverse is quadratic. For 64 elements it's `62*63/2 = 1953` traversations. For
+elements to traverse is quadratic. For 64 elements it's `62*63/2 = 1953` traversals. For
 `2^16 = 65536` it's `65534*65535/2=2147385345`. As you see, the numbers grow fast. And with the
 number of iteration grows the execution time.
 
@@ -116,8 +116,8 @@ a `max_input_vars` ini setting which defaults to `1000`. This setting determines
 of POST/GET variables that are accepted, so now only a maximum of 1000 collisions can be created. If
 you run the above script with `2^10 = 1024` elements you will get runtimes in the order of 0.003
 seconds, which obviously is far less critical than 30 seconds. (Note though that above I am
-demonstating an integer key collision. You can also collide string keys, in which case the
-traversation will be a good bit slower.)
+demonstrating an integer key collision. You can also collide string keys, in which case the
+traversal will be a good bit slower.)
 
 
   [1]: http://www.nruns.com/_downloads/advisory28122011.pdf
