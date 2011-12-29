@@ -112,8 +112,12 @@ PHP is not the only language vulnerable to this. Actually pretty much all other 
 creating websites have similar problems, as was [presented at the 28C3 conference][2].
 
 But there is hope! PHP already [landed a change][3] (which will ship with PHP 5.3.9) which will add
-a `max_input_vars` ini setting which defaults to `1000`. This greatly reduces the impact of the
-attack as only a relatively small number of collisions can be created.
+a `max_input_vars` ini setting which defaults to `1000`. This setting determines the maximum number
+of POST/GET variables that are accepted, so now only a maximum of 1000 collisions can be created. If
+you run the above script with `2^10 = 1024` elements you will get runtimes in the order of 0.003
+seconds, which obviously is far less critical than 30 seconds. (Note though that above I am
+demonstating an integer key collision. You can also collide string keys, in which case the
+traversation will be a good bit slower.)
 
 
   [1]: http://www.nruns.com/_downloads/advisory28122011.pdf
