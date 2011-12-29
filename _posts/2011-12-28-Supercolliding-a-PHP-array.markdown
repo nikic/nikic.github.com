@@ -98,3 +98,24 @@ a little bit of math probably know that `0+1+2+3+...+(n-1) = (n-1)*(n-2)/2`. So 
 elements to traverse is quadratic. For 64 elements it's `62*63/2 = 1953` traversations. For
 `2^16 = 65536` it's `65534*65535/2=2147385345`. As you see, the numbers grow fast. And with the
 number of iteration grows the execution time.
+
+Hashtable collisions as DOS attack
+----------------------------------
+
+At this point you may wonder what the above is actually useful for. For the casual user: Not useful
+at all. But the "bad guys" can easily exploit behavior like the above to perform a DOS (Denial of
+Service) attack on a server. Remember that `$_GET` and `$_POST` and `$_REQUEST` are just normal
+arrays and suffer from the same problems. So by sending a specially crafted POST request you can
+easily take a server down.
+
+PHP is not the only language vulnerable to this. Actually pretty much all other languages used for
+creating websites have similar problems, as was [presented at the 28C3 conference][2].
+
+But there is hope! PHP already [landed a change][3] (which will ship with PHP 5.3.9) which will add
+a `max_input_vars` ini setting which defaults to `1000`. This greatly reduces the impact of the
+attack as only a relatively small number of collisions can be created.
+
+
+  [1]: http://www.nruns.com/_downloads/advisory28122011.pdf
+  [2]: http://events.ccc.de/congress/2011/Fahrplan/events/4680.en.html
+  [3]: http://svn.php.net/viewvc?view=revision&revision=321038
