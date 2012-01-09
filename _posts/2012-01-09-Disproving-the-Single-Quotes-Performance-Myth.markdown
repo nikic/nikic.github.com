@@ -9,14 +9,13 @@ Performance Myth. Let's do a random Google search for ["PHP single quotes perfor
 quotes and that string interpolation is much slower than string concatenation. Most of them advise
 to use single quotes and concatenation to improve the performance of your application.
 
-Let's be clear here: **BULLSHIT.**
+Let's be clear here: **This is pointless.**
 
-First of all, I hold the opinion that microoptimization like that is just pointless. I doubt that
-string parsing performance is the bottleneck of even a single PHP application out there. [This
-comment][7] nails it pretty well: "And, on top of that, by using less pixels, you reduce
-greenhouse emissions." I think that everybody will agree that using single quotes won't save any
-significant greenhouse emissions. Still everybody seems to believe that it saves significant
-execution time. Strange.
+I hold the opinion that microoptimization like that is just pointless. I doubt that string parsing
+performance is the bottleneck of even a single PHP application out there. [This comment][7] nails it
+pretty well: "And, on top of that, by using less pixels, you reduce greenhouse emissions." I think
+that everybody will agree that using single quotes won't save any significant greenhouse emissions.
+Still everybody seems to believe that it saves significant execution time. Strange.
 
 But okay, some say "Well, it doesn't cost me anything to write single quotes, so why not just do
 it?"
