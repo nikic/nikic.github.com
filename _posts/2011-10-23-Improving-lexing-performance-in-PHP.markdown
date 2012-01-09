@@ -141,7 +141,7 @@ I am seeing approximately 30% performance improvement for the average case ([onl
 this value varies with different regexes and input. If the number of regexes increases the
 performance improvement is bigger. Additionally in the compiled-regex variant the order of the
 regexed has less influence on the execution time ([online demo][6]). I.e. it is not that important
-to put the more probable regexes first and the less probable onces last. (But it still is important,
+to put the more probable regexes first and the less probable ones last. (But it still is important,
 only less important!)
 
   [1]: http://en.wikipedia.org/wiki/Lexical_analysis

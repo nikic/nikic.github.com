@@ -29,7 +29,7 @@ What characterizes such code? What makes code **STUPID**?
  * ***D***uplication
 
 Do you agree with this list? Yes? Great. No? I'll explain the individual points in greater detail
-int the following, so you can better understand why exactly those patterns were chosen.
+in the following, so you can better understand why exactly those patterns were chosen.
 
 Singleton
 ---------
