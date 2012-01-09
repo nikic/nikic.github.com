@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Disproving the Single Quotes Performance Myth
-excerpt: One of the oldest myths of PHP is that single quotes are faster than double quotes. And. It. Is. Not. True.
+excerpt: One of the oldest myths around PHP is that single quotes are faster than double quotes. And. It. Is. Not. True.
 ---
 If there is one PHP related thing that I *really* hate, then it is definitely the Single Quotes
 Performance Myth. Let's do a random Google search for ["PHP single quotes performance"][1]: [You][2]
@@ -32,7 +32,7 @@ a PHP script runs all strings are already parsed.
 
 A simple proof:
 
-{% hightlight php %}
+{% highlight php %}
 <?php
 $x = 'Test';
 $y = "\x54\x65\x73\x74";
