@@ -61,10 +61,10 @@ Strings at compile time
 Now some may argue: PHP is an interpreted language, so compile time actually also happens at
 runtime. My response to that would normally be: Use [APC][10]. APC will cache the generated opcodes
 so they don't need to be created on every single request. This can greatly improve page loading time
-and CPU load, so if you aren't using APC you might try as well now ;)
+and CPU load, so if you aren't using APC yet you might try as well now ;)
 
-But not today, today we want hard numbers. So let's see whether single quoted strings are actually
-lexed faster than double quoted ones.
+But, hypothetically, let use assume that we are not using APC. So let's see whether single quoted
+strings are actually lexed faster than double quoted ones.
 
 For this we will use a handy function called [`token_get_all`][11]: It lexes a PHP string into a
 token array. The function will return the token texts plainly and not preparsed, but the internal
@@ -124,7 +124,7 @@ If you [try running the corresponding benchmark][13] you will get numbers simila
     Concatenation: 0.015104055404663 seconds
     Interpolation: 0.016894817352295 seconds
 
-So interpolation sees *slightly* slower than concatenation, doesn't it? Well, not exactly, but more
+So interpolation seems *slightly* slower than concatenation, doesn't it? Well, not exactly, but more
 on that later. Let's look at the opcodes first:
 
     compiled vars:  !0 = $world
@@ -152,7 +152,7 @@ same as `CONCAT`.
 
 If you read closely the difference is clear: Interpolation copies the `'Hallo+'` part twice,
 concatenation only copies it one time. (Disclaimer: I'm actually not perfectly sure that this is
-really the reason, but it would be my guess. It could also be just the otherhead of another opcode.)
+really the reason, but it would be my guess. It could also be just the overhead of another opcode.)
 
 So, interpolation is slower after all, isn't it? Well, not really, let's consider this more
 realistic example:
@@ -209,7 +209,7 @@ Lesson learned
 --------------
 
 At this point I want to emphasize again that the above has no practical impact. All above demos use
-high iteration counts and any differences in execution are completely negligible.
+high iteration counts and any differences in execution time are completely negligible.
 
 Does this still teach us something? Yes, it does: "Never trust a statistic you didn't forge
 yourself." Amen.
