@@ -86,9 +86,9 @@ body > header {
 .post > header {
     margin: 15px 0;
 }
-.post > header > a {
+.backLink {
     display: block;
-    margin-bottom: 10px;
+    margin: 10px 0;
 }
 .post > header > h1 {
     display: inline;
