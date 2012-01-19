@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Careful: XDebug can skew your performance numbers"
-excerpt: In some cases XDebug can significantly skew your benchmarking and profiling numbers, so be careful about that.
+excerpt: In some cases XDebug can significantly skew your benchmarking and profiling numbers. So make sure that you do measurements without it.
 ---
 [XDebug][1] is a great tool and a really big aid in debugging.
 
@@ -10,21 +10,22 @@ this having XDebug enabled can skew your benchmarking and profiling numbers. ("E
 just enabled, no debugging going on or such.)
 
 This has an important implication: If you optimize a script while XDebug is enabled it can actually
-turn out that it gets **slower** on your production server.
+turn out that it gets **slower** on your production server (as you *hopefully* don't have XDebug
+enabled there).
 
 An example: "Optimizing" a lexer wrapper
 ----------------------------------------
 
-For my [PHP parser][2] I need a smaller wrapper around the [`token_get_all`][3] function that PHP
-provides. This wrapper (called `PHPParser_Lexer`) only does a little bit of normalization, filtering
-and mapping on the tokens.
+For my [PHP parser][2] I need a smaller wrapper around PHP's [`token_get_all`][3] function. This
+wrapper (called `PHPParser_Lexer`) only does nothing more than a little bit of normalization,
+filtering and mapping on the tokens.
 
 There are basically two ways how this wrapper can work:
 
  1. For every source code to be parsed a new `Lexer` instance is created and passed into the parser,
     which then does multiple calls to `->lex()` to fetch one token at a time.
- 2. A `Lexer` is creates once and reused for all source codes. Always only one call to `->lex()` is
-    done, which returns all tokens at once.
+ 2. A `Lexer` is creates once and reused for all source codes. Always only a single call to `->lex()`
+    is made, which then returns all the tokens at once.
 
 So, what I did is implement both approaches and see how much time is spent lexing the whole Symfony
 tree. I got the following results:
@@ -52,14 +53,14 @@ Finally, let's look at the numbers for PHP 5.4.0 without XDebug:
     Scenario 1 on 5.4.0 with XDebug disabled: 2.8629820346832 seconds
     Scenario 2 on 5.4.0 with XDebug disabled: 3.0883010864258 seconds
 
-And here the numbers are now actually turned around. PHP 5.4 got some optimizations that actually
-made the seconds variant slower.
+And here the numbers are now actually turned around. PHP 5.4 got some optimizations that made the
+seconds variant slower.
 
 Another example: Micro benchmarking
 -----------------------------------
 
 As pointless as they are, people still love micro benchmarks, I do too. You'll find lots of blog
-posts comparing the performance of something vs. something else. The problems is: Most of these are
+posts comparing the performance of something vs. something else. The problem is: Most of these are
 done on development machines, with XDebug enabled.
 
 As an example this recent [blog post about the performance of exceptions][4] will serve. Here are
@@ -88,7 +89,8 @@ like your production machine. Otherwise you might actually be anti-optimizing.
 
 Also: Low level optimizations like function inlining may actually measurably improve performance on
 your development machine (like in my case), but have little effect in the production environment.
-So, don't fear clean and modular code for performance reasons ;)
+So, you can safely go for clean code with small functions and not fear about performance
+degradation.
 
   [1]: http://xdebug.org/
   [2]: https://github.com/nikic/PHP-Parser
