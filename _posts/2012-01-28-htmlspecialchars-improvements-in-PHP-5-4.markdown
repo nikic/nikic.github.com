@@ -50,7 +50,7 @@ empty string:
    drop all invalid code unit sequences. This is bad for two reasons: First, you won't notice
    invalid encoding because it'll be simply dropped. Second, this imposes a certain security risk
    (for more info see the [Unicode Security Considerations][7]).
- * `ENT_SUBSTITUTE: This new alternative option takes a much more sensible approach at the problem:
+ * `ENT_SUBSTITUTE`: This new alternative option takes a much more sensible approach at the problem:
    Instead of just dropping the code units they will be replaced by a Unicode Replacement Character
    (U+FFFD). So invalid code unit sequences will be replaced by � characters.
 
@@ -105,11 +105,11 @@ var_dump(htmlspecialchars("'", ENT_HTML5));   // string(6) "&apos;"
 So for HTML 5 an `&apos;` entity will be generated, whereas for HTML 4.01 - which does not yet
 support `&apos;` - a numerical `&#039;` entity is returned.
 
-The difference becomes more evident when using `htmlentities`, because there are larger differences
+The difference becomes more evident when using `htmlentities`, because the differences are larger
 there. You can easily see this by having a look at the raw translation tables:
 
-To do this, we cam use the `get_html_translation_table` method. Here first an example for the XML 1
-doctype ([demo][10]):
+To do this, we can use the `get_html_translation_table` function. Here first an example for the
+XML 1 doctype ([demo][10]):
 
 {% highlight php %}
 <?php
