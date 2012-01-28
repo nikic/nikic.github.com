@@ -178,7 +178,7 @@ important improvements.
 
 {% highlight php %}
 <?php
-htmlspecialchars("<\80The End\xef\xbf\xbf>", ENT_QUOTES | ENT_HTML5 | ENT_DISALLOWED | ENT_SUBSTITUTE, 'UTF-8');
+htmlspecialchars("<\x80The End\xef\xbf\xbf>", ENT_QUOTES | ENT_HTML5 | ENT_DISALLOWED | ENT_SUBSTITUTE, 'UTF-8');
 {% endhighlight %}
 
   [1]: http://stackoverflow.com/users/127724/artefacto
