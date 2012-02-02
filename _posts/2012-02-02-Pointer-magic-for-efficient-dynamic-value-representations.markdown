@@ -94,9 +94,9 @@ Here is a sample implementation of how to do so:
 
 {% highlight cpp %}
 #include <cassert>
+#include <stdint.h>
 
-// alignedTo defaults to 8 (on 64 bit)
-template <typename T, int alignedTo = sizeof(T *)>
+template <typename T, int alignedTo>
 class TaggedPointer {
 private:
     static_assert(
@@ -104,18 +104,18 @@ private:
         "Alignment parameter must be power of two"
     );
 
-    // tagMask = alignedTo - 1 = 7 = 0b111
+    // for 8 byte alignment tagMask = alignedTo - 1 = 8 - 1 = 7 = 0b111
     // i.e. the lowest three bits are set, which is where the tag is stored
-    static const size_t tagMask = alignedTo - 1;
+    static const intptr_t tagMask = alignedTo - 1;
 
     // pointerMask is the exact contrary: 0b...11111000
     // i.e. all bits apart from the three lowest are set, which is where the pointer is stored
-    static const size_t pointerMask = ~tagMask;
+    static const intptr_t pointerMask = ~tagMask;
 
-    // Save us some reinterpret_casts with a union
+    // save us some reinterpret_casts with a union
     union {
         T *asPointer;
-        size_t asBits;
+        intptr_t asBits;
     };
 
 public:
@@ -125,7 +125,7 @@ public:
 
     inline void set(T *pointer, int tag = 0) {
         // make sure that the pointer really is aligned
-        assert((reinterpret_cast<size_t>(pointer) & tagMask) == 0);
+        assert((reinterpret_cast<intptr_t>(pointer) & tagMask) == 0);
         // make sure that the tag isn't too large
         assert((tag & pointerMask) == 0);
 
@@ -191,9 +191,9 @@ Here again a sample implementation:
 
 {% highlight cpp %}
 #include <cassert>
+#include <stdint.h>
 
-// alignedTo defaults to 8 (on 64 bit)
-template <typename T, int alignedTo = sizeof(T *)>
+template <typename T, int alignedTo>
 class TaggedPointerOrInt {
 private:
     static_assert(
@@ -205,31 +205,31 @@ private:
         "Pointer must be at least 2-byte aligned in order to store an int"
     );
 
-    // tagMask = alignedTo - 1 = 7 = 0b111
+    // for 8 byte alignment tagMask = alignedTo - 1 = 8 - 1 = 7 = 0b111
     // i.e. the lowest three bits are set, which is where the tag is stored
-    static const size_t tagMask = alignedTo - 1;
+    static const intptr_t tagMask = alignedTo - 1;
 
     // pointerMask is the exact contrary: 0b...11111000
     // i.e. all bits apart from the three lowest are set, which is where the pointer is stored
-    static const size_t pointerMask = ~tagMask;
+    static const intptr_t pointerMask = ~tagMask;
 
-    // Save us some reinterpret_casts with a union
+    // save us some reinterpret_casts with a union
     union {
         T *asPointer;
-        size_t asBits;
+        intptr_t asBits;
     };
 
 public:
     inline TaggedPointerOrInt(T *pointer = 0, int tag = 0) {
         setPointer(pointer, tag);
     }
-    inline TaggedPointerOrInt(size_t number) {
+    inline TaggedPointerOrInt(intptr_t number) {
         setInt(number);
     }
 
     inline void setPointer(T *pointer, int tag = 0) {
         // make sure that the pointer really is aligned
-        assert((reinterpret_cast<size_t>(pointer) & tagMask) == 0);
+        assert((reinterpret_cast<intptr_t>(pointer) & tagMask) == 0);
         // make sure that the tag isn't too large
         assert(((tag << 1) & pointerMask) == 0);
 
@@ -237,7 +237,7 @@ public:
         asPointer = pointer;
         asBits |= tag << 1;
     }
-    inline void setInt(size_t number) {
+    inline void setInt(intptr_t number) {
         // make sure that when we << 1 there will be no data loss
         // i.e. make sure that it's a 31 bit / 63 bit integer
         assert(((number << 1) >> 1) == number);
@@ -256,7 +256,7 @@ public:
 
         return (asBits & tagMask) >> 1;
     }
-    inline size_t getInt() {
+    inline intptr_t getInt() {
         assert(isInt());
 
         return asBits >> 1;
