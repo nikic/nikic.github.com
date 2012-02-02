@@ -479,17 +479,17 @@ public:
         asBits = reinterpret_cast<uint64_t>(pointer) | PtrTag;
     }
 
-	inline bool isDouble() {
+    inline bool isDouble() {
         return asBits < MaxDouble;
     }
-	inline bool isInt32() {
+    inline bool isInt32() {
         return (asBits & Int32Tag) == Int32Tag;
     }
     inline bool isPointer() {
         return (asBits & PtrTag) == PtrTag;
     }
 
-	inline double getDouble() {
+    inline double getDouble() {
         assert(isDouble());
 
         return asDouble;
