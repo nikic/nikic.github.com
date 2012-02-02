@@ -21,7 +21,7 @@ JavaScript is a dynamically typed language and as such needs some kind of "value
 which stores the current type and the value in that type. The trivial approach to this problem is to
 use a tagged union. This could look roughly like this:
 
-{% highlight c++ %}
+{% highlight cpp %}
 #include <stdint.h>
 
 class Value {
@@ -46,7 +46,7 @@ As you can see the idea is very simple. You have a type tag, which specifies whi
 currently has. And a union that's used to store the various types. Examples to store integers and
 objects would look like that:
 
-{% highlight c++ %}
+{% highlight cpp %}
 inline Value::Value(int32_t number) {
     type = IntType;
     payload = number;
@@ -92,7 +92,7 @@ We can use them to store a "tag" in where, which is an integer between 0 (0b000)
 
 Here is a sample implementation of how to do so:
 
-{% highlight c++ %}
+{% highlight cpp %}
 #include <cassert>
 
 // alignedTo defaults to 8 (on 64 bit)
@@ -144,7 +144,7 @@ public:
 
 The code is fairly straightforward I think. You could then use it like this:
 
-{% highlight c++ %}
+{% highlight cpp %}
 double number = 17.0;
 TaggedPointer<double, 8> taggedPointer(&number, 5);
 taggedPointer.getPointer(); // == &number
@@ -189,7 +189,7 @@ To get the actual integer value we just need to shift off the 1 bit using `integ
 
 Here again a sample implementation:
 
-{% highlight c++ %}
+{% highlight cpp %}
 #include <cassert>
 
 // alignedTo defaults to 8 (on 64 bit)
@@ -273,7 +273,7 @@ public:
 
 Usage example:
 
-{% highlight c++ %}
+{% highlight cpp %}
 // either a pointer to a double (with a two bit tag) or a 63 bit integer
 double number = 17.0;
 TaggedPointerOrInt<double, 8> taggedPointerOrInt(&number, 3);
@@ -342,7 +342,7 @@ One interesting behavior of the zeros is that they are considered equal in compa
 0.0 == -0.0. The only way to find out whether a number is negative zero is to check whether the
 sign bit is set:
 
-{% highlight c++ %}
+{% highlight cpp %}
 inline bool isNegativeZero(double number) {
     return number == 0 && *reinterpret_cast<int64_t *>(&number) != 0;
 }
@@ -436,7 +436,7 @@ fit perfectly into our 51 bit payload space.
 Here is an implementation stub for doing so (just implements doubles, ints and void pointers; a
 real implementation would look similar, just with more types):
 
-{% highlight c++ %}
+{% highlight cpp %}
 #include <stdint.h>
 #include <cassert>
 
