@@ -3,7 +3,8 @@ layout: post
 title: Scalar type hinting is harder than you think
 excerpt: A quick overview of the different scalar type hinting proposals and why PHP is having such a hard time deciding.
 ---
-One of the features originally planned for PHP 5.4 was scalar type hinting. As you know, PHP 5.4 released without them.
+One of the features originally planned for PHP 5.4 was scalar type hinting. But as you know, they weren't included in
+the release.
 
 Recently the topic has come up again on the mailing list and there has been a hell lot of discussion about it. Yesterday
 ircmaxell published a [blog post about his particular proposals][1].
@@ -192,7 +193,7 @@ foo("hi"); // Int::__fromScalar("hi") is called, which tries to create
 function foo(Int $i) {
     return str_repeat('*', $i); // $i is Int(10) here, but str_repeat expects an integer,
                                 // thus call $i->__toScalar() [or ->__toInt() or whatever],
-                                // which returns 10. Pass with to str_repeat().
+                                // which returns 10. This is then passed to str_repeat().
 }
 {% endhighlight %}
 
@@ -230,15 +231,15 @@ foo("10"); // StrictInt::__fromScalar("10") is called, which tries to create
            // StrictInt("10"), but this raises an exception.
 {% endhighlight %}
 
-As you can see this proposal is very powerful as it allows users to define their own type hinting rules (PHP could
+As you can see, this proposal is very powerful as it allows users to define their own type hinting rules (PHP could
 obviously still provide some default `Int`, etc classes.)
 
-My main issue with this proposal is that it seems like a little bit overkill to implement type hinting this way (as it
-requires to always box and unbox the type). But obviously the internally defined type hinting classes could optimize
+My main issue with this proposal is that it requires the value to be boxed and unboxed on every type hint. This seems
+like overkill and like a performance issue. But obviously the internally defined type hinting classes could optimize
 this.
 
-But generally this proposal is not yet that mature, so it could well have some more flaws. Still, I think that this is
-one of the more interesting approaches, especially as it is so powerful.
+Generally this proposal is not yet that mature, so it could well have some more flaws. Still, I think that this is one
+of the more interesting approaches, especially as it is so powerful.
 
 We need you!
 ------------
