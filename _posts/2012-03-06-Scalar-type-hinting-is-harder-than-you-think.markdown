@@ -31,7 +31,7 @@ In the following I want to introduce you to some of the various proposals that w
 associated with them. I hope this way people will get a little bit more insight into why this is so hard.
 
 Strict type hinting
-===================
+-------------------
 
 I'll start with the proposal that I personally dislike most: Strict type hinting, i.e. allowing only the hinted type to
 be passed and not any of the types that PHP would normally consider equivalent. See this example:
@@ -50,7 +50,7 @@ this proposal would turn it into a strictly typed one. This goes against the PHP
 pretty much everything else works in PHP.
 
 Unenforced type hinting
-=======================
+-----------------------
 
 Another proposal that was made, is type hinting that isn't enforced by the engine. WTF? What would this be good for?
 Basically, it would work just like doc comments (which aren't enforced either ^^), but with nicer syntax.
@@ -71,7 +71,7 @@ I dislike this proposal, too, for obvious reasons. For me it just doesn't make a
 ignored. Doc comments do that already well enough...
 
 Casting weak type hinting
-=========================
+-------------------------
 
 A proposal that came up recently (this is the one [introduced by ircmaxell][1]) is type hinting based on casts.
 
@@ -118,7 +118,7 @@ might become more clear: When would you use one over another? When would you wan
 checked? Additionally the casts would prevent type hinted parameters to be used by reference in any reasonable manner.
 
 Strict weak type hinting
-========================
+------------------------
 
 This leads us to another possibility, which is also my favorite: Doing weak type hints, but with stricter input
 validation (and without casts).
@@ -150,7 +150,7 @@ By the way, this proposal would be very similar to how parameters for internal f
 argument of an internal function will not accept `"foobar"` and instead throw a warning.
 
 Boxing based type hinting
-=========================
+-------------------------
 
 Another very interesting idea that also came from ircmaxell is type hinting using boxing. Basically this would add
 magic methods for casting objects to scalars and the other way around. Something like this (just example names):
@@ -238,14 +238,14 @@ this.
 But generally this proposal is not yet that mature, so it could well have some more flaws. Still, I think that this is
 one of the more interesting approaches, especially as it is so powerful.
 
-In conclusion
-=============
+We need you!
+------------
 
 I hope that I could give you a small overview of the different possible approaches.
 
 Now it's your turn! PHP needs your valuable feedback on the different proposals, so a good decision can be made.
 
-You can give feedback directly on the internals [mailing list][4], but if you don't want to go so far, you can also
+You can give feedback directly on the internals [mailing list][4], but if you don't want to do that, you can also
 leave a comment or ping ircmaxell or me in the [StackOverflow PHP chatroom][5].
 
  [1]: http://blog.ircmaxell.com/2012/03/parameter-type-casting-in-php.html
