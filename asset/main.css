@@ -61,6 +61,12 @@ ol {
     list-style: decimal;
 }
 
+blockquote {
+    border-left: 10px solid #aaa;
+    margin-left: 10px;
+    padding-left: 20px;
+}
+
 body > header {
     background-color: #ddd;
     padding: 20px 15px 15px 15px;
