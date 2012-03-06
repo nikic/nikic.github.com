@@ -76,6 +76,7 @@ Casting weak type hinting
 A proposal that came up recently (this is the one [introduced by ircmaxell][1]) is type hinting based on casts.
 
 {% highlight php %}
+<?php
 function foo((int) $i) {
     var_dump($i);
 }
@@ -124,6 +125,7 @@ This leads us to another possibility, which is also my favorite: Doing weak type
 validation (and without casts).
 
 {% highlight php %}
+<?php
 function foo(int $i) {
     var_dump($i);
 }
