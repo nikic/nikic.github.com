@@ -23,7 +23,7 @@ of the page. [The result][3] will be a huge listing of `strpos` occurrences in t
 As this doesn't really help us much, we use a little trick: Instead of searching for just `strpos`, we [search for
 `"PHP_FUNCTION strpos"`][4] instead (don't forget the quotes, they are important).
 
-Now we are left with only too entries:
+Now we are left with only two entries:
 
     /PHP_5_4/ext/standard/
         php_string.h 48   PHP_FUNCTION(strpos);
@@ -71,7 +71,7 @@ So, let's start with the variable declarations:
     int   haystack_len;
 
 The first line declares `needle` as being a pointer to a `zval`. A `zval` is PHP's internal representation of an
-arbitrary PHP value. How exactly it looks like will be subject of the next post.
+arbitrary PHP value. How exactly it looks will be the subject of the next post.
 
 The second line declares `haystack` as a pointer to a character. At this point you'll have to remember that in C, arrays
 are represented by pointers to their first value. I.e. the `haystack` will point to the first character of the
@@ -93,8 +93,7 @@ Now let's look at the next three lines:
         return;
     }
 
-What these lines basically do, is take the parameters that were passed to the function and put them into the variables,
-which were declared above.
+What these lines basically do, is take the parameters that were passed to the function and put them into the variables which were declared above.
 
 The first argument to the function is the number of arguments passed. This number is provided by the `ZEND_NUM_ARGS()`
 macro.
@@ -103,7 +102,7 @@ The next argument is the `TSRMLS_CC` macro, which is kind of an idiosyncrasy of 
 scattered across pretty much the whole PHP code base. It is part of the Thread Safe Resource Mananger (TSRM), which
 ensures that PHP doesn't mix up variables between multiple threads. This is unimportant to us, so whenever you see
 `TSRMLS_CC` (or `TSRMLS_DC`) in the code, just ignore it. (A strangeness which you might have noticed, is that there is
-no comma before this "argument". This has to do with the fact, that depending on whether or not you are using a
+no comma before this "argument". This has to do with the fact that depending on whether or not you are using a
 thread-safe build, the macro will either evaluate to nothing or to `, tsrm_ls`. So basically the comma is part of the
 macro.)
 
@@ -118,7 +117,7 @@ There are more type specifiers than `s`, `z` and `l`, but most should be clear f
 **b**oolean, `d` is a **d**ouble (floating point number), `a` is an **a**rray, `f` is a callback (**f**unction) and `o`
 is an **o**bject.
 
-The remaining arguments `&haystack, &haystack_len, &needle, &offset` specify the variables to put the arguments into.
+The remaining arguments `&haystack, &haystack_len, &needle, &offset` specify the variables to put the values of the arguments into.
 As you can see, they are all passed by reference (`&`), which means that not the variables themselves are passed, but
 pointers to them.
 
