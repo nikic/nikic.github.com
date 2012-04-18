@@ -127,15 +127,14 @@ Let's move on to the second important structure: [`Bucket`][6]:
    for other things internally.) Don't bother with the fact that there are two properties for this. The difference
    between them is who is responsible for freeing the value.
 
- * `pListNext` and `pListLast` form the "linked list of possible values" I mentioned above. The `arBuckets` array stores
-   a pointer to the first possible bucket. If that bucket hasn't the right key, PHP will look at the bucket which
-   `pListNext` points to. This is done until the right bucket is found. `pListLast` can be used to do the same in
-   reverse.
+ * `pListNext` and `pListLast` specify the order of the array elements. If PHP wants to traverse the array it starts off
+   at the `pListHead` bucket (specified in the `HashTable` struct) and then always takes the `pListNext` bucket. The
+   same works in reverse, by starting at `pListTail` and always following `pListLast`. (You can do this in userland by
+   calling `end()` and then always calling `prev()`.)
 
- * `pNext` and `pLast` specify the order of the array elements. If PHP wants to traverse the array it starts off at the
-   `pListHead` bucket (specified in the `HashTable` struct) and then always takes the `pNext` bucket. The same works in
-   reverse, by starting at `pListTail` and always following `pLast`. (You can do this in userland by calling `end()` and
-   then always calling `prev()`.)
+ * `pNext` and `pLast` form the "linked list of possible values" I mentioned above. The `arBuckets` array stores a
+   pointer to the first possible bucket. If that bucket hasn't the right key, PHP will look at the bucket which `pNext`
+   points to. This is done until the right bucket is found. `pLast` can be used to do the same in reverse.
 
 As you can see PHP's hash table implementation is fairly complex. This is the price one has to pay for its
 ultra-flexible array type.

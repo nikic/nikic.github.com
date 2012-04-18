@@ -63,7 +63,7 @@ function foo(int $i) { /* ... */ }
 foo(1);          // works
 foo(1.0);        // works
 foo("1");        // works
-foo(array(123);  // works
+foo(array(123));  // works
 foo($iAmObject); // works
 // everything works...
 {% endhighlight %}
