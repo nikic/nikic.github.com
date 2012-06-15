@@ -69,7 +69,7 @@ that they meet the criteria: The first ten rules are of the form `B -> a` and th
 Another thing you might notice is that even though the above grammar defines such a simple thing, it is already quite
 bloated. Wouldn't it be better if we could express the same concept in a more concise manner?
 
-And that's where regular expressions come in: The above grammar is equivalent to the regex `[0-9]*` (which is a hell lot
+And that's where regular expressions come in: The above grammar is equivalent to the regex `[0-9]+` (which is a hell lot
 simpler). And this kind of transformation can be done with *any* regular grammar: Every regular grammar has a
 corresponding regular expression which defines all its valid strings.
 
