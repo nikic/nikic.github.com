@@ -305,7 +305,7 @@ mean that you *should*. You could write your software in Brainfuck, still for so
 My opinion on the topic is: Whenever you need generic HTML processing, use a DOM library of your choice. It'll
 gracefully handle malformed HTML and take the burden of parsing from you. On the other hand if you are dealing with
 specific situations a quick regular expression is often the way to go. And I have to admit: Even though I often tell
-people to not parse HTML with regular expressions I do it myself notoriously often. Simply because in most cases I deaö
+people to not parse HTML with regular expressions I do it myself notoriously often. Simply because in most cases I deal
 with specific and contained situations in which using regex is just simpler.
 
 Context-sensitive grammars
