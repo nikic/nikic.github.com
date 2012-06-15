@@ -21,9 +21,9 @@ rules have one of the following forms:
     B -> aC
     B -> ε
 
-You can read those `->` rules as `The left hand side can be replaced with the right hand side`. So the first rule would
-be `B can be replaced with a`, the second one `B can be replaced with aC` and the third one `B can be replaced with the
-empty string` (`ε` is the symbol for the empty string).
+You can read those `->` rules as "The left hand side can be replaced with the right hand side". So the first rule would
+be "B can be replaced with a", the second one "B can be replaced with aC" and the third one "B can be replaced with the
+empty string" (`ε` is the symbol for the empty string).
 
 So what are `B`, `C` and `a`? By convention, uppercase characters denote so called "non-terminals" - symbols which *can*
 be broken down further - and lowercase characters denote "terminals" - symbols which *cannot* be broken down any
@@ -510,6 +510,7 @@ given boolean formula (such that it is true).
 The above boolean formula can be converted to the following regular expression:
 
 {% highlight php %}
+<?php
 $regex = '/^
     (x?)(x?)(x?)(x?) .* ;
     (?: x\1 | \2  | \4  ),
