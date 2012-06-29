@@ -35,7 +35,8 @@ To summarize:
 
  * PHP is a great language to start programming!
  * Once you started, PHP is also good for "real" programming (you know, object orientation and stuff).
- * PHP is not as bad as they say. There are issues, like with every language, but they rarely cause problem in practice.
+ * PHP is not as bad as they say. There are issues, like with every language, but they rarely cause problems in
+   practice.
 
 To add to that, I also noticed that most of the PHP bashers have a ten-year-old image of the language. E.g. consider
 this quote from Jeff's post:
