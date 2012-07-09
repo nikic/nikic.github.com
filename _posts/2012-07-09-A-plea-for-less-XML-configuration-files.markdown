@@ -67,17 +67,17 @@ And obviously: XML is a rather verbose language, whereas most programming langua
 concise and readable.
 
 At this point you might say that the above isn't really a configuration file, but rather a program written in XML. I'd
-agree with you there, but I think the same also applies to "real" configuration files. There too you can benefit from
+agree with you there, but I think the the above also applies to "real" configuration files. They can also benefit from
 the power of the programming language (like putting repeating configuration "patterns" into functions or loops), etc.
 
-Also all this isn't specific to XML. I think that it is *generally* preferable to just use your usual programming
-language to write configuration, instead of using some special format like XML.
+Also, this isn't specific to XML. I think that it is *generally* preferable to just use your usual programming
+language to write configuration, instead of using some special format.
 
 But don't get me wrong, there certainly are cases where using a special configuration format is the way to go:
 
  * If the configuration will be used by multiple programming languages. Obviously it doesn't make sense to write PHP
    configs if they have to be used by Python too.
- * If the type of configuration is very specific and would largely benefit from a Domain Specific Language.
+ * If the type of configuration is very specific and writing it would be much easier using a Domain Specific Language.
 
 In my personal experience neither of those points apply for most of the config files I've encountered.
 
