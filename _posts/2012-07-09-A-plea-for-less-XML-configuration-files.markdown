@@ -39,6 +39,7 @@ Could you explain me, why you have to do this? Why do you have to specify everyt
 can't you just do the same thing in the programming language you're using? E.g., why can't I write this instead:
 
 {% highlight php %}
+<?php
 function package(Phing $phing) {
     include 'properties.php';
     $project->version = $phing->prompt('Enter project version');
@@ -59,7 +60,7 @@ Don't you think that this is much nicer? Some reasons why I prefer this over XML
    could not implement some slightly more complex string replacement in it without writing 200 lines of XML. I was able
    to implement those replacements in 5 lines of PHP on the other hand.
  * All the tools you normally use for programming will work. E.g. the IDE will be able to provide autocompletion and
-   error analysis. One could use phpDocumentor to document the different build targets and options. Heck, one could even
+   error analysis. One could use phpDocumentor to document the different build targets and options. Heck, you could even
    unit test the building process, if you really wanted to.
 
 And obviously: XML is a rather verbose language, whereas most programming languages (short of Brainfuck) try to be
