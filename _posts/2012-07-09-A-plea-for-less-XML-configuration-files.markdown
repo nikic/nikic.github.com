@@ -1,7 +1,7 @@
 ---
 layout: post
 title: A plea for less (XML) configuration files
-excerpt:
+excerpt: Configuration files typically use XML or some other domain specific language. But why? Why not just use the usual programming language instead?
 ---
 I recently tried using [Phing][phing] (a PHP build system) to do some simple release automation. Just creating a PEAR
 package and doing a few string replacements here and there.
