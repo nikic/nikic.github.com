@@ -46,6 +46,9 @@ strong {
 em {
     font-style: italic;
 }
+small {
+    font-size: smaller;
+}
 
 p {
     margin: 1em 0;

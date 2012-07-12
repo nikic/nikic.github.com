@@ -48,14 +48,14 @@ in the [corresponding RFC][e_modifier].
 
 Next we'll look at some the planned function and class additions:
 
-### `boolval`
+### boolval()
 
 <small>Status: landed; Responsible: Jille Timmermans</small>
 
 PHP already implements the `strval`, `intval` and `floatval` functions. To be consistent the `boolval` function is now
 added, too. It does exactly the same thing as a `(bool)` cast, but can be used as a callback function.
 
-### `hash_pbkdf2`
+### hash_pbkdf2()
 
 <small>Status: landed; Responsible: Anthony Ferrara</small>
 
@@ -73,7 +73,7 @@ There have been many improvements to the [intl extension][intl]. E.g. there will
 the mailing list announcements for [Calendar][intl_calendar] and [BreakIterator][intl_breakiterator], if you want to
 know more.
 
-### `array_column`
+### array_column()
 
 <small>Status: proposed; Responsible: Ben Ramsey</small>
 
