@@ -34,7 +34,7 @@ We'll start off with two changes that already landed in master and represent BC 
 PHP 5.5 will no longer support Windows XP and 2003. Those systems are around a decade old, so PHP is pulling the plug
 on them.
 
-### `e` modifier deprecated
+### /e modifier deprecated
 
 <small>Status: landed; Responsible: myself</small>
 
@@ -151,7 +151,7 @@ function randomBool() {
 I don't think that this feature is of much use in practice, but it makes the language a bit more consistent. See also
 [the RFC][const_dereference].
 
-### `empty()` works with function calls (and other expressions)
+### empty() works with function calls (and other expressions)
 
 <small>Status: landed; Responsible: myself</small>
 
