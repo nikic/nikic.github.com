@@ -75,14 +75,14 @@ Tokenization
 In the first phase PHP reads in the source code and breaks it down into smaller units called "tokens". For example the
 PHP code `<?php echo "Hello World!";` would be broken down to the following tokens:
 
-    T_OPEN_TAG (<?php)
+    T_OPEN_TAG (<?php )
     T_ECHO (echo)
     T_WHITESPACE ( )
     T_CONSTANT_ENCAPSED_STRING ("Hello World!")
     ';'
 
 As you can see the raw source code was broken down into semantically meaningful tokens. The process of doing so is
-referred to as tokenization, lexing or scanning and is implemented in the [`zend_language_scanner.c`][scanner_def] file.
+referred to as tokenization, lexing or scanning and is implemented in the [`zend_language_scanner.l`][scanner_def] file.
 of the `Zend/` directory.
 
 If you open the file and scroll down a bit (to somewhere around line 1000), you'll find a large number of token
@@ -118,8 +118,8 @@ somewhere in the file (analogous to the `exit` token above):
         return T_IN;
     }
 
-Furthermore we have to let the engine know that we added a new token. For this open the `zend_language_parser.y` and
-insert the following line somewhere among its peers:
+Furthermore we have to let the engine know that we added a new token. For this open the
+[`zend_language_parser.y`][parser_def] and insert the following line somewhere among its peers:
 
     %token T_IN "in (T_IN)"
 
@@ -253,7 +253,7 @@ where the curly braces come in. What you have to do is replace the existing `exp
 
     expr T_IN expr { zend_do_binary_op(ZEND_IN, &$$, &$1, &$3 TSRMLS_CC); }
 
-The part in the curly braces is called a semantic action and is called when the parser matches a certain rule (or part
+The part in the curly braces is called a semantic action and is run whenever the parser matches a certain rule (or part
 of it). The strange looking `$$`, `$1` and `$3` variables in there are nodes. For example `$1` refers to the first
 `expr`, `$3` refers to the second `expr` (`$3` because it is the third element in the rule) and `$$` is the result node.
 
@@ -263,17 +263,19 @@ of it). The strange looking `$$`, `$1` and `$3` variables in there are nodes. Fo
 Compiler instructions are defined in [`zend_compile.c`][compiler] (with a header entry in
 [`zend_compile.h`][compiler_header]). `zend_do_binary_op` for example looks like this:
 
-    void zend_do_binary_op(zend_uchar op, znode *result, const znode *op1, const znode *op2 TSRMLS_DC)
-    {
-        zend_op *opline = get_next_op(CG(active_op_array) TSRMLS_CC);
+{% highlight c %}
+void zend_do_binary_op(zend_uchar op, znode *result, const znode *op1, const znode *op2 TSRMLS_DC)
+{
+    zend_op *opline = get_next_op(CG(active_op_array) TSRMLS_CC);
 
-        opline->opcode = op;
-        opline->result_type = IS_TMP_VAR;
-        opline->result.var = get_temporary_variable(CG(active_op_array));
-        SET_NODE(opline->op1, op1);
-        SET_NODE(opline->op2, op2);
-        GET_NODE(result, opline->result);
-    }
+    opline->opcode = op;
+    opline->result_type = IS_TMP_VAR;
+    opline->result.var = get_temporary_variable(CG(active_op_array));
+    SET_NODE(opline->op1, op1);
+    SET_NODE(opline->op2, op2);
+    GET_NODE(result, opline->result);
+}
+{% endhighlight %}
 
 The code should be easy to grasp and the next section should help putting it into context. One last thing to mention
 here is that in most cases you will have to add your own `zend_do_*` function when adding some new syntax. Adding a new
@@ -286,18 +288,20 @@ Execution
 In the previous section I already mentioned that the compiler is emitting opcodes. Let's look closer at how those
 opcodes look like (see [`zend_compile.h`][zend_op]):
 
-    struct _zend_op {
-        opcode_handler_t handler;
-        znode_op op1;
-        znode_op op2;
-        znode_op result;
-        ulong extended_value;
-        uint lineno;
-        zend_uchar opcode;
-        zend_uchar op1_type;
-        zend_uchar op2_type;
-        zend_uchar result_type;
-    };
+{% highlight c %}
+struct _zend_op {
+    opcode_handler_t handler;
+    znode_op op1;
+    znode_op op2;
+    znode_op result;
+    ulong extended_value;
+    uint lineno;
+    zend_uchar opcode;
+    zend_uchar op1_type;
+    zend_uchar op2_type;
+    zend_uchar result_type;
+};
+{% endhighlight %}
 
 A short description of what the individual components mean:
 
@@ -320,7 +324,7 @@ There are five basic types that can go into the `*_type` properties:
  * `IS_CV`: A compiled variable. To save hash table lookups PHP caches the location of simple variables like `$foo` in
    an array (C array). Furthermore compiled variables allow PHP to optimize the hash table away altogether. CVs are
    denoted using `!n` (`n` here is the offset into the compiled-variable array.)
- * `IS_VAR`: Only simple variables can be turned into CV. All other kinds of variable accesses, like `$foo['bar']` or
+ * `IS_VAR`: Only simple variables can be turned into CVs. All other kinds of variable accesses, like `$foo['bar']` or
    `$foo->bar` return an `IS_VAR` variable. It basically is just a normal zval (with refcounting and everything). Vars
    are written as `$n`.
  * `IS_CONST`: Constants are literals in the code. For example if you write `"foo"` or `3.141` in your code, those will
@@ -330,26 +334,28 @@ There are five basic types that can go into the `*_type` properties:
 
 Related to this is how [`znode_op`][znode_op] itself looks like:
 
-    typedef union _znode_op {
-        zend_uint      constant;
-        zend_uint      var;
-        zend_uint      num;
-        zend_ulong     hash;
-        zend_uint      opline_num;
-        zend_op       *jmp_addr;
-        zval          *zv;
-        zend_literal  *literal;
-        void          *ptr;
-    } znode_op;
+{% highlight c %}
+typedef union _znode_op {
+    zend_uint      constant;
+    zend_uint      var;
+    zend_uint      num;
+    zend_ulong     hash;
+    zend_uint      opline_num;
+    zend_op       *jmp_addr;
+    zval          *zv;
+    zend_literal  *literal;
+    void          *ptr;
+} znode_op;
+{% endhighlight %}
 
 As you can see a node is a union, i.e. it can contain one of the elements above (just one!), depending on context. For
 example `zv` is used to store `IS_CONST` zvals, `var` is used to store the variable number for `IS_CV`, `IS_VAR` and
 `IS_TMP_VAR` variables. The rest is used in various special circumstances. E.g. `jmp_addr` is used with the `JMP*`
-instructions (which are used for conditions and loops). Others again are used only during compilation, not during
+instructions (which are required for conditions and loops). Others again are used only during compilation, not during
 execution (like `constant`).
 
-So now that we know how individual ops look like, the last question is where those are stored: For every function
-(and file) PHP creates a [`zend_op_array`][zend_op_array], which stores the opcodes as well as a lot of other
+So now that we know how individual ops look like, the only remaining question is where those are stored: For every
+function (and file) PHP creates a [`zend_op_array`][zend_op_array], which stores the opcodes as well as a lot of other
 information. I don't want to go into detail what the individual components are for, you should just know that this
 structure exists.
 
@@ -359,63 +365,67 @@ opcode. Now we have to define what this opcode does.
 This is done in the [`zend_vm_def.h`][vm_def] file. If you look at it, you'll find that it is full of definitions like
 this:
 
-    ZEND_VM_HANDLER(1, ZEND_ADD, CONST|TMP|VAR|CV, CONST|TMP|VAR|CV)
-    {
-        USE_OPLINE
-        zend_free_op free_op1, free_op2;
+{% highlight c %}
+ZEND_VM_HANDLER(1, ZEND_ADD, CONST|TMP|VAR|CV, CONST|TMP|VAR|CV)
+{
+    USE_OPLINE
+    zend_free_op free_op1, free_op2;
 
-        SAVE_OPLINE();
-        fast_add_function(&EX_T(opline->result.var).tmp_var,
-            GET_OP1_ZVAL_PTR(BP_VAR_R),
-            GET_OP2_ZVAL_PTR(BP_VAR_R) TSRMLS_CC);
-        FREE_OP1();
-        FREE_OP2();
-        CHECK_EXCEPTION();
-        ZEND_VM_NEXT_OPCODE();
-    }
+    SAVE_OPLINE();
+    fast_add_function(&EX_T(opline->result.var).tmp_var,
+        GET_OP1_ZVAL_PTR(BP_VAR_R),
+        GET_OP2_ZVAL_PTR(BP_VAR_R) TSRMLS_CC);
+    FREE_OP1();
+    FREE_OP2();
+    CHECK_EXCEPTION();
+    ZEND_VM_NEXT_OPCODE();
+}
+{% endhighlight %}
 
 The `ZEND_IN` opcode will look very similar to this, so it's worth understanding what is going on there. I'll go through
 it line by line:
 
-    // The header defines four things:
-    //   1. This is the opcode with ID 1
-    //   2. This opcode is called ZEND_ADD
-    //   3. This opcode accepts CONST, TMP, VAR and CV as the first operand
-    //   4. This opcode accepts CONST, TMP, VAR and CV as the second operand
-    ZEND_VM_HANDLER(1, ZEND_ADD, CONST|TMP|VAR|CV, CONST|TMP|VAR|CV)
-    {
-        // USE_OPLINE means that we want to access the zend_op as opline.
-        // This is required for all opcodes accessing operands or setting a return value.
-        USE_OPLINE
-        // For every operand that is accessed a free_op* variable has to be defined.
-        // It is used to figure out whether the operand needs freeing.
-        zend_free_op free_op1, free_op2;
+{% highlight c %}
+// The header defines four things:
+//   1. This is the opcode with ID 1
+//   2. This opcode is called ZEND_ADD
+//   3. This opcode accepts CONST, TMP, VAR and CV as the first operand
+//   4. This opcode accepts CONST, TMP, VAR and CV as the second operand
+ZEND_VM_HANDLER(1, ZEND_ADD, CONST|TMP|VAR|CV, CONST|TMP|VAR|CV)
+{
+    // USE_OPLINE means that we want to access the zend_op as `opline`.
+    // This is required for all opcodes accessing operands or setting a return value.
+    USE_OPLINE
+    // For every operand that is accessed a free_op* variable has to be defined.
+    // It is used to figure out whether the operand needs freeing.
+    zend_free_op free_op1, free_op2;
 
-        // SAVE_OPLINE() actually loads the zend_op into opline.
-        // USE_OPLINE was only the declaration
-        SAVE_OPLINE();
-        // Call the fast add function
-        fast_add_function(
-            // And tell it put put the result into the temporary result variable
-            // EX_T here accesses the temporary variable with ID opline->result.var.
-            &EX_T(opline->result.var).tmp_var,
-            // Fetch the first operand for reading (the R in BP_VAR_R)
-            GET_OP1_ZVAL_PTR(BP_VAR_R),
-            // Fetch the second operand for reading
-            GET_OP2_ZVAL_PTR(BP_VAR_R) TSRMLS_CC);
-        // Free both operands (if necessary)
-        FREE_OP1();
-        FREE_OP2();
-        // Check for exceptions. Exceptions can occur virtually everywhere, so one has to check for them in nearly all
-        // opcodes. If in doubt, add the check.
-        CHECK_EXCEPTION();
-        // Go to the next opcode
-        ZEND_VM_NEXT_OPCODE();
-    }
+    // SAVE_OPLINE() actually loads the zend_op into `opline`.
+    // USE_OPLINE was only the declaration
+    SAVE_OPLINE();
+    // Call the fast add function
+    fast_add_function(
+        // And tell it to put the result into the temporary result variable
+        // EX_T here accesses the temporary variable with ID opline->result.var.
+        &EX_T(opline->result.var).tmp_var,
+        // Fetch the first operand for reading (the R in BP_VAR_R)
+        GET_OP1_ZVAL_PTR(BP_VAR_R),
+        // Fetch the second operand for reading
+        GET_OP2_ZVAL_PTR(BP_VAR_R) TSRMLS_CC);
+    // Free both operands (if necessary)
+    FREE_OP1();
+    FREE_OP2();
+    // Check for exceptions. Exceptions can occur virtually everywhere, so one has to check for them in nearly all
+    // opcodes. If in doubt, add the check.
+    CHECK_EXCEPTION();
+    // Go to the next opcode
+    ZEND_VM_NEXT_OPCODE();
+}
+{% endhighlight %}
 
 As you probably noticed there is a lot `UPPERCASE_STUFF` in there. The reason is that `zend_vm_def.h` once again is only
-a definition file. The actual Zend VM is generated from it and stored in `zend_vm_execute.h` (biiig file). PHP has three
-different virtual machine kinds, namely `CALL` (default), `GOTO` and `SWITCH`. Because they all have different
+a definition file. The actual Zend VM is generated from it and stored in [`zend_vm_execute.h`][vm_gen] (biiig file). PHP
+has three different virtual machine kinds, namely `CALL` (default), `GOTO` and `SWITCH`. Because they all have different
 implementation details the definition file uses lots of pseudo-macros like `USE_OPLINE` that are later replaced by some
 concrete implementation.
 
@@ -426,24 +436,26 @@ end there won't be a single `ZEND_ADD` function, but rather different functions 
 Now, in order to implement the `ZEND_IN` opcode, you should add a new opcode definition skeleton at the end of the
 `zend_vm_def.h` file:
 
-    // 159 is the number of the next free opcode for me. You may need to choose a larger number
-    ZEND_VM_HANDLER(159, ZEND_IN, CONST|TMP|VAR|CV, CONST|TMP|VAR|CV)
-    {
-        USE_OPLINE
-        zend_free_op free_op1, free_op2;
-        zval *op1, *op2;
+{% highlight c %}
+// 159 is the number of the next free opcode for me. You may need to choose a larger number
+ZEND_VM_HANDLER(159, ZEND_IN, CONST|TMP|VAR|CV, CONST|TMP|VAR|CV)
+{
+    USE_OPLINE
+    zend_free_op free_op1, free_op2;
+    zval *op1, *op2;
 
-        SAVE_OPLINE();
-        op1 = GET_OP1_ZVAL_PTR(BP_VAR_R);
-        op2 = GET_OP2_ZVAL_PTR(BP_VAR_R);
+    SAVE_OPLINE();
+    op1 = GET_OP1_ZVAL_PTR(BP_VAR_R);
+    op2 = GET_OP2_ZVAL_PTR(BP_VAR_R);
 
-        /* TODO */
+    /* TODO */
 
-        FREE_OP1();
-        FREE_OP2();
-        CHECK_EXCEPTION();
-        ZEND_VM_NEXT_OPCODE();
-    }
+    FREE_OP1();
+    FREE_OP2();
+    CHECK_EXCEPTION();
+    ZEND_VM_NEXT_OPCODE();
+}
+{% endhighlight %}
 
 This does nothing more than fetching the operands and discarding them again right away.
 
@@ -456,35 +468,37 @@ still won't do anything).
 
 Now, finally, we can implement the actual logic. Let's start with the string case:
 
-    if (Z_TYPE_P(op2) == IS_STRING) {
-        zval op1_copy;
-        int use_copy;
+{% highlight c %}
+if (Z_TYPE_P(op2) == IS_STRING) {
+    zval op1_copy;
+    int use_copy;
 
-        /* Convert the needle into a string */
-        zend_make_printable_zval(op1, &op1_copy, &use_copy);
-        if (use_copy) {
-            op1 = &op1_copy;
-        }
-
-        if (Z_STRLEN_P(op1) == 0) {
-            /* For empty needles return true */
-            ZVAL_TRUE(&EX_T(opline->result.var).tmp_var);
-        } else {
-            char *found = zend_memnstr(
-                Z_STRVAL_P(op2),                  /* haystack */
-                Z_STRVAL_P(op1),                  /* needle */
-                Z_STRLEN_P(op1),                  /* needle length */
-                Z_STRVAL_P(op2) + Z_STRLEN_P(op2) /* haystack end ptr */
-            );
-
-            ZVAL_BOOL(&EX_T(opline->result.var).tmp_var, found != NULL);
-        }
-
-        /* Free copy */
-        if (use_copy) {
-            zval_dtor(&op1_copy);
-        }
+    /* Convert the needle into a string */
+    zend_make_printable_zval(op1, &op1_copy, &use_copy);
+    if (use_copy) {
+        op1 = &op1_copy;
     }
+
+    if (Z_STRLEN_P(op1) == 0) {
+        /* For empty needles return true */
+        ZVAL_TRUE(&EX_T(opline->result.var).tmp_var);
+    } else {
+        char *found = zend_memnstr(
+            Z_STRVAL_P(op2),                  /* haystack */
+            Z_STRVAL_P(op1),                  /* needle */
+            Z_STRLEN_P(op1),                  /* needle length */
+            Z_STRVAL_P(op2) + Z_STRLEN_P(op2) /* haystack end ptr */
+        );
+
+        ZVAL_BOOL(&EX_T(opline->result.var).tmp_var, found != NULL);
+    }
+
+    /* Free copy */
+    if (use_copy) {
+        zval_dtor(&op1_copy);
+    }
+}
+{% endhighlight %}
 
 The hardest part here is actually casting the needle into a string. This is done using `zend_make_printable_zval`. This
 function may either have to create a new zval, or not. That's why we pass `op1_copy` and `use_copy` into it. If the
@@ -512,27 +526,29 @@ you will already have a half-working `in` operator:
 
 Next, we have to implement the array behavior:
 
-    else if (Z_TYPE_P(op2) == IS_ARRAY) {
-        HashPosition pos;
-        zval **value;
+{% highlight c %}
+else if (Z_TYPE_P(op2) == IS_ARRAY) {
+    HashPosition pos;
+    zval **value;
 
-        /* Start under the assumption that the value isn't contained */
-        ZVAL_FALSE(&EX_T(opline->result.var).tmp_var);
+    /* Start under the assumption that the value isn't contained */
+    ZVAL_FALSE(&EX_T(opline->result.var).tmp_var);
 
-        /* Iterate through the array */
-        zend_hash_internal_pointer_reset_ex(Z_ARRVAL_P(op2), &pos);
-        while (zend_hash_get_current_data_ex(Z_ARRVAL_P(op2), (void **) &value, &pos) == SUCCESS) {
-            zval result;
+    /* Iterate through the array */
+    zend_hash_internal_pointer_reset_ex(Z_ARRVAL_P(op2), &pos);
+    while (zend_hash_get_current_data_ex(Z_ARRVAL_P(op2), (void **) &value, &pos) == SUCCESS) {
+        zval result;
 
-            /* Compare values using == */
-            if (is_equal_function(&result, op1, *value) == SUCCESS && Z_LVAL(result)) {
-                ZVAL_TRUE(&EX_T(opline->result.var).tmp_var);
-                break;
-            }
-
-            zend_hash_move_forward_ex(Z_ARRVAL_P(op2), &pos);
+        /* Compare values using == */
+        if (is_equal_function(&result, op1, *value) == SUCCESS && Z_LVAL(result)) {
+            ZVAL_TRUE(&EX_T(opline->result.var).tmp_var);
+            break;
         }
+
+        zend_hash_move_forward_ex(Z_ARRVAL_P(op2), &pos);
     }
+}
+{% endhighlight %}
 
 Here the haystack is simply traversed and every values is checked against the needle. We compare using `==`. To compare
 using `===` one would have to replace `is_equal_function` with `is_identical_function`.
@@ -551,10 +567,12 @@ After rerunning `zend_vm_gen.php` and `make -j4` the `in` operator should be ful
 One last thing to consider is what should happen when the second operator is neither array nor string. I'll just take
 the easy way out for this: Throw a warning and return false:
 
-    else {
-        zend_error(E_WARNING, "Right operand of in has to be either string or array");
-        ZVAL_FALSE(&EX_T(opline->result.var).tmp_var);
-    }
+{% highlight c %}
+else {
+    zend_error(E_WARNING, "Right operand of in has to be either string or array");
+    ZVAL_FALSE(&EX_T(opline->result.var).tmp_var);
+}
+{% endhighlight %}
 
 After rebuilding and recompiling the VM:
 
@@ -569,10 +587,11 @@ lazy for that right now ;)
 Finishing thoughts
 ------------------
 
-I hope the above helped you understand what the Zend Engine does when it runs a PHP script. But even though the article
-is quite long I covered only small parts of the whole system. So when you want to do modifications to the ZE the largest
-part of the job will be reading the existing code. The [cross-reference tool][xref] helps a lot when browsing through
-the PHP source code. Apart from that you can always ask questions in the #php.pecl room on efnet.
+I hope the above helped you understand how to add new features to PHP and what the Zend Engine does when it runs a PHP
+script. But even though the article is quite long I covered only small parts of the whole system. So when you want to do
+modifications to the ZE the largest part of the job will be reading the existing code. The [cross-reference tool][xref]
+helps a lot when browsing through the PHP source code. Apart from that you can always ask questions in the #php.pecl
+room on efnet.
 
 After you created an implementation for whatever feature you want, the next step is bringing it up on the [internals
 mailing list][internals_list]. People will then look at your feature and decide whether or not it should go in.
