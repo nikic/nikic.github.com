@@ -1,7 +1,7 @@
 ---
 layout: post
-title: How to add new (syntactic) feature to PHP
-excerpt: In this post I'm describing how one can add new syntax to PHP. At the same time, this post can be seen as a general introduction to the workings of the Zend Engine
+title: "How to add new (syntactic) feature to PHP"
+excerpt: "In this post I'm describing how one can add new syntax to PHP. At the same time, this post can be seen as a general introduction to the workings of the Zend Engine."
 ---
 Several people have recently asked me where you should start if you want to add some new (syntactic) feature to PHP. As
 I'm not aware of any existing tutorials on that matter, I'll try to illustrate the whole process in the following. At
