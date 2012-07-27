@@ -4,7 +4,7 @@ title: What PHP 5.5 might look like
 excerpt: PHP 5.5 is still in an early development stage, but there are already many proposals that are being worked on. This post gives some insights into the recent developments.
 ---
 PHP 5.4 was released just four months ago, so it probably is a bit too early to look at the next PHP version. Still I'd
-like to give all the people who aren't following the [internals mailing list][mailing_list] a small sneak peak at what
+like to give all the people who aren't following the [internals mailing list][mailing_list] a small sneak peek at what
 PHP 5.5 might look like.
 
 But be sure to understand this: PHP 5.5 is in an early development stage, so nobody knows how the end result will look
