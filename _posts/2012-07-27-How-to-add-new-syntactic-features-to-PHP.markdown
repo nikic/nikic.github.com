@@ -228,18 +228,18 @@ In order to fix the shift/reduce conflicts all you have to do is find the follow
 What this means is that `in` has the same operator precedence as the `<`-style comparison operators and that the
 operator is non-associative. Here are some examples of what this does:
 
-   $foo in $bar && $someOtherCond
-   // is interpreted as
-   ($foo in $bar) && $someOtherCond
-   // because `&&` has lower precedence than `in`
+    $foo in $bar && $someOtherCond
+    // is interpreted as
+    ($foo in $bar) && $someOtherCond
+    // because `&&` has lower precedence than `in`
 
-   $foo in ['abc', 'def'] + ['ghi', 'jkl']
-   // is interpreted as
-   $foo in (['abc', 'def'] + ['ghi', 'jkl'])
-   // because `+` has a higher precedence than `in`
+    $foo in ['abc', 'def'] + ['ghi', 'jkl']
+    // is interpreted as
+    $foo in (['abc', 'def'] + ['ghi', 'jkl'])
+    // because `+` has a higher precedence than `in`
 
-   $foo in $bar in $baz
-   // will throw a parse error, because `in` is non-associative
+    $foo in $bar in $baz
+    // will throw a parse error, because `in` is non-associative
 
 If you rerun `make -j4` now everything should work out fine. After that you can try out running something like
 `sapi/cli/php -r '"foo" in "bar";'`. This should do nothing, apart from printing a memory leak info:
@@ -263,7 +263,7 @@ of it). The strange looking `$$`, `$1` and `$3` variables in there are nodes. Fo
 Compiler instructions are defined in [`zend_compile.c`][compiler] (with a header entry in
 [`zend_compile.h`][compiler_header]). `zend_do_binary_op` for example looks like this:
 
-    void zend_do_binary_op(zend_uchar op, znode *result, const znode *op1, const znode *op2 TSRMLS_DC) /* {{{ */
+    void zend_do_binary_op(zend_uchar op, znode *result, const znode *op1, const znode *op2 TSRMLS_DC)
     {
         zend_op *opline = get_next_op(CG(active_op_array) TSRMLS_CC);
 
@@ -274,7 +274,6 @@ Compiler instructions are defined in [`zend_compile.c`][compiler] (with a header
         SET_NODE(opline->op2, op2);
         GET_NODE(result, opline->result);
     }
-    /* }}} */
 
 The code should be easy to grasp and the next section should help putting it into context. One last thing to mention
 here is that in most cases you will have to add your own `zend_do_*` function when adding some new syntax. Adding a new
