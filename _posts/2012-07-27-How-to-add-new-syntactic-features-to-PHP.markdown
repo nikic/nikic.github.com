@@ -388,7 +388,7 @@ it line by line:
         // USE_OPLINE means that we want to access the zend_op as opline.
         // This is required for all opcodes accessing operands or setting a return value.
         USE_OPLINE
-        // For every operand that is accessed a `free_op*` variable has to be defined.
+        // For every operand that is accessed a free_op* variable has to be defined.
         // It is used to figure out whether the operand needs freeing.
         zend_free_op free_op1, free_op2;
 
@@ -452,7 +452,7 @@ In order to generate a new VM you now have to run `php zend_vm_gen.php` from wit
 you lots of warnings about the `/e` modifier being deprecated, ignore those.) After that go into the top level directory
 again and run `make -j4` to recompile.
 
-If everything worked out fine you can now run `sapi/cli/php -r '"foo" in "bar";' without getting any errors (but it
+If everything worked out fine you can now run `sapi/cli/php -r '"foo" in "bar";'` without getting any errors (but it
 still won't do anything).
 
 Now, finally, we can implement the actual logic. Let's start with the string case:
