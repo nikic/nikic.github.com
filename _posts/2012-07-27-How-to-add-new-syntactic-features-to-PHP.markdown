@@ -82,7 +82,7 @@ PHP code `<?php echo "Hello World!";` would be broken down to the following toke
     ';'
 
 As you can see the raw source code was broken down into semantically meaningful tokens. The process of doing so is
-referred to as tokenization, lexing or scanning and is implemented in the [`zend_language_scanner.l`][scanner_def] file.
+referred to as tokenization, lexing or scanning and is implemented in the [`zend_language_scanner.l`][scanner_def] file
 of the `Zend/` directory.
 
 If you open the file and scroll down a bit (to somewhere around line 1000), you'll find a large number of token
@@ -540,7 +540,7 @@ else if (Z_TYPE_P(op2) == IS_ARRAY) {
         zval result;
 
         /* Compare values using == */
-        if (is_equal_function(&result, op1, *value) == SUCCESS && Z_LVAL(result)) {
+        if (is_equal_function(&result, op1, *value TSRMLS_CC) == SUCCESS && Z_LVAL(result)) {
             ZVAL_TRUE(&EX_T(opline->result.var).tmp_var);
             break;
         }
