@@ -1,9 +1,9 @@
 ---
 layout: post
-title: Are PHP developers functophobic?
+title: "Are PHP developers functophobic?"
 excerpt: "PHP developers don't seem to like normal functions much. I think that this is related to the one-to-one class to file mapping that PHP has inherited from Java."
 ---
-There is this one thing that I noticed recently and that concerns me: **PHP devs don't use functions**.
+There is this one thing that I noticed recently and that concerns me: PHP devs don't use functions.
 
 Now, that was overly general, so let me clarify: PHP developers who have reached a certain degree of sophistication
 basically stop using plain functions - instead everything goes all classes and methods. At least that's the observation
