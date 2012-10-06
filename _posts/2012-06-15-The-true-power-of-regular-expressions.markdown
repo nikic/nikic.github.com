@@ -369,7 +369,7 @@ example:
 Anyways, back to regular expressions. Can they match context-sensitive languages too?
 
 This time I can't gave you definite answer. They certainly can match *some* context-sensitive languages, but I don't
-know whether they can match *all* of them.s
+know whether they can match *all* of them.
 
 An example of a context-sensitive language that can be easily matched using regex is a modification of the
 context-free language `{a^n b^n, n>0}` mentioned above. When you change it into `{a^n b^n c^n, n>0}`, i.e. some number
@@ -504,7 +504,7 @@ get a boolean formula of the following form:
     && (!$a || !$b || !$c)
 
 Thus the boolean formula is made up of a number of clauses separated by ANDs. Each of those clauses consists of three
-variables (or their negations) separated by ORs. The 3-CNF SAT problem now asks whether there exists a solution the the
+variables (or their negations) separated by ORs. The 3-CNF SAT problem now asks whether there exists a solution to the
 given boolean formula (such that it is true).
 
 The above boolean formula can be converted to the following regular expression:
