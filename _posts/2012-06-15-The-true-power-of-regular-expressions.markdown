@@ -482,7 +482,7 @@ problems fall. Some examples of NP-complete problems are the traveling salesman 
 satisfiability problem (SAT) and the knapsack problem (BKP).
 
 One of the main conditions for a problem being NP-complete is that every other NP problem is reducible to it. Thus all
-NP-complete problems are basically interchangable. If you find a fast solution to one of them, you got a fast solution
+NP-complete problems are basically interchangeable. If you find a fast solution to one of them, you got a fast solution
 to all of them.
 
 So if somebody found a fast solution to a NP-complete problem, pretty much all of the computationally hard problems of
