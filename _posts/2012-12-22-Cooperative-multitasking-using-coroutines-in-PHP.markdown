@@ -1004,7 +1004,8 @@ function task() {
 Sadly this won't work properly yet, because the `stackedCoroutine` function does not properly pass on exceptions. To fix
 it the function needs to be wrapped in a big `try` block with some logic to pass exceptions through:
 
-{% highlight start %}
+{% highlight php %}
+<?php
 function stackedCoroutine(Generator $gen) {
     $stack = new SplStack;
     $exception = null;
