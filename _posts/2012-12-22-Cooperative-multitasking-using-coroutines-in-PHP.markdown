@@ -82,6 +82,8 @@ Values are passed into the coroutine by calling its `->send()` method instead of
 works is the following `logger()` coroutine:
 
 {% highlight php %}
+<?php
+
 function logger($fileName) {
     $fileHandle = fopen($fileName, 'a');
     while (true) {
@@ -102,6 +104,8 @@ The above is an example where the `yield` acts as a mere receiver. It is possibl
 both send *and* receive. Here is an example of how this works:
 
 {% highlight php %}
+<?php
+
 function gen() {
     $ret = (yield 'yield1');
     var_dump($ret);
@@ -152,6 +156,8 @@ the `yield` can be used for communication between the task and the scheduler.
 For our purposes a "task" will be a thin wrapper around the coroutine function:
 
 {% highlight php %}
+<?php
+
 class Task {
     protected $taskId;
     protected $coroutine;
@@ -218,6 +224,8 @@ By adding the additional `beforeFirstYield` condition we can ensure that the val
 The scheduler now has to do little more than cycle through the tasks and run them:
 
 {% highlight php %}
+<?php
+
 class Scheduler {
     protected $maxTaskId = 0;
     protected $taskMap = []; // taskId => task
@@ -261,6 +269,8 @@ runs the tasks. If a task is finished it is dropped, otherwise it is rescheduled
 Lets try out the scheduler with two simple (and very pointless) tasks:
 
 {% highlight php %}
+<?php
+
 function task1() {
     for ($i = 1; $i <= 10; ++$i) {
         echo "This is task 1 iteration $i.\n";
@@ -323,6 +333,8 @@ The `yield` here will act both as an interrupt and as a way to pass information 
 To represent a system call I'll use a small wrapper around a callable:
 
 {% highlight php %}
+<?php
+
 class SystemCall {
     protected $callback;
 
@@ -515,6 +527,8 @@ are ready to read from or write to the `stream_select` function can be used.
 First, let's add two new syscalls, which will cause a task to wait until a certain socket is ready:
 
 {% highlight php %}
+<?php
+
 function waitForRead($socket) {
     return new SystemCall(
         function(Task $task, Scheduler $scheduler) use ($socket) {
@@ -563,6 +577,8 @@ that are waiting for them. The interesting part is the following method, which a
 ready and reschedules the respective tasks:
 
 {% highlight php %}
+<?php
+
 protected function ioPoll($timeout) {
     $rSocks = [];
     foreach ($this->waitingForRead as list($socket)) {
@@ -607,6 +623,7 @@ can then walk over those arrays and reschedule all tasks associated with them.
 In order to regularly perform the above polling action we'll add a special task in the scheduler:
 
 {% highlight php %}
+<?php
 protected function ioPollTask() {
     while (true) {
         if ($this->taskQueue->isEmpty()) {
