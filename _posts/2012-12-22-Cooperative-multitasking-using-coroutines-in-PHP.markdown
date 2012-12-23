@@ -75,7 +75,7 @@ Once this happens the `->valid()` method will return false and as such the itera
 Coroutines
 ----------
 
-The main thing that coroutines add the above functionality is the ability to send values back to the generator. This
+The main thing that coroutines add to the above functionality is the ability to send values back to the generator. This
 turns the one-way communication from the generator to the caller into a two-way channel between the two.
 
 Values are passed into the coroutine by calling its `->send()` method instead of `->next()`. An example of how this
@@ -194,9 +194,9 @@ class Task {
 }
 {% endhighlight %}
 
-A task will be a coroutine tagged with a task ID. Using the `setSendValue()` you can specify which value will be sent
-into it on the next resume (you'll see what we need this for a bit later). The `run()` function really does nothing more
-than call the `send()` method on the coroutine. To understand why the additional `beforeFirstYield` flag is needed
+A task will be a coroutine tagged with a task ID. Using the `setSendValue()` method you can specify which value will be
+sent into it on the next resume (you'll see what we need this for a bit later). The `run()` function really does nothing
+more than call the `send()` method on the coroutine. To understand why the additional `beforeFirstYield` flag is needed
 consider the following snippet:
 
 {% highlight php %}
@@ -522,9 +522,9 @@ client has finished sending. For a web-server that's obviously not good at all: 
 single connection at a time.
 
 The solution is to make sure that the socket is "ready" before actually reading/writing to it. To find out which sockets
-are ready to read from or write to the `stream_select` function can be used.
+are ready to read from or write to the [`stream_select`][stream_select] function can be used.
 
-First, let's add two new syscalls, which will cause a task to wait until a certain socket is ready:
+First, lets add two new syscalls, which will cause a task to wait until a certain socket is ready:
 
 {% highlight php %}
 <?php
@@ -572,7 +572,7 @@ public function waitForWrite($socket, Task $task) {
 }
 {% endhighlight %}
 
-The `waitingForRead` and `waitingForWrite` properties are just array containing the sockets to wait for and the tasks
+The `waitingForRead` and `waitingForWrite` properties are just arrays containing the sockets to wait for and the tasks
 that are waiting for them. The interesting part is the following method, which actually checks whether the sockets are
 ready and reschedules the respective tasks:
 
@@ -770,7 +770,7 @@ function retval($value) {
 }
 {% endhighlight %}
 
-In order to turn a coroutine into a stacked coroutine (which support subcalls) we'll have to write another function
+In order to turn a coroutine into a stacked coroutine (which supports subcalls) we'll have to write another function
 (which is *obviously* yet-another-coroutine):
 
 {% highlight php %}
@@ -806,7 +806,7 @@ function stackedCoroutine(Generator $gen) {
 
 This function acts as a simple proxy between the caller and the currently running subcoroutine. This is handled in the
 `$gen->send(yield $gen->key() => $value);` line. Additionally it checks whether a return value is a generator, in which
-case it will start running it and push the previous coroutine on the stack. Once it gets a `CoroutineReturnValue` it
+case it will start running it and pushes the previous coroutine on the stack. Once it gets a `CoroutineReturnValue` it
 will pop the stack again and continue executing the previous coroutine.
 
 In order to make the stacked coroutines usable in tasks the `$this->coroutine = $coroutine;` line in the `Task`
@@ -920,8 +920,8 @@ $gen->throw(new Exception('Test')); // echos "Exception: Test"
                                     // and "Bar"
 {% endhighlight %}
 
-This is really awesome for our purposes, because we can make system calls and subcoroutine calls make throw exceptions.
-For the system calls the `Scheduler::run()` method needs a small adjustment:
+This is really awesome for our purposes, because we can make system calls and subcoroutine calls throw exceptions. For
+the system calls the `Scheduler::run()` method needs a small adjustment:
 
 {% highlight php %}
 <?php
@@ -955,8 +955,9 @@ class Task {
             $this->beforeFirstYield = false;
             return $this->coroutine->current();
         } elseif ($this->exception) {
-            $this->coroutine->throw($this->exception);
+            $retval = $this->coroutine->throw($this->exception);
             $this->exception = null;
+            return $retval;
         } else {
             $retval = $this->coroutine->send($this->sendValue);
             $this->sendValue = null;
@@ -968,7 +969,7 @@ class Task {
 }
 {% endhighlight %}
 
-Now we can start throwing exceptions from system calls! E.g. for the `killTask` call, lets throw an exception is the
+Now we can start throwing exceptions from system calls! E.g. for the `killTask` call, lets throw an exception if the
 passed task ID is invalid:
 
 {% highlight php %}
@@ -1071,3 +1072,4 @@ In any case, I think it's an interesting topic and I hope you found it interesti
   [gen_doc]: http://de2.php.net/manual/en/language.generators.overview.php
   [gen_irc]: http://blog.ircmaxell.com/2012/07/what-generators-can-do-for-you.html
   [gen_gg]: http://sheriframadan.com/2012/10/test-drive-php-5-5-a-sneak-peek/#generators
+  [stream_select]: http://de3.php.net/manual/en/function.stream-select.php
