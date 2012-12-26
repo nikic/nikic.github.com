@@ -1002,11 +1002,12 @@ function task() {
 }
 {% endhighlight %}
 
-Sadly this won't work properly yet, because the `stackedCoroutine` function does not properly pass on exceptions. To fix
-it the function needs to be wrapped in a big `try` block with some logic to pass exceptions through:
+Sadly this won't work properly yet, because the `stackedCoroutine` function doesn't handle the exception correctly. To
+fix it the function needs some modifications:
 
 {% highlight php %}
 <?php
+
 function stackedCoroutine(Generator $gen) {
     $stack = new SplStack;
     $exception = null;
@@ -1038,20 +1039,25 @@ function stackedCoroutine(Generator $gen) {
                 continue;
             }
 
-            $gen->send(yield $gen->key() => $value);
-        } catch (Exception $e) {
-            if ($exception !== null) {
-                $gen = $this->stack->pop();
+            try {
+                $sendValue = (yield $gen->key() => $value);
+            } catch (Exception $e) {
+                $gen->throw($e);
+                continue;
             }
 
+            $gen->send($sendValue);
+        } catch (Exception $e) {
+            if ($stack->isEmpty()) {
+                throw $e;
+            }
+
+            $gen = $stack->pop();
             $exception = $e;
         }
     }
 }
 {% endhighlight %}
-
-The above code took me quite a while to figure out and I'm not exactly sure whether I got it all right. But at least it
-works for the `killTask` call ^^
 
 Wrapping up
 -----------
