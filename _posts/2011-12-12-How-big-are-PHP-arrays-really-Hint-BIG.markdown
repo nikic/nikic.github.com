@@ -20,8 +20,8 @@ How much would you expect it to be? Simple, one integer is 8 bytes (on a 64 bit 
 using the `long` type) and you got 100000 integers, so you obviously will need 800000 bytes.
 That's something like 0.76 MBs.
 
-Now try and run the above code. [You can do it online if you want.][2] This gives me
-`14649024 bytes`. Yes, you heard right, that's 13.97 MB - eightteen times more than we estimated.
+Now try and run the above code. This gives me `14649024 bytes`. Yes, you heard right, that's 13.97 MB - eighteen times
+more than we estimated.
 
 So, where does that extra factor of 18 come from?
 
@@ -149,7 +149,7 @@ The Zend MM allocator
 ---------------------
 
 C unlike PHP does not manage memory for you. You need to keep track of your allocations yourself.
-For this purpose PHP uses a custom memory manager that is optimized specifially for its needs:
+For this purpose PHP uses a custom memory manager that is optimized specifically for its needs:
 [The Zend Memory Manager][12]. The Zend MM is based on [Doug Lea's malloc][13] and adds some PHP
 specific optimizations and features (like memory limit, cleaning up after each request and stuff
 like that).
@@ -273,12 +273,11 @@ for ($i = 0; $i < 100000; ++$i) {
 echo memory_get_usage() - $startMemory, ' bytes';
 {% endhighlight %}
 
-It basically does the same thing, [but if you run it][16], you'll notice that it uses "only" 5600640
+It basically does the same thing, but if you run it, you'll notice that it uses "only" 5600640
 bytes. That's 56 bytes per element and thus much less than the 144 bytes per element a normal array
 uses. This is because a fixed array doesn't need the bucket structure: So it only requires one zval
 (48 bytes) and one pointer (8 bytes) for each element, giving us the observed 56 bytes.
 
-  [2]: http://codepad.viper-7.com/pjB3Wm
   [3]: http://en.wikipedia.org/wiki/Union_%28computer_science%29
   [4]: http://lxr.php.net/opengrok/xref/PHP_5_4/Zend/zend.h#307
   [5]: http://blog.golemon.com/2007/01/youre-being-lied-to.html
@@ -292,4 +291,3 @@ uses. This is because a fixed array doesn't need the bucket structure: So it onl
   [13]: http://g.oswego.edu/dl/html/malloc.html
   [14]: http://lxr.php.net/xref/PHP_5_4/Zend/zend_alloc.c#336
   [15]: http://php.net/SplFixedArray
-  [16]: http://codepad.viper-7.com/mznxIH

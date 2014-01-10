@@ -36,8 +36,7 @@ $x = 'Test';
 $y = "\x54\x65\x73\x74";
 {% endhighlight %}
 
-If you have a look at the opcodes that PHP generates for this they will look like this
-([online demo][8]):
+If you have a look at the opcodes that PHP generates for this they will look like this:
 
     compiled vars:  !0 = $x, !1 = $y
     line     # *  op                           fetch          ext  return  operands
@@ -50,21 +49,20 @@ You don't need to understand the complete output, but you should still see the m
 `'Test'` and `"\x54\x65\x73\x74"` compiled down to the very same opcode.
 
 What does this mean? That the used quote type and the use of escape sequences does not affect
-runtime, not at all. You obviously [can still try][9] but any difference you see there is just
-measurement error.
+runtime, not at all.
 
 Strings at compile time
 -----------------------
 
 Now some may argue: PHP is an interpreted language, so compile time actually also happens at
-runtime. My response to that would normally be: Use [APC][10]. APC will cache the generated opcodes
+runtime. My response to that would normally be: Use [APC][8]. APC will cache the generated opcodes
 so they don't need to be created on every single request. This can greatly improve page loading time
 and CPU load, so if you aren't using APC yet you might try as well now ;)
 
 But, hypothetically, let use assume that we are not using APC. So let's see whether single quoted
 strings are actually lexed faster than double quoted ones.
 
-For this we will use a handy function called [`token_get_all`][11]: It lexes a PHP string into a
+For this we will use a handy function called [`token_get_all`][9]: It lexes a PHP string into a
 token array. The function will return the token texts plainly and not preparsed, but the internal
 string parsing routines still will get called, so we can use this as a good approximation to the
 real numbers.
@@ -90,10 +88,7 @@ $endTime = microtime(true);
 echo 'Double quotes: ', $endTime - $startTime, ' seconds', "\n";
 {% endhighlight %}
 
-It creates two strings with *ten million* `x` characters and lexes them.
-
-[You can try it yourself][12]. If you reload the page multiples the numbers will vary, but the
-general image will be somewhere like this:
+It creates two strings with *ten million* `x` characters and lexes them. Here's what I get:
 
     Single quotes: 0.061846971511841 seconds
     Double quotes: 0.061599016189575 seconds
@@ -114,7 +109,7 @@ $world = 'World';
 "Hallo $world";
 {% endhighlight %}
 
-If you [try running the corresponding benchmark][13] you will get numbers similar to this:
+If you [try running the corresponding benchmark][10] you will get numbers similar to this:
 
     Concatenation: 0.015104055404663 seconds
     Interpolation: 0.016894817352295 seconds
@@ -161,7 +156,7 @@ $hobby = 'nothing';
 "Hi! My name is $name and I am $age years old! I love doing $hobby!";
 {% endhighlight %}
 
-If you [run the benchmark][14] you will get numbers looking approximately like this:
+If you [run the benchmark][11] you will get numbers looking approximately like this:
 
     Concatenation: 0.053942918777466 seconds
     Interpolation: 0.049801111221313 seconds
@@ -215,10 +210,7 @@ yourself." Amen.
   [5]: https://github.com/fabpot/Twig/issues/407
   [6]: http://classyllama.com/development/php/php-single-vs-double-quotes/
   [7]: http://stackoverflow.com/questions/482202/is-there-a-performance-benefit-single-quote-vs-double-quote-in-php#comment-299001
-  [8]: http://codepad.viper-7.com/XSHZra
-  [9]: http://codepad.viper-7.com/TZ95z3
-  [10]: http://php.net/manual/en/book.apc.php
-  [11]: http://php.net/token_get_all
-  [12]: http://codepad.viper-7.com/l2cl5X
-  [13]: http://codepad.viper-7.com/tBx3TZ
-  [14]: http://codepad.viper-7.com/p4aUGN
+  [8]: http://php.net/manual/en/book.apc.php
+  [9]: http://php.net/token_get_all
+  [10]: http://codepad.viper-7.com/tBx3TZ
+  [11]: http://codepad.viper-7.com/p4aUGN

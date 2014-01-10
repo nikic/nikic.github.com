@@ -54,7 +54,7 @@ empty string:
    Instead of just dropping the code units they will be replaced by a Unicode Replacement Character
    (U+FFFD). So invalid code unit sequences will be replaced by � characters.
 
-Let's have a look at the different behaviors ([demo][8]):
+Let's have a look at the different behaviors:
 
 {% highlight php startinline %}
 // "\80" is invalid UTF-8 in this context
@@ -92,7 +92,7 @@ In PHP 5.4 there are four additional flags for specifying the used doctype:
 Depending on which doctype you specify `htmlspecialchars` (and the other related functions) will use
 different entity tables.
 
-You can see this in the following example ([demo][9]):
+You can see this in the following example:
 
 {% highlight php startinline %}
 var_dump(htmlspecialchars("'", ENT_HTML401)); // string(6) "&#039;"
@@ -106,7 +106,7 @@ The difference becomes more evident when using `htmlentities`, because the diffe
 there. You can easily see this by having a look at the raw translation tables:
 
 To do this, we can use the `get_html_translation_table` function. Here first an example for the
-XML 1 doctype ([demo][10]):
+XML 1 doctype:
 
 {% highlight php startinline %}
 var_dump(get_html_translation_table(HTML_ENTITIES, ENT_QUOTES | ENT_XML1));
@@ -129,7 +129,7 @@ The result will look like this:
 
 This matches our expectations: XML by itself defines only the five basic entities.
 
-Now try the same thing for HTML 5 ([demo][11]) and you'll see something like this:
+Now try the same thing for HTML 5 and you'll see something like this:
 
     array(1510) {
       ["	"]=>
@@ -183,7 +183,3 @@ htmlspecialchars("<\x80The End\xef\xbf\xbf>", ENT_QUOTES | ENT_HTML5 | ENT_DISAL
   [5]: http://docs.php.net/html_entity_decode
   [6]: http://docs.php.net/get_html_translation_table
   [7]: http://unicode.org/reports/tr36/#Deletion_of_Noncharacters
-  [8]: http://codepad.viper-7.com/kTwelM
-  [9]: http://codepad.viper-7.com/mRSquY
-  [10]: http://codepad.viper-7.com/ArEfdy
-  [11]: http://codepad.viper-7.com/FiYKxv
