@@ -281,10 +281,10 @@ But this still looks rather clumsy. What I really want is the same using [scalar
 Yes, this is me calling the `get` "method" on an array. I think this is a very simple and readable solution. But anyway,
 that's just a bit of day-dreaming, I have no idea when we'll be introducing scalar objects in PHP (not 5.6 at least).
 
-To finish up this post, let me show you another **very** elegant way of approaching the problem:
+To finish up this post, let me show you another *very* elegant way of approaching the problem:
 
 {% highlight php startinline %}
-    $age = ($_&= $person['age']) ?: $someDefault; // great for code obfuscation
+    $age = ($_=& $person['age']) ?: $someDefault; // great for code obfuscation
 {% endhighlight %}
 
   [igorw_traversal]: https://igor.io/2014/01/08/functional-library-traversal.html
