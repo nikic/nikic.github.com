@@ -13,7 +13,7 @@ The suggested alternative is a [`get_in`][get_in] function, which is used as fol
 
     $age = get_in($data, ['people', 0, 'age'], $someDefault);
 
-Someone on [/r/PHP][reddit_issetor] pointed out that there is an alternative approach to this problem, namely the use
+Someone on [/r/PHP][reddit_ifsetor] pointed out that there is an alternative approach to this problem, namely the use
 of an `ifsetor` function:
 
     <?php
@@ -171,9 +171,9 @@ Consider this snippet again:
     $people = ifsetor($data['people'], []);
 
 Because `ifsetor` accepts the `$value` by reference, there is a good chance that the above call will require a full
-copy of the `$data['people']` array if it exists. The reason behind this is that [PHP's copy-on-write
-implementation][copy_on_write] forces a zval separation when converting a value to a reference, if the zval had a
-refcount>1 beforehand (i.e. if the `$data['people']` zval was used in more than once place).
+copy of the `$data['people']` array if it exists. The reason behind this is that
+[PHP's copy-on-write implementation][copy_on_write] forces a zval separation when converting a value to a reference, if
+the zval had a refcount>1 beforehand (i.e. if the `$data['people']` zval was used in more than once place).
 
 Once again I think that this is not a particularly large issue, because `ifsetor` would mostly be used on small scalar
 types like integers or strings, rather than arrays with a hundred thousand elements, so the copy doesn't matter much.
@@ -189,8 +189,8 @@ The ifsetor language construct
 As you can see the `ifsetor` function has a lot of issues. I think they can be roughly summarized as "there is way too
 much by-ref magic involved".
 
-One way to solve some f the problems is to turn `ifsetor` into a language construct. This feature [was
-proposed][ifsetor_rfc] some time ago and declined, the main being that you can use the userland implementation
+One way to solve some f the problems is to turn `ifsetor` into a language construct. This feature
+[was proposed][ifsetor_rfc] some time ago and declined, the main being that you can use the userland implementation
 discussed above.
 
 The `ifsetor` language construct would effectively work by a direct expansion to the `isset($x) ? $x : $d` pattern:
@@ -239,7 +239,7 @@ simplest and least-magic solution?
 I know, I'm stating the obvious here. This is really just `get_in` without the nesting support (thus simplifying its use
 for this particular case).
 
-But this is still looks rather clumsy. What I really want is the same using [scalar objects][scalar_objects]:
+But this still looks rather clumsy. What I really want is the same using [scalar objects][scalar_objects]:
 
     $age = $person->get('age', $someDefault);
 
@@ -252,7 +252,7 @@ To finish up this post, let me show you another **very** elegant way of approach
 
   [igorw_traversal]: https://igor.io/2014/01/08/functional-library-traversal.html
   [get_in]: https://github.com/igorw/get-in
-  [reddit_issetor]: http://www.reddit.com/r/PHP/comments/1upjhn/functional_library_traversal/cekfpyj
+  [reddit_ifsetor]: http://www.reddit.com/r/PHP/comments/1upjhn/functional_library_traversal/cekfpyj
   [copy_on_write]: http://www.phpinternalsbook.com/zvals/memory_management.html#reference-counting-and-copy-on-write
   [twig_ternary]: http://fabien.potencier.org/article/48/the-php-ternary-operator-fast-or-not
   [ifsetor_rfc]: https://wiki.php.net/rfc/ifsetor
