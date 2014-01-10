@@ -19,8 +19,7 @@ it):
 
 If we define the tokens in terms of regular expressions, they would look roughly like this:
 
-{% highlight php %}
-<?php
+{% highlight php startinline %}
 $tokenMap = array(
     '~[^",\r\n]+~A'                     => T_PLAIN_FIELD,
     '~"[^"\\\\]*(?:\\\\.[^"\\\\]*)*"~A' => T_QUOTED_FIELD,
@@ -35,8 +34,7 @@ Looping through the regexes
 The most obvious approach to lexing in PHP is to simply loop through the regexes and match them
 against the current position, until there are no characters left:
 
-{% highlight php %}
-<?php
+{% highlight php startinline %}
 function lex($string, array $tokenMap) {
     $tokens = array();
 
@@ -69,8 +67,7 @@ Compiling into a single regex
 
 The solution is to compile all regexes into a single big one. Our above regex would be converted to:
 
-{% highlight php %}
-<?php
+{% highlight php startinline %}
 $regex = '~
     ([^",\r\n]+)
   | ("[^"\\\\]*(?:\\\\.[^"\\\\]*)*")
@@ -86,8 +83,7 @@ other groups will be empty.
 
 An example: If the regex matched the `,` subregex, we would get this `$matches` array:
 
-{% highlight php %}
-<?php
+{% highlight php startinline %}
 array(
     0 => ',',
     1 => '',
@@ -101,8 +97,7 @@ From this we know that the 3rd subregex matched, as it is the one which has a va
 
 The resulting code for an abstract lexer class would be:
 
-{% highlight php %}
-<?php
+{% highlight php startinline %}
 class Lexer {
     protected $regex;
     protected $offsetToToken;

@@ -37,8 +37,7 @@ Strict type hinting
 I'll start with the proposal that I personally dislike most: Strict type hinting, i.e. allowing only the hinted type to
 be passed and not any of the types that PHP would normally consider equivalent. See this example:
 
-{% highlight php %}
-<?php
+{% highlight php startinline %}
 function foo(int $i) { /* ... */ }
 
 foo(1);   // works
@@ -56,8 +55,7 @@ Unenforced type hinting
 Another proposal that was made, is type hinting that isn't enforced by the engine. WTF? What would this be good for?
 Basically, it would work just like doc comments (which aren't enforced either ^^), but with nicer syntax.
 
-{% highlight php %}
-<?php
+{% highlight php startinline %}
 function foo(int $i) { /* ... */ }
 
 foo(1);          // works
@@ -76,8 +74,7 @@ Casting weak type hinting
 
 A proposal that came up recently (this is the one [introduced by ircmaxell][1]) is type hinting based on casts.
 
-{% highlight php %}
-<?php
+{% highlight php startinline %}
 function foo((int) $i) {
     var_dump($i);
 }
@@ -125,8 +122,7 @@ Strict weak type hinting
 This leads us to another possibility, which is also my favorite: Doing weak type hints, but with stricter input
 validation (and without casts).
 
-{% highlight php %}
-<?php
+{% highlight php startinline %}
 function foo(int $i) {
     var_dump($i);
 }
@@ -163,9 +159,7 @@ magic methods for casting objects to scalars and the other way around. Something
 
 Now see how this could be useful:
 
-{% highlight php %}
-<?php
-
+{% highlight php startinline %}
 class Int {
     protected $value;
 
@@ -199,9 +193,7 @@ function foo(Int $i) {
 
 This basically allows you to implement type hinting in userland code. It also allows to create strict type hinting:
 
-{% highlight php %}
-<?php
-
+{% highlight php startinline %}
 class StrictInt {
     protected $value;
 

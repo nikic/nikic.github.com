@@ -20,9 +20,7 @@ The basic idea behind generators is that a function doesn't return a single valu
 instead, where every value is emitted one by one. Or in other words, generators allow you to implement iterators more
 easily. A very simple example of this concept is the `xrange()` function:
 
-{% highlight php %}
-<?php
-
+{% highlight php startinline %}
 function xrange($start, $end, $step = 1) {
     for ($i = $start; $i <= $end; $i += $step) {
         yield $i;
@@ -53,9 +51,7 @@ functions, where the `yield` statements constitute the interruption points.
 Sticking to the above example, if you call `xrange(1, 1000000)` no code in the `xrange()` function is actually run.
 Instead PHP just returns an instance of the `Generator` class which implements the `Iterator` interface:
 
-{% highlight php %}
-<?php
-
+{% highlight php startinline %}
 $range = xrange(1, 1000000);
 var_dump($range); // object(Generator)#1
 var_dump($range instanceof Iterator); // bool(true)
@@ -81,9 +77,7 @@ turns the one-way communication from the generator to the caller into a two-way 
 Values are passed into the coroutine by calling its `->send()` method instead of `->next()`. An example of how this
 works is the following `logger()` coroutine:
 
-{% highlight php %}
-<?php
-
+{% highlight php startinline %}
 function logger($fileName) {
     $fileHandle = fopen($fileName, 'a');
     while (true) {
@@ -103,9 +97,7 @@ value of `yield` is whatever was passed to `->send()`. In this example `yield` w
 The above is an example where the `yield` acts as a mere receiver. It is possible to combine both usages, i.e. to
 both send *and* receive. Here is an example of how this works:
 
-{% highlight php %}
-<?php
-
+{% highlight php startinline %}
 function gen() {
     $ret = (yield 'yield1');
     var_dump($ret);
@@ -155,9 +147,7 @@ the `yield` can be used for communication between the task and the scheduler.
 
 For our purposes a "task" will be a thin wrapper around the coroutine function:
 
-{% highlight php %}
-<?php
-
+{% highlight php startinline %}
 class Task {
     protected $taskId;
     protected $coroutine;
@@ -199,9 +189,7 @@ sent into it on the next resume (you'll see what we need this for a bit later). 
 more than call the `send()` method on the coroutine. To understand why the additional `beforeFirstYield` flag is needed
 consider the following snippet:
 
-{% highlight php %}
-<?php
-
+{% highlight php startinline %}
 function gen() {
     yield 'foo';
     yield 'bar';
@@ -223,9 +211,7 @@ By adding the additional `beforeFirstYield` condition we can ensure that the val
 
 The scheduler now has to do little more than cycle through the tasks and run them:
 
-{% highlight php %}
-<?php
-
+{% highlight php startinline %}
 class Scheduler {
     protected $maxTaskId = 0;
     protected $taskMap = []; // taskId => task
@@ -268,9 +254,7 @@ runs the tasks. If a task is finished it is dropped, otherwise it is rescheduled
 
 Lets try out the scheduler with two simple (and very pointless) tasks:
 
-{% highlight php %}
-<?php
-
+{% highlight php startinline %}
 function task1() {
     for ($i = 1; $i <= 10; ++$i) {
         echo "This is task 1 iteration $i.\n";
@@ -332,9 +316,7 @@ The `yield` here will act both as an interrupt and as a way to pass information 
 
 To represent a system call I'll use a small wrapper around a callable:
 
-{% highlight php %}
-<?php
-
+{% highlight php startinline %}
 class SystemCall {
     protected $callback;
 
@@ -352,8 +334,7 @@ class SystemCall {
 It will behave just like any callable (using `__invoke`), but tells the scheduler to pass the calling task and itself
 into the function. To handle it we have to slightly modify the scheduler's `run` method:
 
-{% highlight php %}
-<?php
+{% highlight php startinline %}
 public function run() {
     while (!$this->taskQueue->isEmpty()) {
         $task = $this->taskQueue->dequeue();
@@ -375,8 +356,7 @@ public function run() {
 
 The first system call will do nothing more than return the task ID:
 
-{% highlight php %}
-<?php
+{% highlight php startinline %}
 function getTaskId() {
     return new SystemCall(function(Task $task, Scheduler $scheduler) {
         $task->setSendValue($task->getTaskId());
@@ -389,9 +369,7 @@ It does so by setting the tid as next send value and rescheduling the task. For 
 automatically reschedule the task, we need to do it manually (you'll see why a bit later). Using this new syscall we
 can rewrite the previous example:
 
-{% highlight php %}
-<?php
-
+{% highlight php startinline %}
 function task($max) {
     $tid = (yield getTaskId()); // <-- here's the syscall!
     for ($i = 1; $i <= $max; ++$i) {
@@ -411,9 +389,7 @@ $scheduler->run();
 This will give the same output as with the previous example. Notice how the system call is basically done like any other
 call, but with a prepended `yield`. Two more syscalls for creating new tasks and killing them again:
 
-{% highlight php %}
-<?php
-
+{% highlight php startinline %}
 function newTask(Generator $coroutine) {
     return new SystemCall(
         function(Task $task, Scheduler $scheduler) use ($coroutine) {
@@ -435,9 +411,7 @@ function killTask($tid) {
 
 The `killTask` function needs an additional method in the scheduler:
 
-{% highlight php %}
-<?php
-
+{% highlight php startinline %}
 public function killTask($tid) {
     if (!isset($this->taskMap[$tid])) {
         return false;
@@ -460,9 +434,7 @@ public function killTask($tid) {
 
 A small script to test the new functionality:
 
-{% highlight php %}
-<?php
-
+{% highlight php startinline %}
 function childTask() {
     $tid = (yield getTaskId());
     while (true) {
@@ -526,9 +498,7 @@ are ready to read from or write to the [`stream_select`][stream_select] function
 
 First, lets add two new syscalls, which will cause a task to wait until a certain socket is ready:
 
-{% highlight php %}
-<?php
-
+{% highlight php startinline %}
 function waitForRead($socket) {
     return new SystemCall(
         function(Task $task, Scheduler $scheduler) use ($socket) {
@@ -548,9 +518,7 @@ function waitForWrite($socket) {
 
 These syscalls are just proxies to the respective methods in the scheduler:
 
-{% highlight php %}
-<?php
-
+{% highlight php startinline %}
 // resourceID => [socket, tasks]
 protected $waitingForRead = [];
 protected $waitingForWrite = [];
@@ -576,9 +544,7 @@ The `waitingForRead` and `waitingForWrite` properties are just arrays containing
 that are waiting for them. The interesting part is the following method, which actually checks whether the sockets are
 ready and reschedules the respective tasks:
 
-{% highlight php %}
-<?php
-
+{% highlight php startinline %}
 protected function ioPoll($timeout) {
     $rSocks = [];
     foreach ($this->waitingForRead as list($socket)) {
@@ -622,8 +588,7 @@ can then walk over those arrays and reschedule all tasks associated with them.
 
 In order to regularly perform the above polling action we'll add a special task in the scheduler:
 
-{% highlight php %}
-<?php
+{% highlight php startinline %}
 protected function ioPollTask() {
     while (true) {
         if ($this->taskQueue->isEmpty()) {
@@ -647,9 +612,7 @@ This would result in 100% CPU usage. It's much more efficient to let the operati
 
 Writing the server is relatively easy now:
 
-{% highlight php %}
-<?php
-
+{% highlight php startinline %}
 function server($port) {
     echo "Starting server at port $port...\n";
 
@@ -710,9 +673,7 @@ If you would try to build some larger system using our scheduling system you wou
 to breaking up code into smaller functions and calling them. But with coroutines this is no longer possible. E.g.
 consider the following code:
 
-{% highlight php %}
-<?php
-
+{% highlight php startinline %}
 function echoTimes($msg, $max) {
     for ($i = 1; $i <= $max; ++$i) {
         echo "$msg iteration $i\n";
@@ -750,9 +711,7 @@ The subcoroutines will also be able to return a value, again by using `yield`:
 The `retval` function does nothing more than returning a wrapper around the value which will signal that it's a return
 value:
 
-{% highlight php %}
-<?php
-
+{% highlight php startinline %}
 class CoroutineReturnValue {
     protected $value;
 
@@ -773,9 +732,7 @@ function retval($value) {
 In order to turn a coroutine into a stacked coroutine (which supports subcalls) we'll have to write another function
 (which is *obviously* yet-another-coroutine):
 
-{% highlight php %}
-<?php
-
+{% highlight php startinline %}
 function stackedCoroutine(Generator $gen) {
     $stack = new SplStack;
 
@@ -815,9 +772,7 @@ constructor needs to be replaced with `$this->coroutine = stackedCoroutine($coro
 Now we can improve the webserver example from above a bit by grouping the wait+read (and wait+write and wait+accept)
 actions into functions. To group the related functionality I'll use a class:
 
-{% highlight php %}
-<?php
-
+{% highlight php startinline %}
 class CoSocket {
     protected $socket;
 
@@ -848,9 +803,7 @@ class CoSocket {
 
 Now the server can be rewritten a bit cleaner:
 
-{% highlight php %}
-<?php
-
+{% highlight php startinline %}
 function server($port) {
     echo "Starting server at port $port...\n";
 
@@ -901,9 +854,7 @@ implementation, but I will commit it later today.
 The `throw()` method takes an exception and throws it at the current suspension point in the coroutine. Consider this
 code:
 
-{% highlight php %}
-<?php
-
+{% highlight php startinline %}
 function gen() {
     echo "Foo\n";
     try {
@@ -923,9 +874,7 @@ $gen->throw(new Exception('Test')); // echos "Exception: Test"
 This is really awesome for our purposes, because we can make system calls and subcoroutine calls throw exceptions. For
 the system calls the `Scheduler::run()` method needs a small adjustment:
 
-{% highlight php %}
-<?php
-
+{% highlight php startinline %}
 if ($retval instanceof SystemCall) {
     try {
         $retval($task, $this);
@@ -939,9 +888,7 @@ if ($retval instanceof SystemCall) {
 
 And the `Task` class needs to handle `throw` calls too:
 
-{% highlight php %}
-<?php
-
+{% highlight php startinline %}
 class Task {
     // ...
     protected $exception = null;
@@ -972,9 +919,7 @@ class Task {
 Now we can start throwing exceptions from system calls! E.g. for the `killTask` call, lets throw an exception if the
 passed task ID is invalid:
 
-{% highlight php %}
-<?php
-
+{% highlight php startinline %}
 function killTask($tid) {
     return new SystemCall(
         function(Task $task, Scheduler $scheduler) use ($tid) {
@@ -990,9 +935,7 @@ function killTask($tid) {
 
 Try it out:
 
-{% highlight php %}
-<?php
-
+{% highlight php startinline %}
 function task() {
     try {
         yield killTask(500);
@@ -1005,9 +948,7 @@ function task() {
 Sadly this won't work properly yet, because the `stackedCoroutine` function doesn't handle the exception correctly. To
 fix it the function needs some modifications:
 
-{% highlight php %}
-<?php
-
+{% highlight php startinline %}
 function stackedCoroutine(Generator $gen) {
     $stack = new SplStack;
     $exception = null;

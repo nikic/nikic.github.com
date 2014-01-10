@@ -34,8 +34,7 @@ in the following, so you can better understand why exactly those patterns were c
 Singleton
 ---------
 
-{% highlight php %}
-<?php
+{% highlight php startinline %}
 class DB {
     private static $instance;
 
@@ -76,8 +75,7 @@ the class name did not allow me to. If my application had used [dependency injec
 time I could have easily extended `DB` and passed the new instance. But the singleton prevented.
 What I did instead was somethink looking roughly like this:
 
-{% highlight php %}
-<?php
+{% highlight php startinline %}
 // original DB class
 class _DB { /* ... */ }
 
@@ -105,8 +103,7 @@ and hard to test.
 Similarly most other plain uses of class names are code smell too. This also applies to the `new`
 operator:
 
-{% highlight php %}
-<?php
+{% highlight php startinline %}
 class House {
     public function __construct() {
         $this->door   = new Door;
@@ -119,8 +116,7 @@ How would you replace the door or the window in your house now? Simple: You can'
 developer you will obviously find some dirty hack that *does* allow you to somehow replace the
 door or a window. But why not simply write this instead:
 
-{% highlight php %}
-<?php
+{% highlight php startinline %}
 class House {
     public function __construct(Door $door, Window $window) { // Door, Window are interfaces
         $this->door   = $door;
@@ -155,8 +151,7 @@ Premature Optimization
 
 Here is a code snippet from an old version of a website I wrote:
 
-{% highlight php %}
-<?php
+{% highlight php startinline %}
 if (isset($frm['title_german'][strcspn($frm['title_german'], '<>')])) {
     // ...
 }
@@ -175,8 +170,7 @@ expression will be `true`.
 
 So why did I write this unintelligible piece of code? Why didn't I write this instead:
 
-{% highlight php %}
-<?php
+{% highlight php startinline %}
 if (strlen($frm['title_german']) == strcspn($frm['title_german'], '<>'))) {
     // ...
 }
@@ -186,8 +180,7 @@ Because some days ago I read that `isset` is so much faster than `strlen`... But
 not particularly intelligible, because you need to know the exact semantics of the `strcspn`
 function (which probably most PHP programmers do not). So why not just write this:
 
-{% highlight php %}
-<?php
+{% highlight php startinline %}
 if (preg_match('(<|>)', $frm['title_german'])) {
     // ...
 }

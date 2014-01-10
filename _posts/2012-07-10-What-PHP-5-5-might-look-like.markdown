@@ -80,9 +80,7 @@ know more.
 There is [a proposal][array_column] pending for a new `array_column` (or `array_pluck`) function that would behave as
 follows:
 
-{% highlight php %}
-<?php
-
+{% highlight php startinline %}
 $userNames = array_column($users, 'name');
 // is the same as
 $userNames = [];
@@ -104,9 +102,7 @@ unsafe `sha1` hashes.
 We figured that the reason for this might be the really hard to use API of the [`crypt`][crypt] function. Thus we would
 like to introduce a new, simple API for secure password hashing:
 
-{% highlight php %}
-<?php
-
+{% highlight php startinline %}
 $password = "foo";
 
 // creating the hash
@@ -133,9 +129,7 @@ Now comes the really interesting stuff: New language features and enhancements.
 "Constant dereferencing" means that array operations can be directly applied to string and array literals. Here two
 examples:
 
-{% highlight php %}
-<?php
-
+{% highlight php startinline %}
 function randomHexString($length) {
     $str = '';
     for ($i = 0; $i < $length; ++$i) {
@@ -166,9 +160,7 @@ RFC][empty_exprs].
 PHP 5.3 introduced namespaces with the ability to alias classes and namespaces to shorter versions. This does not apply
 to string class names though:
 
-{% highlight php %}
-<?php
-
+{% highlight php startinline %}
 use Some\Deeply\Nested\Namespace\FooBar;
 
 // does not work, because this will try to use the global `FooBar` class
@@ -177,9 +169,7 @@ $reflection = new ReflectionClass('FooBar');
 
 To solve this a new `FooBar::class` syntax is proposed, which returns the fully qualified name of the class:
 
-{% highlight php %}
-<?php
-
+{% highlight php startinline %}
 use Some\Deeply\Nested\Namespace\FooBar;
 
 // this works because FooBar::class is resolved to "Some\\Deeply\\Nested\\Namespace\\FooBar"
@@ -222,7 +212,7 @@ It would work by casting the input value to the specified type, but only if the 
 `123`, `123.0`, `"123"` would all be valid inputs for an `int` parameter, but `"hallo world"` would not. This matches
 the behavior of internal functions.
 
-{% highlight php %}
+{% highlight php startinline %}
 function foo(int $i) { ... }
 
 foo(1);      // $i = 1
@@ -241,9 +231,7 @@ foo("abc");  // error
 If you've never been a fan of writing all those `getXYZ()` and `setXYZ($value)` methods, then this should be a welcome
 change for you. The proposal adds a new syntax for defining what should happen when a property is set / read:
 
-{% highlight php %}
-<?php
-
+{% highlight php startinline %}
 class TimePeriod {
     public $seconds;
 
@@ -272,9 +260,7 @@ Generators solve this issue by providing an easy and boilerplate-free way to cre
 
 For example, this is how you could define the `range` function, but as an iterator:
 
-{% highlight php %}
-<?php
-
+{% highlight php startinline %}
 function *xrange($start, $end, $step = 1) {
     for ($i = $start; $i < $end; $i += $step) {
         yield $i;

@@ -10,8 +10,7 @@ In this post I want to investigate the memory usage of PHP arrays (and values in
 following script as an example, which creates 100000 unique integer array elements and measures the
 resulting memory usage:
 
-{% highlight php %}
-<?php
+{% highlight php startinline %}
 $startMemory = memory_get_usage();
 $array = range(1, 100000);
 echo memory_get_usage() - $startMemory, ' bytes';
@@ -265,8 +264,7 @@ static arrays.
 
 Have a look a this modified script:
 
-{% highlight php %}
-<?php
+{% highlight php startinline %}
 $startMemory = memory_get_usage();
 $array = new SplFixedArray(100000);
 for ($i = 0; $i < 100000; ++$i) {

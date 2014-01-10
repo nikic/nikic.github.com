@@ -56,8 +56,8 @@ empty string:
 
 Let's have a look at the different behaviors ([demo][8]):
 
-{% highlight php %}
-<?php // "\80" is invalid UTF-8 in this context
+{% highlight php startinline %}
+// "\80" is invalid UTF-8 in this context
 var_dump(htmlspecialchars("a\x80b"));                 // string(0) ""
 var_dump(htmlspecialchars("a\x80b", ENT_IGNORE));     // string(2) "ab"
 var_dump(htmlspecialchars("a\x80b", ENT_SUBSTITUTE)); // string(5) "a�b"
@@ -65,9 +65,7 @@ var_dump(htmlspecialchars("a\x80b", ENT_SUBSTITUTE)); // string(5) "a�b"
 
 Clearly, you want the last behavior. In your real code it will probably look like this:
 
-{% highlight php %}
-<?php
-
+{% highlight php startinline %}
 // this goes into the bootstrap (or where appropriate) to make the code
 // not throw a notice on PHP 5.3
 if (!defined('ENT_SUBSTITUTE')) {
@@ -96,8 +94,7 @@ different entity tables.
 
 You can see this in the following example ([demo][9]):
 
-{% highlight php %}
-<?php
+{% highlight php startinline %}
 var_dump(htmlspecialchars("'", ENT_HTML401)); // string(6) "&#039;"
 var_dump(htmlspecialchars("'", ENT_HTML5));   // string(6) "&apos;"
 {% endhighlight %}
@@ -111,8 +108,7 @@ there. You can easily see this by having a look at the raw translation tables:
 To do this, we can use the `get_html_translation_table` function. Here first an example for the
 XML 1 doctype ([demo][10]):
 
-{% highlight php %}
-<?php
+{% highlight php startinline %}
 var_dump(get_html_translation_table(HTML_ENTITIES, ENT_QUOTES | ENT_XML1));
 {% endhighlight %}
 
@@ -176,8 +172,7 @@ There is other stuff too...
 ... but I don't want to list everything here. I think the three changes mentioned above are the most
 important improvements.
 
-{% highlight php %}
-<?php
+{% highlight php startinline %}
 htmlspecialchars("<\x80The End\xef\xbf\xbf>", ENT_QUOTES | ENT_HTML5 | ENT_DISALLOWED | ENT_SUBSTITUTE, 'UTF-8');
 {% endhighlight %}
 

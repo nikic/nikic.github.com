@@ -31,8 +31,7 @@ a PHP script runs all strings are already parsed.
 
 A simple proof:
 
-{% highlight php %}
-<?php
+{% highlight php startinline %}
 $x = 'Test';
 $y = "\x54\x65\x73\x74";
 {% endhighlight %}
@@ -72,9 +71,7 @@ real numbers.
 
 For testing I use the following script:
 
-{% highlight php %}
-<?php echo '<pre>';
-
+{% highlight php startinline %}
 const NUM = 10000000;
 
 $singleQuotedStringCode = "<?php '" . str_repeat('x', NUM) . "';";
@@ -111,8 +108,7 @@ So the next question is, what is faster: String concatenation or string interpol
 
 Let's consider this simple case:
 
-{% highlight php %}
-<?php
+{% highlight php startinline %}
 $world = 'World';
 'Hallo ' . $world;
 "Hallo $world";
@@ -156,8 +152,7 @@ really the reason, but it would be my guess. It could also be just the overhead 
 So, interpolation is slower after all, isn't it? Well, not really, let's consider this more
 realistic example:
 
-{% highlight php %}
-<?php
+{% highlight php startinline %}
 $name  = 'Anonymous';
 $age   = 123;
 $hobby = 'nothing';

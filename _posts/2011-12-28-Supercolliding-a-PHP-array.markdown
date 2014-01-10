@@ -8,9 +8,7 @@ Did you know that inserting `2^16 = 65536` specially crafted values into a norma
 
 This is the code to reproduce it:
 
-{% highlight php %}
-<?php echo '<pre>';
-
+{% highlight php startinline %}
 $size = pow(2, 16); // 16 is just an example, could also be 15 or 17
 
 $startTime = microtime(true);

@@ -278,8 +278,7 @@ using the `123` key. PHP obviously chooses the latter option (as integers are sm
 You can have a little bit of fun with symtables, if you manage to somehow insert the `"123"` key without it being cast
 to `123`. One way is to exploit the array to object cast:
 
-{% highlight php %}
-<?php
+{% highlight php startinline %}
 $obj = new stdClass;
 $obj->{123} = "foo";
 $arr = (array) $obj;

@@ -509,8 +509,7 @@ given boolean formula (such that it is true).
 
 The above boolean formula can be converted to the following regular expression:
 
-{% highlight php %}
-<?php
+{% highlight php startinline %}
 $regex = '/^
     (x?)(x?)(x?)(x?) .* ;
     (?: x\1 | \2  | \4  ),

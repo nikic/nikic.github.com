@@ -38,8 +38,7 @@ look like this:
 Could you explain me, why you have to do this? Why do you have to specify everything in an XML configuration file? Why
 can't you just do the same thing in the programming language you're using? E.g., why can't I write this instead:
 
-{% highlight php %}
-<?php
+{% highlight php startinline %}
 function package(Phing $phing) {
     include 'properties.php';
     $project->version = $phing->prompt('Enter project version');

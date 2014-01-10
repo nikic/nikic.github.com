@@ -57,8 +57,7 @@ similarly to `\R`:
 
 To sum up, have a look at the following code:
 
-{% highlight php %}
-<?php
+{% highlight php startinline %}
 var_dump(preg_match('/^a.+b$/',        "a\r\nb"));  // 0 (Newline \n is     contained by \r\n)
 var_dump(preg_match('/^a.+b$/',        "a\nb"));    // 0 (Newline \n is     contained by \n)
 var_dump(preg_match('/^a.+b$/',        "a\rb"));    // 1 (Newline \n is not contained by \r)

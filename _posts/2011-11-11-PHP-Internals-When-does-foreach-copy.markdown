@@ -11,8 +11,7 @@ PHP's `foreach` is a very neat and to-the-point language construct. Still some p
 use it, because they think it is slow. One reason usually named is that `foreach` copies the array
 it iterates. Thus some people recommend to write:
 
-{% highlight php %}
-<?php
+{% highlight php startinline %}
 $keys = array_keys($array);
 $size = count($array);
 for ($i = 0; $i < $size; $i++) {
@@ -25,8 +24,7 @@ for ($i = 0; $i < $size; $i++) {
 
 Instead of the much more intuitive and straightforward:
 
-{% highlight php %}
-<?php
+{% highlight php startinline %}
 foreach ($array as $key => $value) {
     // ...
 }
@@ -52,8 +50,7 @@ In the below code `$array` is not referenced and has a refcount of `1`. In this 
 **not** copy the array ([proof][2]) - contrary to the popular belief that `foreach` always copies
 the iterated array if it isn't referenced.
 
-{% highlight php %}
-<?php
+{% highlight php startinline %}
 test();
 function test() {
     $array = range(0, 100000);
@@ -74,8 +71,7 @@ behavior of `foreach`: It now **will** copy the array structure, but **not** the
 if you want to see that this is really only the structure being copied compare [this][8] and [that][9]
 script. The first only copies the structure, the second copies both).
 
-{% highlight php %}
-<?php
+{% highlight php startinline %}
 $array = range(0, 100000);
 test($array);
 function test($array) {
@@ -98,8 +94,7 @@ the other hand still can share zvals and thus don't need to be copied.
 The next case is very similar to the previous one. The only difference is that the array is passed
 by reference. In this case the array again will **not** be copied ([proof][4]).
 
-{% highlight php %}
-<?php
+{% highlight php startinline %}
 $array = range(0, 100000);
 test($array);
 function test(&$array) {
