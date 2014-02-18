@@ -182,13 +182,13 @@ preg_match('~(?:(Sat)ur|(Sun))day~', 'Saturday', $matches)
                              # an implementation detail. I'm writing it here to clarify the concept.
 
 preg_match('~(?:(Sat)ur|(Sun))day~', 'Sunday', $matches)
-=> ["Saturday", "", "Sun"]
+=> ["Sunday", "", "Sun"]
 
 preg_match('~(?|(Sat)ur|(Sun))day~', 'Saturday', $matches)
 => ["Saturday", "Sat"]
 
 preg_match('~(?|(Sat)ur|(Sun))day~', 'Sunday', $matches)
-=> ["Saturday", "Sun"]
+=> ["Sunday", "Sun"]
 {% endhighlight %}
 
 If `(?:` is used PCRE will create a separate entry in `$matches` for the two capturing groups around `Sat` and `Sun`,
