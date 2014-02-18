@@ -288,8 +288,8 @@ matching the first route in the single-placeholder case has tripled.
 
 What's the reason for this? My guess would be that the slowdown is caused by the sheer size of the regular expression
 and the number of groups it contains (even if only a small fraction of them is populated). To put things into
-perspective: For 100 routes we need to generate 99*100/2 = 4950 dummy capturing groups. This corresponds to
-4950*2 = 9900 additional bytes of regular expression, i.e. nearly 10KB.
+perspective: For 100 routes we need to generate 99 * 100/2 = 4950 dummy capturing groups. This corresponds to
+4950 * 2 = 9900 additional bytes of regular expression, i.e. nearly 10KB.
 
 You can take a look at how the [generated regular expression][small_regex] looks like (for 100 routes with nine
 placeholders). Here's the end of the regex:
@@ -306,9 +306,9 @@ Chunked regexes
 
 As the number of dummy groups increases quadratically with the number of routes, this approach evidently doesn't scale
 very well. One way to reduce the amount of dummies is to split the regular expression into two parts: One matching the
-first 50 rules, the other matching the second 50. Each regex will need only 49*50/2 = 1225 dummy groups, i.e. 2450 will
-be needed in total, which is a good bit less than 4950. If the routes are split into ten chunks of ten routes each,
-every chunk will need 9*10/2 = 45 dummy groups, which corresponds to a total of 450.
+first 50 rules, the other matching the second 50. Each regex will need only 49 * 50/2 = 1225 dummy groups, i.e. 2450
+will be needed in total, which is a good bit less than 4950. If the routes are split into ten chunks of ten routes each,
+every chunk will need 9 * 10/2 = 45 dummy groups, which corresponds to a total of 450.
 
 The implementation for the chunked regime stays about the same, only with an additional `foreach` loop:
 
