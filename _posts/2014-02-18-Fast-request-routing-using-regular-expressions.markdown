@@ -423,5 +423,5 @@ performance.
   [pux]: https://github.com/c9s/Pux
   [fast_route]: https://github.com/nikic/FastRoute
   [bench]: https://gist.github.com/nikic/9049180
-  [lexing_perf]: http://nikic.github.io/2011/10/23/Improving-lexing-performance-in-PHP.html
+  [lexing_performance]: http://nikic.github.io/2011/10/23/Improving-lexing-performance-in-PHP.html
   [small_regex]: https://gist.github.com/nikic/8464660
