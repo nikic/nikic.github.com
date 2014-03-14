@@ -169,7 +169,7 @@ Quoting from Anthony's blog post:
 
 > [S]calars are not objects, but more importantly they are not any type. PHP relies on a type-system that truly believes
 > that strings are integers. A lot of the flexibility to the system is based that any scalar can be converted to any
-> other scalar with ease. [...]
+> other scalar with ease. \[...\]
 >
 > More importantly though, due to this loose type system, you can't 100% of the time know what type a variable will be.
 > You can tell how you want to treat it, but you can't tell what it is under the hood. Even with casting or scalar type
