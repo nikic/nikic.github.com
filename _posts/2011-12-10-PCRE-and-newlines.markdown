@@ -79,7 +79,7 @@ But even in `DOTALL` mode you can get the behavior of the "normal" dot: The `\N`
 behaves the same as `.`, but is not affected by the `s` modifier. So `\N` will always match any
 character which is not a newline (where "newline" is again defined by the above options).
 
-`\N`, just like `\R`, looses it's special meaning within character groups.
+`\N`, just like `\R`, loses its special meaning within character groups.
 
 Whitespace character groups
 ---------------------------
