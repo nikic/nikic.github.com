@@ -1,10 +1,10 @@
 ---
 layout: post
 title: PHP's new hashtable implementation
-excerpt:
+excerpt: In this article we'll explore how the new hashtable implementation used by PHP 7 improved memory usage and performance.
 ---
 About three years ago I wrote an article [analyzing the memory usage of arrays][array_size] in PHP 5. As part of the
-work for the upcoming PHP 7, large parts of the Zend Engine have been rewritten with a focus on smaller data structures
+work on the upcoming PHP 7, large parts of the Zend Engine have been rewritten with a focus on smaller data structures
 requiring fewer allocations. In this article I will provide an overview of the new hashtable implementation and show why
 it is more efficient than the previous implementation.
 
