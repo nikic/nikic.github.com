@@ -317,7 +317,7 @@ essentially get it for free.
 
 We also use a singly linked list now, there is no "prev" link anymore. The prev link is primarily useful for deleting
 elements, because you have to adjust the "next" link of the "prev" element when you perform a deletion. However, if the
-deletion happens by key, you already now the previous element as a result of traversing the collision resolution list.
+deletion happens by key, you already know the previous element as a result of traversing the collision resolution list.
 
 The few cases where deletion occurs in some other context (e.g. "delete the element the iterator is currently at") will
 have to traverse the collision list to find the previous element. But as this is a rather unimportant scenario, we
