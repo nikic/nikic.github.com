@@ -299,7 +299,7 @@ In code, the lookup mechanism looks like this:
 
 {% highlight c %}
 zend_ulong h = zend_string_hash_val(key);
-uint32_t idx = ht->arData[h & ht->nTableMask];
+uint32_t idx = ht->arHash[h & ht->nTableMask];
 while (idx != INVALID_IDX) {
 	Bucket *b = &ht->arData[idx];
 	if (b->h == h && zend_string_equals(b->key, key)) {
