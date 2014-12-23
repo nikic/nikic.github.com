@@ -137,7 +137,7 @@ Instead the zval is directly embedded into whatever is storing it (e.g. a hashta
 
 While the zvals themselves no longer use refcounting, complex data types like strings, arrays, objects and resources
 still use them. Effectively the new zval design has pushed out the refcount (and information for the cycle-collector)
-from the zval to the array/object/etc. There are a number of advantages to this approach, some of them listen in the
+from the zval to the array/object/etc. There are a number of advantages to this approach, some of them listed in the
 following:
 
  * Zvals storing simple values (like booleans, integers or floats) no longer require any allocations. So this saves
@@ -256,13 +256,15 @@ The new way of maintaining array order has several advantages over the doubly li
 obvious advantage is that we save two pointers per bucket, which corresponds to 8/16 bytes. Additionally it means that
 iterating an array looks roughly as follows:
 
-	uint32_t i;
-	for (i = 0; i < ht->nNumUsed; ++i) {
-		Bucket *b = &ht->arData[i];
-		if (Z_ISUNDEF(b->val)) continue;
+{% highlight c %}
+uint32_t i;
+for (i = 0; i < ht->nNumUsed; ++i) {
+	Bucket *b = &ht->arData[i];
+	if (Z_ISUNDEF(b->val)) continue;
 
-		// do stuff with bucket
-	}
+	// do stuff with bucket
+}
+{% endhighlight %}
 
 This corresponds to a linear scan of memory, which is much more cache-efficient than a linked list traversal (where you
 go back and forth between relatively random memory addresses).
@@ -365,7 +367,7 @@ Memory utilization
 ------------------
 
 This should cover the most important aspects of the PHP 7 hashtable implementation. First lets summarize why the new
-implementation uses less memory. I'll only ue the numbers for 64bit systems here and only look at the per-element size,
+implementation uses less memory. I'll only use the numbers for 64bit systems here and only look at the per-element size,
 ignoring the main `HashTable` structure (which is less significant asymptotically).
 
 In PHP 5.x a whopping 144 bytes per element were required. In PHP 7 the value is down to 36 bytes, or 32 bytes for the
