@@ -486,12 +486,12 @@ $a = [];  // $a         -> zend_array_1(refcount=1, value=[])
 $b = $a;  // $a, $b,    -> zend_array_1(refcount=2, value=[])
 $c = $b   // $a, $b, $c -> zend_array_1(refcount=3, value=[])
 
-$d =& $c; // $a, $b                                 -> zend_array_1(refcount=2, value=[])
+$d =& $c; // $a, $b                                 -> zend_array_1(refcount=3, value=[])
           // $c, $d -> zend_reference_1(refcount=2) ---^
           // Note that all variables share the same zend_array, even though some are
           // PHP references and some aren't.
 
-$d[] = 1; // $a, $b                                 -> zend_array_1(refcount=1, value=[])
+$d[] = 1; // $a, $b                                 -> zend_array_1(refcount=2, value=[])
           // $c, $d -> zend_reference_1(refcount=2) -> zend_array_2(refcount=1, value=[1])
           // Only at this point, once an assignment occurs, the zend_array is duplicated.
 {% endhighlight %}
