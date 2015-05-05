@@ -125,10 +125,10 @@ collector runs (which is very likely). `next` is used when the collector destroy
 Motivation for change
 ---------------------
 
-Lets talk about sizes a bit (all sizes are for 64-bit systems): First of all, the `zvalue_value` union is 16 bytes
+Let's talk about sizes a bit (all sizes are for 64-bit systems): First of all, the `zvalue_value` union is 16 bytes
 large, because both the `str` and `obj` members have that size. The whole `zval` struct is 24 bytes (due to padding) and
 `zval_gc_info` is 32 bytes. On top of this, allocating the zval on the heap adds another 16 bytes of allocation
-overhead. So we end up using 48 bytes per zval - albeit this zval may be used by multiple places.
+overhead. So we end up using 48 bytes per zval - although this zval may be used by multiple places.
 
 At this point we can start thinking about the (many) ways in which this zval implementation is inefficient. Consider the
 simple case of a zval storing an integer, which by itself is 8 bytes. Additionally the type-tag needs to be stored in
@@ -138,7 +138,7 @@ To these 16 bytes that we really "need" (in first approximation), we add another
 and cycle collection and another 16 bytes of allocation overhead. Not to mention that we actually have to perform that
 allocation and the subsequent free, both being quite expensive operations.
 
-This begs the question: Does a simple integer value *really* need to be stored as a reference-counted,
+This raises the question: Does a simple integer value *really* need to be stored as a reference-counted,
 cycle-collectible, heap-allocated value? The answer to this question is of course, no, this doesn't make sense.
 
 Here is a summary of the primary problems with the PHP 5 zval implementation:
@@ -272,7 +272,7 @@ zval. The compiled variables table of a function or the property table of an obj
 allocated in one chunk, instead of storing pointers to separate zvals. As such zvals are now usually stored with one
 level of indirection less. What was previously a `zval*` is now a `zval`.
 
-When a zval is used in a new place, previously this meant copying a `zval*` and incrementing it's refcount. Now it means
+When a zval is used in a new place, previously this meant copying a `zval*` and incrementing its refcount. Now it means
 copying the contents of a `zval` (ignoring `u2`) instead and *maybe* incrementing the refcount of the value it points
 to, if said value uses refcounting.
 
