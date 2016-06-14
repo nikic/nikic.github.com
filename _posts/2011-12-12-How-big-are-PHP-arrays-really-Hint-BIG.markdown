@@ -3,6 +3,9 @@ layout: post
 title: "How big are PHP arrays (and values) really? (Hint: BIG!)"
 excerpt: PHP's memory usage might seem atrocious to some - twenty times more than the optimum you would have in C. This post tries to explain those numbers and why they are necessary.
 ---
+**Update** (2016-06-14): This article is about memory usage in PHP 5. Memory usage in PHP 7 is, for the case covered
+here, approximately three times lower. For more information, see my article on the [hashtable implementation in PHP 7][16].
+
 Upfront I want to thank [Johannes][7] and [Tyrael][8] for their help in finding some of the more
 hidden memory usage.
 
@@ -291,3 +294,4 @@ uses. This is because a fixed array doesn't need the bucket structure: So it onl
   [13]: http://g.oswego.edu/dl/html/malloc.html
   [14]: http://lxr.php.net/xref/PHP_5_4/Zend/zend_alloc.c#336
   [15]: http://php.net/SplFixedArray
+  [16]: https://nikic.github.io/2014/12/22/PHPs-new-hashtable-implementation.html
