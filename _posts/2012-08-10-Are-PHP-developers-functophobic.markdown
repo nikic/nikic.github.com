@@ -25,12 +25,12 @@ PHP core. E.g. I recently have seen a few people asking for some kind of `array_
 would basically be the same as `array_rand`, but it would return a value instead of a key. So it could be defined in
 userland code in two lines:
 
-{% highlight php startinline %}
+```php?start_inline=1
 function array_rand_value(array $array) {
     if (empty($array)) return null;
     return $array[array_rand($array)];
 }
-{% endhighlight %}
+```
 
 This is a tiny small function that you can easily define yourself. But then arises what I think is the main problem:
 Where should you put it? How do I incorporate it with the autoloader?

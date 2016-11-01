@@ -8,7 +8,7 @@ Did you know that inserting `2^16 = 65536` specially crafted values into a norma
 
 This is the code to reproduce it:
 
-{% highlight php startinline %}
+```php?start_inline=1
 $size = pow(2, 16); // 16 is just an example, could also be 15 or 17
 
 $startTime = microtime(true);
@@ -32,7 +32,7 @@ for ($key = 0, $maxKey = $size - 1; $key <= $maxKey; ++$key) {
 $endTime = microtime(true);
 
 echo 'Inserting ', $size, ' good elements took ', $endTime - $startTime, ' seconds', "\n";
-{% endhighlight %}
+```
 
 Try it yourself! You may need to adjust the number `16` in the `$size = pow(2, 16);` line based on
 what hardware you have. I would start with `14` and increase it one at a time. By the way, I

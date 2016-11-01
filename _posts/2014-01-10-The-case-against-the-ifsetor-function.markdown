@@ -7,30 +7,30 @@ Recently igorw wrote a [blog post][igorw_traversal] on how to traverse nested ar
 non-existing keys without throwing notices. The current "idiomatic" way to do something like this, is to use
 `isset()` together with a ternary operator:
 
-{% highlight php startinline %}
+```php?start_inline=1
     $age = (isset($data['people'][0]['age'])) ? $data['people'][0]['age'] : null;
-{% endhighlight %}
+```
 
 The suggested alternative is a [`get_in`][get_in] function, which is used as follows:
 
-{% highlight php startinline %}
+```php?start_inline=1
     $age = get_in($data, ['people', 0, 'age'], $someDefault);
-{% endhighlight %}
+```
 
 Someone on [/r/PHP][reddit_ifsetor] pointed out that there is an alternative approach to this problem, namely the use
 of an `ifsetor` function:
 
-{% highlight php startinline %}
+```php?start_inline=1
     function ifsetor(&$value, $default = null) {
         return isset($value) ? $value : $default;
     }
-{% endhighlight %}
+```
 
 The use of this function is very elegant:
 
-{% highlight php startinline %}
+```php?start_inline=1
     $age = ifsetor($data['people'][0]['age'], $someDefault);
-{% endhighlight %}
+```
 
 Note that this function will **not** throw a notice if `$data['people'][0]['age']` (or any index in between) does not
 exist, because the `$value` is passed by-reference.
@@ -47,9 +47,9 @@ A write-fetch obviously doesn't throw a notice if the assigned index doesn't exi
 to create indexes without throwing notices). What's interesting is that the whole thing also work recursively, so none
 of the indices in the chain have to exist:
 
-{% highlight php startinline %}
+```php?start_inline=1
     $array[0][1][2] = 'foobar';
-{% endhighlight %}
+```
 
 The above example will not throw a notice if `$array[0][1]` doesn't exist, it won't throw a notice if `$array[0]`
 doesn't exist and it even won't throw a notice if the `$array` variable itself doesn't exist.
@@ -58,21 +58,21 @@ PHP implements write-fetches by creating the respective offset and initializing 
 This is compatible with nested index assigns because PHP allows silent casts from `null` (and other falsy values) to
 arrays. So the following will run without notices:
 
-{% highlight php startinline %}
+```php?start_inline=1
     $null = null;
     $null[42] = 'foobar';
     var_dump($null); // [42 => 'foobar']
-{% endhighlight %}
+```
 
 So what the `$array[0][1][2] = 'foobar'` assignment really does is something along these lines (obviously heavily
 simplified):
 
-{% highlight php startinline %}
+```php?start_inline=1
     $array = null;
     $array[0] = null;           // implicitly converts $array to array
     $array[0][1] = null;        // implicitly converts $array[0] to array
     $array[0][1][2] = 'foobar'; // implicitly converts $array[0][1] to array
-{% endhighlight %}
+```
 
 Issues with the ifsetor function
 --------------------------------
@@ -83,11 +83,11 @@ Getting back to `ifsetor`, the exact same thing occurs there as well. Before the
 write-fetches will already have created the offset-chain and initialized it to `null`. This means that the function
 call will leave behind a `null` value in the index that way passed to it (unless it already existed previously):
 
-{% highlight php startinline %}
+```php?start_inline=1
     $age = ifsetor($data['people'][0]['age'], $someDefault);
     var_dump($data['people'][0]['age']);
     // NULL, without notice (assuming the index didn't exist beforehand)
-{% endhighlight %}
+```
 
 Depending on the context where this occurs, the additional null value might not be of any consequence. On the other hand
 it could just as well lead to data corruption, e.g. it could result in a 0 age to be persisted, or something like that.
@@ -100,9 +100,9 @@ passing.
 Another issue is that `ifsetor` doesn't only suppress the notice on the outermost index, but also on all previous
 indices and even the array variable itself. As an example, consider the following, slightly changed code:
 
-{% highlight php startinline %}
+```php?start_inline=1
     $age = ifsetor($date['people'][0]['age'], $someDefault);
-{% endhighlight %}
+```
 
 This line contains a typo, namely it incorrectly uses `$date` instead of `$data`. Normally PHP would immediately tell
 you about such a typo, but here all notices are suppressed.
@@ -111,23 +111,23 @@ This behavior may or may not be what you want. Obviously you'd want a notice for
 on the context whether a non-existent `$data['people'][0]` should throw a notice or not. Igor's `get_in` function lets
 you control which behavior you want:
 
-{% highlight php startinline %}
+```php?start_inline=1
     $age = get_in($data, ['people', 0, 'age'], $someDefault); // notice on missing $data
     $age = get_in($data['people'], [0, 'age'], $someDefault); // notice on missing $data['people'] as well
     $age = get_in($data['people'][0], ['age'], $someDefault); // notice on missing $data['people'][0] as well
-{% endhighlight %}
+```
 
 From my experience you usually only want to suppress the notice on the outermost index. The `$data['people'][0]['age']`
 example I've been using throughout the post is somewhat artificial and the real code would likely not involve an
 explicit `[0]` access and use a loop instead:
 
-{% highlight php startinline %}
+```php?start_inline=1
     $people = ifsetor($data['people'], []);
     foreach ($people as $person) {
         $age = ifsetor($person['age']);
         // do something with $age
     }
-{% endhighlight %}
+```
 
 See how in both cases something of type `$knownExisting['potentiallyNotExisting']` is fetched? I think that most uses
 of the `isset($x) ? $x : $d` pattern are of this form. We'll get back to that at the end of the post.
@@ -136,20 +136,20 @@ of the `isset($x) ? $x : $d` pattern are of this form. We'll get back to that at
 
 Recall the definition of the `ifsetor` function:
 
-{% highlight php startinline %}
+```php?start_inline=1
     function ifsetor(&$value, $default = null) {
         return isset($value) ? $value : $default;
     }
-{% endhighlight %}
+```
 
 Another more explicit, but otherwise strictly identical, way of writing the function is this (as `isset` on an existing
 variable is just a `null` check):
 
-{% highlight php startinline %}
+```php?start_inline=1
     function ifsetor(&$value, $default = null) {
         return null !== $value ? $value : $default;
     }
-{% endhighlight %}
+```
 
 Note that this function is not capable of distinguishing a `null` value that was actually stored at the index and a
 `null` value that was implicitly created by the write-fetch. To `ifsetor` a non-existing offset and an offset containing
@@ -157,11 +157,11 @@ Note that this function is not capable of distinguishing a `null` value that was
 
 If `$default` is not null this might result in unexpected behavior:
 
-{% highlight php startinline %}
+```php?start_inline=1
     $array = [null];
     $result = ifsetor($array[0], 42);
     // $result is now 42, not null, even though $array[0] existed
-{% endhighlight %}
+```
 
 Once again, whether or not this is an issue heavily depends on context. In many cases it's okay to treat `null` as
 non-existent. In other cases it isn't.
@@ -174,16 +174,16 @@ there is no way to implement `ifsetor` this way.
 This is an issue that was already mentioned in the comment on reddit: The default value passed to `ifsetor` is always
 evaluated, even if it is not needed:
 
-{% highlight php startinline %}
+```php?start_inline=1
     $value = ifsetor($array['index'], new Foo);
-{% endhighlight %}
+```
 
 Here the `new Foo` object is always created, even if `$array['index']` exists. In this case it would just cost one
 additional object allocation, but it could also be a more expensive operation (with potential side-effects):
 
-{% highlight php startinline %}
+```php?start_inline=1
     $value = ifsetor($array['index'], calculateValue());
-{% endhighlight %}
+```
 
 This issue exists with both `ifsetor` and `get_in` and can't really be solved in any convenient way. You need to either
 write the conditional explicitly or use a (rather verbose) lambda function.
@@ -196,9 +196,9 @@ write out an if statement.
 
 Consider this snippet again:
 
-{% highlight php startinline %}
+```php?start_inline=1
     $people = ifsetor($data['people'], []);
-{% endhighlight %}
+```
 
 Because `ifsetor` accepts the `$value` by reference, there is a good chance that the above call will require a full
 copy of the `$data['people']` array if it exists. The reason behind this is that
@@ -225,11 +225,11 @@ implementation discussed above.
 
 The `ifsetor` language construct would effectively work by a direct expansion to the `isset($x) ? $x : $d` pattern:
 
-{% highlight php startinline %}
+```php?start_inline=1
     $value = ifsetor($array['index'], $default);
     // expands to
     $value = isset($array['index']) ? $array['index'] : $default;
-{% endhighlight %}
+```
 
 Lets take a look at how this would solve some of the issues:
 
@@ -260,32 +260,32 @@ function.
 But for the 95% use case, where you only need the notice suppression on the outermost index, why not just go with the
 simplest and least-magic solution?
 
-{% highlight php startinline %}
+```php?start_inline=1
     function array_get(array $array, $index, $default = null) {
         return array_key_exists($index, $array) ? $array[$index] : $default;
     }
 
     // usage
     $age = array_get($person, 'age', $someDefault);
-{% endhighlight %}
+```
 
 I know, I'm stating the obvious here. This is really just `get_in` without the nesting support (thus simplifying its use
 for this particular case).
 
 But this still looks rather clumsy. What I really want is the same using [scalar objects][scalar_objects]:
 
-{% highlight php startinline %}
+```php?start_inline=1
     $age = $person->get('age', $someDefault);
-{% endhighlight %}
+```
 
 Yes, this is me calling the `get` "method" on an array. I think this is a very simple and readable solution. But anyway,
 that's just a bit of day-dreaming, I have no idea when we'll be introducing scalar objects in PHP (not 5.6 at least).
 
 To finish up this post, let me show you another *very* elegant way of approaching the problem:
 
-{% highlight php startinline %}
+```php?start_inline=1
     $age = ($_=& $person['age']) ?: $someDefault; // great for code obfuscation
-{% endhighlight %}
+```
 
   [igorw_traversal]: https://igor.io/2014/01/08/functional-library-traversal.html
   [get_in]: https://github.com/igorw/get-in

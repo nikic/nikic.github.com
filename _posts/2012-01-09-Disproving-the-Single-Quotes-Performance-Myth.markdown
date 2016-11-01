@@ -31,10 +31,10 @@ a PHP script runs all strings are already parsed.
 
 A simple proof:
 
-{% highlight php startinline %}
+```php?start_inline=1
 $x = 'Test';
 $y = "\x54\x65\x73\x74";
-{% endhighlight %}
+```
 
 If you have a look at the opcodes that PHP generates for this they will look like this:
 
@@ -69,7 +69,7 @@ real numbers.
 
 For testing I use the following script:
 
-{% highlight php startinline %}
+```php?start_inline=1
 const NUM = 10000000;
 
 $singleQuotedStringCode = "<?php '" . str_repeat('x', NUM) . "';";
@@ -86,7 +86,7 @@ token_get_all($doubleQuotedStringCode);
 $endTime = microtime(true);
 
 echo 'Double quotes: ', $endTime - $startTime, ' seconds', "\n";
-{% endhighlight %}
+```
 
 It creates two strings with *ten million* `x` characters and lexes them. Here's what I get:
 
@@ -103,11 +103,11 @@ So the next question is, what is faster: String concatenation or string interpol
 
 Let's consider this simple case:
 
-{% highlight php startinline %}
+```php?start_inline=1
 $world = 'World';
 'Hallo ' . $world;
 "Hallo $world";
-{% endhighlight %}
+```
 
 If you [try running the corresponding benchmark][10] you will get numbers similar to this:
 
@@ -147,14 +147,14 @@ really the reason, but it would be my guess. It could also be just the overhead 
 So, interpolation is slower after all, isn't it? Well, not really, let's consider this more
 realistic example:
 
-{% highlight php startinline %}
+```php?start_inline=1
 $name  = 'Anonymous';
 $age   = 123;
 $hobby = 'nothing';
 
 'Hi! My name is ' . $name . ' and I am ' . $age . ' years old! I love doing ' . $hobby . '!';
 "Hi! My name is $name and I am $age years old! I love doing $hobby!";
-{% endhighlight %}
+```
 
 If you [run the benchmark][11] you will get numbers looking approximately like this:
 

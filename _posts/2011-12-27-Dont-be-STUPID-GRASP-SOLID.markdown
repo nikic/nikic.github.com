@@ -34,7 +34,7 @@ in the following, so you can better understand why exactly those patterns were c
 Singleton
 ---------
 
-{% highlight php startinline %}
+```php?start_inline=1
 class DB {
     private static $instance;
 
@@ -51,7 +51,7 @@ class DB {
 
     /* actual methods here */
 }
-{% endhighlight %}
+```
 
 The above is the typical database access implementation you will find in pretty much any PHP
 tutorial. I actually used something similar to this myself not too long ago.
@@ -75,13 +75,13 @@ the class name did not allow me to. If my application had used [dependency injec
 time I could have easily extended `DB` and passed the new instance. But the singleton prevented.
 What I did instead was somethink looking roughly like this:
 
-{% highlight php startinline %}
+```php?start_inline=1
 // original DB class
 class _DB { /* ... */ }
 
 // extending class
 class DB extends _DB { /* ... */ }
-{% endhighlight %}
+```
 
 One word: Ugly. One could add some other words like Hacky, Unmaintainable, Crap. Or STUPID.
 
@@ -103,27 +103,27 @@ and hard to test.
 Similarly most other plain uses of class names are code smell too. This also applies to the `new`
 operator:
 
-{% highlight php startinline %}
+```php?start_inline=1
 class House {
     public function __construct() {
         $this->door   = new Door;
         $this->window = new Window;
     }
 }
-{% endhighlight %}
+```
 
 How would you replace the door or the window in your house now? Simple: You can't. As a good
 developer you will obviously find some dirty hack that *does* allow you to somehow replace the
 door or a window. But why not simply write this instead:
 
-{% highlight php startinline %}
+```php?start_inline=1
 class House {
     public function __construct(Door $door, Window $window) { // Door, Window are interfaces
         $this->door   = $door;
         $this->window = $window;
     }
 }
-{% endhighlight %}
+```
 
 This way one can easily create houses with different doors and windows. The code is easy to extend,
 easy to reuse and easy to test. What could you want more?
@@ -151,11 +151,11 @@ Premature Optimization
 
 Here is a code snippet from an old version of a website I wrote:
 
-{% highlight php startinline %}
+```php?start_inline=1
 if (isset($frm['title_german'][strcspn($frm['title_german'], '<>')])) {
     // ...
 }
-{% endhighlight %}
+```
 
 Guess what it does!
 
@@ -170,21 +170,21 @@ expression will be `true`.
 
 So why did I write this unintelligible piece of code? Why didn't I write this instead:
 
-{% highlight php startinline %}
+```php?start_inline=1
 if (strlen($frm['title_german']) == strcspn($frm['title_german'], '<>'))) {
     // ...
 }
-{% endhighlight %}
+```
 
 Because some days ago I read that `isset` is so much faster than `strlen`... But that code still is
 not particularly intelligible, because you need to know the exact semantics of the `strcspn`
 function (which probably most PHP programmers do not). So why not just write this:
 
-{% highlight php startinline %}
+```php?start_inline=1
 if (preg_match('(<|>)', $frm['title_german'])) {
     // ...
 }
-{% endhighlight %}
+```
 
 Because I read that regex is slow... (Which by the way is mostly a lie: regular expressions are
 much faster and much more powerful than you think.)

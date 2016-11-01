@@ -11,11 +11,11 @@ it is more efficient than the previous implementation.
 To measure memory utilization I am using the following script, which tests the creation of an array with 100000 distinct
 integers:
 
-{% highlight php startinline %}
+```php?start_inline=1
 $startMemory = memory_get_usage();
 $array = range(1, 100000);
 echo memory_get_usage() - $startMemory, " bytes\n";
-{% endhighlight %}
+```
 
 The following table shows the results using PHP 5.6 and PHP 7 on 32bit and 64bit systems:
 
@@ -219,7 +219,7 @@ array again. Instead we simply mark the deleted value with an `IS_UNDEF` zval ty
 
 As an example, consider the following code:
 
-{% highlight php startinline %}
+```php?start_inline=1
 $array = [
 	'foo' => 0,
 	'bar' => 1,
@@ -229,7 +229,7 @@ $array = [
 ];
 unset($array[0]);
 unset($array['xyz']);
-{% endhighlight %}
+```
 
 This will result in the following `arData` structure:
 
@@ -404,11 +404,11 @@ we loose 32 * 31072 (0.95 MiB) in unused memory, while in PHP 5.x we only waste 
 Another thing to consider is what happens if not all values stored in the array are distinct. For simplicity lets assume
 that all values in the array are identical. So lets replace the `range` in the starting example with an `array_fill`:
 
-{% highlight php startinline %}
+```php?start_inline=1
 $startMemory = memory_get_usage();
 $array = array_fill(0, 100000, 42);
 echo memory_get_usage() - $startMemory, " bytes\n";
-{% endhighlight %}
+```
 
 This script results in the following numbers:
 

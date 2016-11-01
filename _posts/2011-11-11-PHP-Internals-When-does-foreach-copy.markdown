@@ -11,7 +11,7 @@ PHP's `foreach` is a very neat and to-the-point language construct. Still some p
 use it, because they think it is slow. One reason usually named is that `foreach` copies the array
 it iterates. Thus some people recommend to write:
 
-{% highlight php startinline %}
+```php?start_inline=1
 $keys = array_keys($array);
 $size = count($array);
 for ($i = 0; $i < $size; $i++) {
@@ -20,15 +20,15 @@ for ($i = 0; $i < $size; $i++) {
 
     // ...
 }
-{% endhighlight %}
+```
 
 Instead of the much more intuitive and straightforward:
 
-{% highlight php startinline %}
+```php?start_inline=1
 foreach ($array as $key => $value) {
     // ...
 }
-{% endhighlight %}
+```
 
 There are two problems with this:
 
@@ -50,7 +50,7 @@ In the below code `$array` is not referenced and has a refcount of `1`. In this 
 **not** copy the array ([proof][2]) - contrary to the popular belief that `foreach` always copies
 the iterated array if it isn't referenced.
 
-{% highlight php startinline %}
+```php?start_inline=1
 test();
 function test() {
     $array = range(0, 100000);
@@ -58,7 +58,7 @@ function test() {
         // ...
     }
 }
-{% endhighlight %}
+```
 
 The reason is simple: Why should it? The only thing that `foreach` modifies about `$array` is it's
 internal array pointer. This is expected behavior and thus doesn't need to be prevented.
@@ -71,7 +71,7 @@ behavior of `foreach`: It now **will** copy the array structure, but **not** the
 if you want to see that this is really only the structure being copied compare [this][8] and [that][9]
 script. The first only copies the structure, the second copies both).
 
-{% highlight php startinline %}
+```php?start_inline=1
 $array = range(0, 100000);
 test($array);
 function test($array) {
@@ -79,7 +79,7 @@ function test($array) {
         // ...
     }
 }
-{% endhighlight %}
+```
 
 This might seem odd at first: Why would it copy when the array is passed through an argument, but
 not if it is defined in the function? The reason is that the array `zval` is now shared between
@@ -94,7 +94,7 @@ the other hand still can share zvals and thus don't need to be copied.
 The next case is very similar to the previous one. The only difference is that the array is passed
 by reference. In this case the array again will **not** be copied ([proof][4]).
 
-{% highlight php startinline %}
+```php?start_inline=1
 $array = range(0, 100000);
 test($array);
 function test(&$array) {
@@ -102,7 +102,7 @@ function test(&$array) {
         // ...
     }
 }
-{% endhighlight %}
+```
 
 In this case the same reasoning applies as with the previous case: The outer `$array` and the inner
 `$array` share `zval`s. The difference is that they now are references (`isref == 1`). Thus in this

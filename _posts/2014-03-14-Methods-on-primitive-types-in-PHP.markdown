@@ -9,7 +9,7 @@ or arrays into "pseudo-objects" by allowing to perform method calls on them.
 
 Lets start off with a few examples of what this entails:
 
-{% highlight php startinline %}
+```php?start_inline=1
 $str = "test foo bar";
 $str->length();      // == strlen($str)        == 12
 $str->indexOf("foo") // == strpos($str, "foo") == 5
@@ -21,7 +21,7 @@ $array->length()       // == count($array)             == 3
 $array->join(" ")      // == implode(" ", $array)      == "test foo bar"
 $array->slice(1, 2)    // == array_slice($array, 1, 2) == ["foo", "bar"]
 $array->flip()         // == array_flip($array)        == ["test" => 0, "foo" => 1, "bar" => 2]
-{% endhighlight %}
+```
 
 Here `$str` is just a normal string and `$array` just a normal array - they aren't objects. We just give them a bit of
 object-like behavior by allowing to call methods on them.
@@ -38,7 +38,7 @@ An opportunity for a cleaner API
 The likely most common complaint you get to hear about PHP is the inconsistent and unclear naming of functions in the
 standard library, as well as the equally inconsistent and unclear order of parameters. Some typical examples:
 
-{% highlight php startinline %}
+```php?start_inline=1
 // different naming conventions
 strpos
 str_replace
@@ -50,7 +50,7 @@ strpbrk                  // STRing Pointer BReaK
 // inverted parameter order
 strpos($haystack, $needle)
 array_search($needle, $haystack)
-{% endhighlight %}
+```
 
 While this issue is often overemphasized (we *do* have IDEs), it is hard to deny that the situation is rather
 suboptimal. It should also be noted that many functions exhibit problems that go beyond having a weird name. Often
@@ -85,25 +85,25 @@ Improved readability
 
 Procedural calls commonly do not chain well. Consider the following example:
 
-{% highlight php startinline %}
+```php?start_inline=1
 $output = array_map(function($value) {
     return $value * 42;
 }, array_filter($input, function($value) {
     return $value > 10;
 });
-{% endhighlight %}
+```
 
 At a glance, what are `array_map` and `array_filter` applied to? In what order are the calls happening? The variable
 `$input` is hidden somewhere in the middle of two closures and the function calls are written in the reverse order of
 how they are actually applied. Now the same example using an OO syntax:
 
-{% highlight php startinline %}
+```php?start_inline=1
 $output = $input->filter(function($value) {
     return $value > 10;
 })->map(function($value) {
     return $value * 42;
 });
-{% endhighlight %}
+```
 
 I daresay that in this case the order of operations (first filter then map) and the source array `$input` are a lot more
 obvious.
@@ -112,16 +112,16 @@ The example is of course somewhat contrived, because `array_map` and `array_filt
 with swapped parameter order (which is why the input array ends up in the middle). Another example (this time from real
 code) where the input parameter stays in the same position:
 
-{% highlight php startinline %}
+```php?start_inline=1
 substr(strtr(rtrim($className, '_'), '\\', '_'), 15);
-{% endhighlight %}
+```
 
 In this case you end up with a string of additional parameters `'_'), '\\', '_'), 15`, which are hard to associate with
 the corresponding function calls. Compare this to the version using methods:
 
-{% highlight php startinline %}
+```php?start_inline=1
 $className->trimRight('_')->replace('\\', '_')->slice(15);
-{% endhighlight %}
+```
 
 Here the operations and their arguments are tightly grouped and once again the order of the method calls matches the
 order in which they are executed.
@@ -130,13 +130,13 @@ Another readability benefit that can be derived from this syntax is the absence 
 aliasing lets us resolve this issue by introducing some uniform parameter order convention, the problem simply does not
 exist in the first place with an OO API:
 
-{% highlight php startinline %}
+```php?start_inline=1
 $string->contains($otherString)
 $array->contains($someValue)
 
 $string->indexOf($otherString)
 $array->indexOf($someValue)
-{% endhighlight %}
+```
 
 Here there can be no confusion as to which part takes which role.
 
@@ -177,18 +177,18 @@ Quoting from Anthony's blog post:
 
 To illustrate the issue, consider the following example:
 
-{% highlight php startinline %}
+```php?start_inline=1
 $num = 123456789;
 $sumOfDigits = array_sum(str_split($num));
-{% endhighlight %}
+```
 
 Here `$num` is treated as a string of digits, which is split apart using `str_split` and then summed using `array_sum`.
 Now try the same using methods:
 
-{% highlight php startinline %}
+```php?start_inline=1
 $num = 123456789;
 $sumOfDigits = $num->chunk()->sum();
-{% endhighlight %}
+```
 
 Here the `chunk()` method from the string type is called on a number. What happens? Anthony suggests one solution:
 
@@ -218,11 +218,11 @@ you want to invent abominations like `$bool->invert()`.
 
 The vast majority of math functions don't do well as methods either. Consider:
 
-{% highlight php startinline %}
+```php?start_inline=1
 log($n)        $n->log()
 sqrt($n)       $n->sqrt()
 acosh($n)      $n->acosh()
-{% endhighlight %}
+```
 
 I hope you agree that math functions read a lot better in function notation. There are of course some few methods you
 could reasonably apply to the number type. For example `$num->format(10)` reads quite nicely. However, that's about it.
@@ -236,17 +236,17 @@ While it is very common to treat strings as if they were integers (e.g. coming f
 true: It is very uncommon to directly use an integer as a string. For example, the following code would really confuse
 me:
 
-{% highlight php startinline %}
+```php?start_inline=1
 strpos(54321, 32, 1);
-{% endhighlight %}
+```
 
 As treating numbers as strings in this way is a rather weird operation, I think it's totally okay to require a cast in
 this case. Using the original sum-of-digits example:
 
-{% highlight php startinline %}
+```php?start_inline=1
 $num = 123456789;
 $sumOfDigits = ((string) $num)->chunk()->sum();
-{% endhighlight %}
+```
 
 Here we have clarified that, yes, we actually do want to treat that number as a string. To me this is acceptable for the
 cases where you want to make use of a hack like this.
@@ -272,7 +272,7 @@ PHP have different passing semantics than other types (somewhat similar to refer
 calls on strings and arrays, they'll start to look like objects and some people might expect them to have object
 passing semantics because of that. This issue applies both to strings and arrays:
 
-{% highlight php startinline %}
+```php?start_inline=1
 function change($arg) {
     echo $arg->length(); // $arg looks like object
     $arg[0] = 'x';       // but doesn't have object passing semantics
@@ -283,7 +283,7 @@ change($str); // $str stays the same
 
 $array = ['f', 'o', 'o'];
 change($array); // $array stays the same
-{% endhighlight %}
+```
 
 We could of course change the passing semantics. In my eyes passing large structures like arrays by-value was a pretty
 bad idea in the first place and I would prefer them to be passed by-object. However, that would be a pretty big
@@ -316,7 +316,7 @@ For this purpose I created the [scalar objects][scalar_objects] extension, which
 extension. It allows you to register a class which will handle method calls for the respective primitive type. An
 example:
 
-{% highlight php startinline %}
+```php?start_inline=1
 class StringHandler {
     public function length() {
         return strlen($this);
@@ -333,7 +333,7 @@ $str = "foo bar baz";
 var_dump($str->length());          // int(11)
 var_dump($str->contains("bar"));   // bool(true)
 var_dump($str->contains("hello")); // bool(false)
-{% endhighlight %}
+```
 
 I have started working on a [string handler][string_handler] including an [API specification][string_api] some time ago,
 but never really finished that project (I hope I'll find the motivation to pick it up again sometime soon). There are

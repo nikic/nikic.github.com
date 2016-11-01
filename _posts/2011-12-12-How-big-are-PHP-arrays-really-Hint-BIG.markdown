@@ -13,11 +13,11 @@ In this post I want to investigate the memory usage of PHP arrays (and values in
 following script as an example, which creates 100000 unique integer array elements and measures the
 resulting memory usage:
 
-{% highlight php startinline %}
+```php?start_inline=1
 $startMemory = memory_get_usage();
 $array = range(1, 100000);
 echo memory_get_usage() - $startMemory, ' bytes';
-{% endhighlight %}
+```
 
 How much would you expect it to be? Simple, one integer is 8 bytes (on a 64 bit unix machine and
 using the `long` type) and you got 100000 integers, so you obviously will need 800000 bytes.
@@ -267,14 +267,14 @@ static arrays.
 
 Have a look a this modified script:
 
-{% highlight php startinline %}
+```php?start_inline=1
 $startMemory = memory_get_usage();
 $array = new SplFixedArray(100000);
 for ($i = 0; $i < 100000; ++$i) {
     $array[$i] = $i;
 }
 echo memory_get_usage() - $startMemory, ' bytes';
-{% endhighlight %}
+```
 
 It basically does the same thing, but if you run it, you'll notice that it uses "only" 5600640
 bytes. That's 56 bytes per element and thus much less than the 144 bytes per element a normal array

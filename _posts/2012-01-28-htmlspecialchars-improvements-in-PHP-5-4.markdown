@@ -56,16 +56,16 @@ empty string:
 
 Let's have a look at the different behaviors:
 
-{% highlight php startinline %}
+```php?start_inline=1
 // "\80" is invalid UTF-8 in this context
 var_dump(htmlspecialchars("a\x80b"));                 // string(0) ""
 var_dump(htmlspecialchars("a\x80b", ENT_IGNORE));     // string(2) "ab"
 var_dump(htmlspecialchars("a\x80b", ENT_SUBSTITUTE)); // string(5) "a�b"
-{% endhighlight %}
+```
 
 Clearly, you want the last behavior. In your real code it will probably look like this:
 
-{% highlight php startinline %}
+```php?start_inline=1
 // this goes into the bootstrap (or where appropriate) to make the code
 // not throw a notice on PHP 5.3
 if (!defined('ENT_SUBSTITUTE')) {
@@ -77,7 +77,7 @@ if (!defined('ENT_SUBSTITUTE')) {
 
 // don't forget to specify the charset! Otherwise you'll get the old default charset on 5.3.
 $escaped = htmlspecialchars($string, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
-{% endhighlight %}
+```
 
 Doctype handling
 ----------------
@@ -94,10 +94,10 @@ different entity tables.
 
 You can see this in the following example:
 
-{% highlight php startinline %}
+```php?start_inline=1
 var_dump(htmlspecialchars("'", ENT_HTML401)); // string(6) "&#039;"
 var_dump(htmlspecialchars("'", ENT_HTML5));   // string(6) "&apos;"
-{% endhighlight %}
+```
 
 So for HTML 5 an `&apos;` entity will be generated, whereas for HTML 4.01 - which does not yet
 support `&apos;` - a numerical `&#039;` entity is returned.
@@ -108,9 +108,9 @@ there. You can easily see this by having a look at the raw translation tables:
 To do this, we can use the `get_html_translation_table` function. Here first an example for the
 XML 1 doctype:
 
-{% highlight php startinline %}
+```php?start_inline=1
 var_dump(get_html_translation_table(HTML_ENTITIES, ENT_QUOTES | ENT_XML1));
-{% endhighlight %}
+```
 
 The result will look like this:
 
@@ -172,9 +172,9 @@ There is other stuff too...
 ... but I don't want to list everything here. I think the three changes mentioned above are the most
 important improvements.
 
-{% highlight php startinline %}
+```php?start_inline=1
 htmlspecialchars("<\x80The End\xef\xbf\xbf>", ENT_QUOTES | ENT_HTML5 | ENT_DISALLOWED | ENT_SUBSTITUTE, 'UTF-8');
-{% endhighlight %}
+```
 
   [1]: http://stackoverflow.com/users/127724/artefacto
   [2]: http://docs.php.net/htmlspecialchars

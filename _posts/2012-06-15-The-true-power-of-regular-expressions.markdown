@@ -509,7 +509,7 @@ given boolean formula (such that it is true).
 
 The above boolean formula can be converted to the following regular expression:
 
-{% highlight php startinline %}
+```php?start_inline=1
 $regex = '/^
     (x?)(x?)(x?)(x?) .* ;
     (?: x\1 | \2  | \4  ),
@@ -523,7 +523,7 @@ $/x';
 $string = 'xxxx;x,x,x,x,x,x,x,';
 var_dump(preg_match($regex, $string, $matches));
 var_dump($matches);
-{% endhighlight %}
+```
 
 If you run this code you'll get the following `$matches` result:
 

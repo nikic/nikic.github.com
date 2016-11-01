@@ -80,14 +80,14 @@ know more.
 There is [a proposal][array_column] pending for a new `array_column` (or `array_pluck`) function that would behave as
 follows:
 
-{% highlight php startinline %}
+```php?start_inline=1
 $userNames = array_column($users, 'name');
 // is the same as
 $userNames = [];
 foreach ($users as $user) {
     $userNames[] = $user['name'];
 }
-{% endhighlight %}
+```
 
 So it would be like fetching a column from a database, but for arrays.
 
@@ -102,7 +102,7 @@ unsafe `sha1` hashes.
 We figured that the reason for this might be the really hard to use API of the [`crypt`][crypt] function. Thus we would
 like to introduce a new, simple API for secure password hashing:
 
-{% highlight php startinline %}
+```php?start_inline=1
 $password = "foo";
 
 // creating the hash
@@ -114,7 +114,7 @@ if (password_verify($password, $hash)) {
 } else {
     // password wrong!
 }
-{% endhighlight %}
+```
 
 The new hashing API comes with a few more features, which are outlined in [the RFC][password_hash].
 
@@ -129,7 +129,7 @@ Now comes the really interesting stuff: New language features and enhancements.
 "Constant dereferencing" means that array operations can be directly applied to string and array literals. Here two
 examples:
 
-{% highlight php startinline %}
+```php?start_inline=1
 function randomHexString($length) {
     $str = '';
     for ($i = 0; $i < $length; ++$i) {
@@ -140,7 +140,7 @@ function randomHexString($length) {
 function randomBool() {
     return [false, true][mt_rand(0, 1)]; // direct dereference of array
 }
-{% endhighlight %}
+```
 
 I don't think that this feature is of much use in practice, but it makes the language a bit more consistent. See also
 [the RFC][const_dereference].
@@ -160,21 +160,21 @@ RFC][empty_exprs].
 PHP 5.3 introduced namespaces with the ability to alias classes and namespaces to shorter versions. This does not apply
 to string class names though:
 
-{% highlight php startinline %}
+```php?start_inline=1
 use Some\Deeply\Nested\Namespace\FooBar;
 
 // does not work, because this will try to use the global `FooBar` class
 $reflection = new ReflectionClass('FooBar');
-{% endhighlight %}
+```
 
 To solve this a new `FooBar::class` syntax is proposed, which returns the fully qualified name of the class:
 
-{% highlight php startinline %}
+```php?start_inline=1
 use Some\Deeply\Nested\Namespace\FooBar;
 
 // this works because FooBar::class is resolved to "Some\\Deeply\\Nested\\Namespace\\FooBar"
 $reflection = new ReflectionClass(FooBar::class);
-{% endhighlight %}
+```
 
 For more examples see [the RFC][class_name_resolution].
 
@@ -212,7 +212,7 @@ It would work by casting the input value to the specified type, but only if the 
 `123`, `123.0`, `"123"` would all be valid inputs for an `int` parameter, but `"hallo world"` would not. This matches
 the behavior of internal functions.
 
-{% highlight php startinline %}
+```php?start_inline=1
 function foo(int $i) { ... }
 
 foo(1);      // $i = 1
@@ -222,7 +222,7 @@ foo("1abc"); // not yet clear, maybe $i = 1 with notice
 foo(1.5);    // not yet clear, maybe $i = 1 with notice
 foo([]);     // error
 foo("abc");  // error
-{% endhighlight %}
+```
 
 ### Getters and setters
 
@@ -231,7 +231,7 @@ foo("abc");  // error
 If you've never been a fan of writing all those `getXYZ()` and `setXYZ($value)` methods, then this should be a welcome
 change for you. The proposal adds a new syntax for defining what should happen when a property is set / read:
 
-{% highlight php startinline %}
+```php?start_inline=1
 class TimePeriod {
     public $seconds;
 
@@ -246,7 +246,7 @@ $timePeriod->hours = 10;
 
 var_dump($timePeriod->seconds); // int(36000)
 var_dump($timePeriod->hours);   // int(10)
-{% endhighlight %}
+```
 
 There are also some more features like read-only properties. If you want to know more, have a look at [the
 RFC][getter_setter].
@@ -260,7 +260,7 @@ Generators solve this issue by providing an easy and boilerplate-free way to cre
 
 For example, this is how you could define the `range` function, but as an iterator:
 
-{% highlight php startinline %}
+```php?start_inline=1
 function *xrange($start, $end, $step = 1) {
     for ($i = $start; $i < $end; $i += $step) {
         yield $i;
@@ -270,7 +270,7 @@ function *xrange($start, $end, $step = 1) {
 foreach (xrange(10, 20) as $i) {
     // ...
 }
-{% endhighlight %}
+```
 
 The above `xrange` function has the same behavior as the builtin `range` function with one difference: Instead of
 returning an array with all the values, it returns an iterator which generates the values on-the-fly.

@@ -84,7 +84,7 @@ modification will happen only on the duplicated zval.
 
 Lets look at an example that shows off both copy-on-write and zval destruction:
 
-{% highlight php startinline %}
+```php?start_inline=1
 $a = 42;   // $a         -> zval_1(type=IS_LONG, value=42, refcount=1)
 $b = $a;   // $a, $b     -> zval_1(type=IS_LONG, value=42, refcount=2)
 $c = $b;   // $a, $b, $c -> zval_1(type=IS_LONG, value=42, refcount=3)
@@ -98,7 +98,7 @@ unset($b); // $c -> zval_1(type=IS_LONG, value=42, refcount=1)
 
 unset($c); // zval_1 is destroyed, because refcount=0
            // $a -> zval_2(type=IS_LONG, value=43, refcount=1)
-{% endhighlight %}
+```
 
 Reference counting has one fatal flaw: It is not able to detect and release cyclic references. To handle this PHP uses
 an additional [cycle collector][cycle]. Whenever the refcount of a zval is decremented and there is a chance that this
@@ -317,7 +317,7 @@ is used to mark immutable arrays and will be discussed in more detail in the nex
 At this point, lets take a look at two examples of how the zval management works in practice. First, an example using
 integers based off the PHP 5 example from above:
 
-{% highlight php startinline %}
+```php?start_inline=1
 $a = 42;   // $a = zval_1(type=IS_LONG, value=42)
 
 $b = $a;   // $a = zval_1(type=IS_LONG, value=42)
@@ -328,14 +328,14 @@ $a += 1;   // $a = zval_1(type=IS_LONG, value=43)
 
 unset($a); // $a = zval_1(type=IS_UNDEF)
            // $b = zval_2(type=IS_LONG, value=42)
-{% endhighlight %}
+```
 
 This is pretty boring. As integers are no longer shared, both variables will use separate zvals. Don't forget that these
 are now embedded rather than allocated, which I try to signify by writing `=` instead of a `->` pointer. Unsetting a
 variable will set the type of the corresponding zval to `IS_UNDEF`. Now consider a more interesting case where a complex
 value is involved:
 
-{% highlight php startinline %}
+```php?start_inline=1
 $a = [];   // $a = zval_1(type=IS_ARRAY) -> zend_array_1(refcount=1, value=[])
 
 $b = $a;   // $a = zval_1(type=IS_ARRAY) -> zend_array_1(refcount=2, value=[])
@@ -347,7 +347,7 @@ $a[] = 1   // $a = zval_1(type=IS_ARRAY) -> zend_array_2(refcount=1, value=[1])
 
 unset($a); // $a = zval_1(type=IS_UNDEF) and zend_array_2 is destroyed
            // $b = zval_2(type=IS_ARRAY) -> zend_array_1(refcount=1, value=[])
-{% endhighlight %}
+```
 
 Here each variable still has a separate (embedded) zval, but both zvals point to the same (refcounted) `zend_array`
 structure. Once a modification is done the array needs to be duplicated. This case is similar to how things work in PHP
@@ -413,18 +413,17 @@ For PHP references this does not apply. If a value is a PHP reference, you *want
 value. The `is_ref` flag that was part of PHP 5 zvals determined whether a value is a PHP reference and as such whether
 it required separation before modification. An example:
 
-{% highlight php startinline %}
+```php?start_inline=1
 $a = [];  // $a     -> zval_1(type=IS_ARRAY, refcount=1, is_ref=0) -> HashTable_1(value=[])
 $b =& $a; // $a, $b -> zval_1(type=IS_ARRAY, refcount=2, is_ref=1) -> HashTable_1(value=[])
 
 $b[] = 1; // $a = $b = zval_1(type=IS_ARRAY, refcount=2, is_ref=1) -> HashTable_1(value=[1])
-          // Due to the is_ref=1 PHP will *not* separate the zval
-{% endhighlight %}
+```
 
 One significant problem with this design is that it's not possible to share a value between a variable that's a PHP
 reference and one that isn't. Consider the following example:
 
-{% highlight php startinline %}
+```php?start_inline=1
 $a = [];  // $a         -> zval_1(type=IS_ARRAY, refcount=1, is_ref=0) -> HashTable_1(value=[])
 $b = $a;  // $a, $b     -> zval_1(type=IS_ARRAY, refcount=2, is_ref=0) -> HashTable_1(value=[])
 $c = $b   // $a, $b, $c -> zval_1(type=IS_ARRAY, refcount=3, is_ref=0) -> HashTable_1(value=[])
@@ -437,16 +436,16 @@ $d =& $c; // $a, $b -> zval_1(type=IS_ARRAY, refcount=2, is_ref=0) -> HashTable_
 $d[] = 1; // $a, $b -> zval_1(type=IS_ARRAY, refcount=2, is_ref=0) -> HashTable_1(value=[])
           // $c, $d -> zval_1(type=IS_ARRAY, refcount=2, is_ref=1) -> HashTable_2(value=[1])
           // Because there are two separate zvals $d[] = 1 does not modify $a and $b.
-{% endhighlight %}
+```
 
 This behavior of references is one of the reasons why using references in PHP will usually end up being slower than
 using normal values. To give a less-contrived example where this is a problem:
 
-{% highlight php startinline %}
+```php?start_inline=1
 $array = range(0, 1000000);
 $ref =& $array;
 var_dump(count($array)); // <-- separation occurs here
-{% endhighlight php %}
+```
 
 Because `count()` accepts its value by-value, but `$array` is a PHP reference, a full copy of the array is done before
 passing it off to `count()`. If `$array` weren't a reference, the value would be shared instead.
@@ -470,18 +469,18 @@ a reference and another that is a value.
 Lets go through the above code samples again, this time looking at the PHP 7 semantics. For the sake of brevity I will
 stop writing the individual zvals of the variables and only show what structure they point to.
 
-{% highlight php startinline %}
+```php?start_inline=1
 $a = [];  // $a                                     -> zend_array_1(refcount=1, value=[])
 $b =& $a; // $a, $b -> zend_reference_1(refcount=2) -> zend_array_1(refcount=1, value=[])
 
 $b[] = 1; // $a, $b -> zend_reference_1(refcount=2) -> zend_array_1(refcount=1, value=[1])
-{% endhighlight %}
+```
 
 The by-reference assignment created a new `zend_reference`. Note that the refcount is 2 on the reference (because two
 variables are part of the PHP reference set), but the value itself only has a refcount of 1 (because one
 `zend_reference` structure points to it). Now consider the case where references and non-references are mixed:
 
-{% highlight php startinline %}
+```php?start_inline=1
 $a = [];  // $a         -> zend_array_1(refcount=1, value=[])
 $b = $a;  // $a, $b,    -> zend_array_1(refcount=2, value=[])
 $c = $b   // $a, $b, $c -> zend_array_1(refcount=3, value=[])
@@ -494,7 +493,7 @@ $d =& $c; // $a, $b                                 -> zend_array_1(refcount=3, 
 $d[] = 1; // $a, $b                                 -> zend_array_1(refcount=2, value=[])
           // $c, $d -> zend_reference_1(refcount=2) -> zend_array_2(refcount=1, value=[1])
           // Only at this point, once an assignment occurs, the zend_array is duplicated.
-{% endhighlight %}
+```
 
 The important difference to PHP 5 is that all variables were able to share the same array, even though some were PHP
 references and some weren't. Only once some kind of modification is performed the array will be separated. This means

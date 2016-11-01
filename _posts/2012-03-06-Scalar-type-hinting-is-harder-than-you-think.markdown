@@ -37,13 +37,13 @@ Strict type hinting
 I'll start with the proposal that I personally dislike most: Strict type hinting, i.e. allowing only the hinted type to
 be passed and not any of the types that PHP would normally consider equivalent. See this example:
 
-{% highlight php startinline %}
+```php?start_inline=1
 function foo(int $i) { /* ... */ }
 
 foo(1);   // works
 foo(1.0); // fatal error: int expected, float given
 foo("1"); // fatal error: int expected, string given
-{% endhighlight %}
+```
 
 I think it is evident that this is not an option. One of PHP's greatest strengths is being a weakly typed language and
 this proposal would turn it into a strictly typed one. This goes against the PHP philosophy and also differs from how
@@ -55,7 +55,7 @@ Unenforced type hinting
 Another proposal that was made, is type hinting that isn't enforced by the engine. WTF? What would this be good for?
 Basically, it would work just like doc comments (which aren't enforced either ^^), but with nicer syntax.
 
-{% highlight php startinline %}
+```php?start_inline=1
 function foo(int $i) { /* ... */ }
 
 foo(1);          // works
@@ -64,7 +64,7 @@ foo("1");        // works
 foo(array(123));  // works
 foo($iAmObject); // works
 // everything works...
-{% endhighlight %}
+```
 
 I dislike this proposal, too, for obvious reasons. For me it just doesn't make any sense to have type hints that are
 ignored. Doc comments do that already well enough...
@@ -74,7 +74,7 @@ Casting weak type hinting
 
 A proposal that came up recently (this is the one [introduced by ircmaxell][1]) is type hinting based on casts.
 
-{% highlight php startinline %}
+```php?start_inline=1
 function foo((int) $i) {
     var_dump($i);
 }
@@ -85,7 +85,7 @@ foo("1");     // int(1)
 foo(1.5);     // int(1)
 foo(array()); // int(0)
 foo("hi");    // int(0)
-{% endhighlight %}
+```
 
 This is one of the more interesting proposals, for several reasons:
 
@@ -122,7 +122,7 @@ Strict weak type hinting
 This leads us to another possibility, which is also my favorite: Doing weak type hints, but with stricter input
 validation (and without casts).
 
-{% highlight php startinline %}
+```php?start_inline=1
 function foo(int $i) {
     var_dump($i);
 }
@@ -133,7 +133,7 @@ foo("1");     // string(1) "1"
 foo(1.5);     // fatal error: int expected, float given
 foo(array()); // fatal error: int expected, array given
 foo("hi");    // fatal error: int expected, string given
-{% endhighlight %}
+```
 
 I like this proposal most, for several reasons: Firstly, it uses the "normal" type hinting syntax, not the strange
 cast syntax. Secondly it has stricter validation semantics as it only lets those values through which are representable
@@ -159,7 +159,7 @@ magic methods for casting objects to scalars and the other way around. Something
 
 Now see how this could be useful:
 
-{% highlight php startinline %}
+```php?start_inline=1
 class Int {
     protected $value;
 
@@ -189,11 +189,11 @@ function foo(Int $i) {
                                 // thus call $i->__toScalar() [or ->__toInt() or whatever],
                                 // which returns 10. This is then passed to str_repeat().
 }
-{% endhighlight %}
+```
 
 This basically allows you to implement type hinting in userland code. It also allows to create strict type hinting:
 
-{% highlight php startinline %}
+```php?start_inline=1
 class StrictInt {
     protected $value;
 
@@ -221,7 +221,7 @@ foo(10); // foo() is expecting a StrictInt, so call StrictInt::__fromScalar(10),
 
 foo("10"); // StrictInt::__fromScalar("10") is called, which tries to create
            // StrictInt("10"), but this raises an exception.
-{% endhighlight %}
+```
 
 As you can see, this proposal is very powerful as it allows users to define their own type hinting rules (PHP could
 obviously still provide some default `Int`, etc classes.)

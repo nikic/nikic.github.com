@@ -19,14 +19,14 @@ it):
 
 If we define the tokens in terms of regular expressions, they would look roughly like this:
 
-{% highlight php startinline %}
+```php?start_inline=1
 $tokenMap = array(
     '~[^",\r\n]+~A'                     => T_PLAIN_FIELD,
     '~"[^"\\\\]*(?:\\\\.[^"\\\\]*)*"~A' => T_QUOTED_FIELD,
     '~,~A'                              => T_FIELD_SEPARATOR,
     '~\r\n?|\n~A'                       => T_LINE_SEPARATOR,
 );
-{% endhighlight %}
+```
 
 Looping through the regexes
 ---------------------------
@@ -34,7 +34,7 @@ Looping through the regexes
 The most obvious approach to lexing in PHP is to simply loop through the regexes and match them
 against the current position, until there are no characters left:
 
-{% highlight php startinline %}
+```php?start_inline=1
 function lex($string, array $tokenMap) {
     $tokens = array();
 
@@ -56,7 +56,7 @@ function lex($string, array $tokenMap) {
 
     return $tokens;
 }
-{% endhighlight %}
+```
 
 The drawback of this code is fairly obvious: On every new offset one needs to iterate through all
 regexes and match them one at the time. This maybe isn't such a problem in this case as we only have
@@ -67,14 +67,14 @@ Compiling into a single regex
 
 The solution is to compile all regexes into a single big one. Our above regex would be converted to:
 
-{% highlight php startinline %}
+```php?start_inline=1
 $regex = '~
     ([^",\r\n]+)
   | ("[^"\\\\]*(?:\\\\.[^"\\\\]*)*")
   | (,)
   | (\r\n?|\n)
 ~xA';
-{% endhighlight %}
+```
 
 But how can we use this? How can we know which of the four subregexes matched the string? Simple: As
 all the subregexes are enclosed in parenthesis they are capturing groups. So our `$matches` array
@@ -83,7 +83,7 @@ other groups will be empty.
 
 An example: If the regex matched the `,` subregex, we would get this `$matches` array:
 
-{% highlight php startinline %}
+```php?start_inline=1
 array(
     0 => ',',
     1 => '',
@@ -91,13 +91,13 @@ array(
     3 => ',',
     4 => '',
 );
-{% endhighlight %}
+```
 
 From this we know that the 3rd subregex matched, as it is the one which has a value.
 
 The resulting code for an abstract lexer class would be:
 
-{% highlight php startinline %}
+```php?start_inline=1
 class Lexer {
     protected $regex;
     protected $offsetToToken;
@@ -127,7 +127,7 @@ class Lexer {
         return $tokens;
     }
 }
-{% endhighlight %}
+```
 
 How much does this really change?
 ---------------------------------

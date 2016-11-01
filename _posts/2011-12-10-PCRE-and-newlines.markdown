@@ -57,7 +57,7 @@ similarly to `\R`:
 
 To sum up, have a look at the following code:
 
-{% highlight php startinline %}
+```php?start_inline=1
 var_dump(preg_match('/^a.+b$/',        "a\r\nb"));  // 0 (Newline \n is     contained by \r\n)
 var_dump(preg_match('/^a.+b$/',        "a\nb"));    // 0 (Newline \n is     contained by \n)
 var_dump(preg_match('/^a.+b$/',        "a\rb"));    // 1 (Newline \n is not contained by \r)
@@ -66,7 +66,7 @@ var_dump(preg_match('/(*CR)^a.+b$/',   "a\rb"));    // 0 (Newline \r is     cont
 $LS = "\xE2\x80\xA8"; // Line Separator in UTF-8
 var_dump(preg_match('/(*ANY)^a.+b$/u', "a{$LS}b")); // 0 (Newline LS is     contained by LS)
 var_dump(preg_match('/(*ANY)^a.+b$/',  "a{$LS}b")); // 1 (u modifier was not specified, so LS isn't a newline anymore)
-{% endhighlight %}
+```
 
 `PCRE_DOTALL` and `\N`
 ----------------------

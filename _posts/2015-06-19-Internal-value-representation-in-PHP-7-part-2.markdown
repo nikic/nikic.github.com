@@ -107,12 +107,12 @@ and always live until the end of the request (or longer).
 Due to some memory management concerns, immutable arrays are only used if opcache is enabled. To see what kind of
 difference this can make, consider the following script:
 
-{% highlight php startinline %}
+```php?start_inline=1
 for ($i = 0; $i < 1000000; ++$i) {
     $array[] = ['foo'];
 }
 var_dump(memory_get_usage());
-{% endhighlight %}
+```
 
 With opcache the memory usage is 32 MiB, but without opcache usage rises to a whopping 390 MB, because each element of
 `$array` will get a new copy of `['foo']` in this case. The reason an actual copy is done here (instead of a refcount
@@ -371,7 +371,7 @@ Constants and ASTs
 There are two more special types `IS_CONSTANT` and `IS_CONSTANT_AST` which exist both in PHP 5 and PHP 7 and deserve a
 mention here. To understand what these do, consider the following example:
 
-{% highlight php startinline %}
+```php?start_inline=1
 function test($a = ANSWER,
               $b = ANSWER * ANSWER) {
     return $a + $b;
@@ -379,7 +379,7 @@ function test($a = ANSWER,
 
 define('ANSWER', 42);
 var_dump(test()); // int(42 + 42 * 42)
-{% endhighlight %}
+```
 
 The default values for the parameters of the `test()` function make use of the constant `ANSWER` - however this constant
 is not yet defined when the function was declared. The constant will only be available once the `define()` call has run.

@@ -43,18 +43,18 @@ The routing problem
 To make sure we're on the same page, lets first define what "routing" refers to. In the most practical form, it is the
 process of taking a set of route definitions in a form similar to the following...
 
-{% highlight php startinline %}
+```php?start_inline=1
 $r->addRoute('GET', '/user/{name}/{id:\d+}', 'handler0');
 $r->addRoute('GET', '/user/{id:\d+}', 'handler1');
 $r->addRoute('GET', '/user/{name}', 'handler2');
-{% endhighlight %}
+```
 
 ...and then dispatch a URI based on them:
 
-{% highlight php startinline %}
+```php?start_inline=1
 $d->dispatch('GET', '/user/nikic/42');
 // => provides 'handler0' and ['name' => 'nikic', 'id' => '42']
-{% endhighlight %}
+```
 
 To bring this to a more abstract level, we'll dispense with the HTTP methods and any specific format for route
 definitions. The only thing I'll be considering in this post is the dispatch stage - how the routes are parsed or the
@@ -91,7 +91,7 @@ The transformation is very simple: Basically you just need to OR all the individ
 against this expression, how can you find out which of the routes matched? To figure this out, lets look at a sample
 `preg_match` output:
 
-{% highlight php startinline %}
+```php?start_inline=1
 preg_match($regex, '/user/nikic', $matches);
 => [
     "/user/nikic",   # full match
@@ -99,23 +99,23 @@ preg_match($regex, '/user/nikic', $matches);
     "",              # groups from second route (empty)
     "nikic",         # groups from third route (used!)
 ]
-{% endhighlight %}
+```
 
 So the trick is to find the first non-empty entry in the `$matches` array (not counting the full match, of course). To
 make use of this, you'll need an additional data structure that maps the `$matches` offset to the matched route (or
 rather, the information associated with that route):
 
-{% highlight php startinline %}
+```php?start_inline=1
 [
     1 => ['handler0', ['name', 'id']],
     3 => ['handler1', ['id']],
     4 => ['handler2', ['name']],
 ]
-{% endhighlight %}
+```
 
 Here's a sample implementation of the whole process:
 
-{% highlight php startinline %}
+```php?start_inline=1
 public function dispatch($uri) {
     if (!preg_match($this->regex, $uri, $matches)) {
         return [self::NOT_FOUND];
@@ -132,7 +132,7 @@ public function dispatch($uri) {
     }
     return [self::FOUND, $handler, $vars];
 }
-{% endhighlight %}
+```
 
 After the first non-empty offset `$i` is found and the associated data was looked up, the placeholder variables can be
 populated by continuing to go through the `$matches` array and pairing the values with the variable names.
@@ -176,7 +176,7 @@ A little known feature of the PCRE regex syntax is the `(?| ... )` non-capturing
 `(?:` and `(?|` is that the latter will reset the group number in every branch it contains. To understand what this
 means lets consider an example:
 
-{% highlight php startinline %}
+```php?start_inline=1
 preg_match('~(?:(Sat)ur|(Sun))day~', 'Saturday', $matches)
 => ["Saturday", "Sat", ""]   # The last "" is not actually in the $matches array, but that's just
                              # an implementation detail. I'm writing it here to clarify the concept.
@@ -189,7 +189,7 @@ preg_match('~(?|(Sat)ur|(Sun))day~', 'Saturday', $matches)
 
 preg_match('~(?|(Sat)ur|(Sun))day~', 'Sunday', $matches)
 => ["Sunday", "Sun"]
-{% endhighlight %}
+```
 
 If `(?:` is used PCRE will create a separate entry in `$matches` for the two capturing groups around `Sat` and `Sun`,
 even though we know that only one of them can every match (i.e. be non-empty). Here both groups have distinct group
@@ -240,17 +240,17 @@ appending dummy groups:
 Now the first route has two groups (three `$matches`), the second route three groups (four `$matches`) and the third
 route has four groups (five `$matches`). As such the dispatch can be performed using the following lookup table:
 
-{% highlight php startinline %}
+```php?start_inline=1
 [
     3 => ['handler0', ['name', 'id']],
     4 => ['handler1', ['id']],
     5 => ['handler2', ['name']],
 ]
-{% endhighlight %}
+```
 
 Here's a sample implementation of this strategy:
 
-{% highlight php startinline %}
+```php?start_inline=1
 public function dispatch($uri) {
     if (!preg_match($this->regex, $uri, $matches)) {
         return [self::NOT_FOUND];
@@ -265,7 +265,7 @@ public function dispatch($uri) {
     }
     return [self::FOUND, $handler, $vars];
 }
-{% endhighlight %}
+```
 
 Let's see how this compares to the previous approach:
 
@@ -312,7 +312,7 @@ every chunk will need 9 * 10/2 = 45 dummy groups, which corresponds to a total o
 
 The implementation for the chunked regime stays about the same, only with an additional `foreach` loop:
 
-{% highlight php startinline %}
+```php?start_inline=1
 public function dispatch($uri) {
     foreach ($this->regexes as $i => $regex) {
         if (!preg_match($regex, $uri, $matches)) {
@@ -331,7 +331,7 @@ public function dispatch($uri) {
 
     return [self::NOT_FOUND];
 }
-{% endhighlight %}
+```
 
 Here are the timing results comparing the non-chunked and 10-chunked variants:
 

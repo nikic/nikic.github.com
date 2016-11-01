@@ -278,13 +278,13 @@ using the `123` key. PHP obviously chooses the latter option (as integers are sm
 You can have a little bit of fun with symtables, if you manage to somehow insert the `"123"` key without it being cast
 to `123`. One way is to exploit the array to object cast:
 
-{% highlight php startinline %}
+```php?start_inline=1
 $obj = new stdClass;
 $obj->{123} = "foo";
 $arr = (array) $obj;
 var_dump($arr[123]);   // Undefined offset: 123
 var_dump($arr["123"]); // Undefined offset: 123
-{% endhighlight %}
+```
 
 Object properties are always saved under string keys, even if they are numbers. So the `$obj->{123} = 'foo'` line
 actually saves `"foo"` under the `"123"` index, not the `123` index. When doing the array cast this is not changed. But
