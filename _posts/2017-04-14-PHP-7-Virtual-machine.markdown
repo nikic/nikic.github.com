@@ -59,7 +59,7 @@ Each operand has a type, stored in `op1_type`, `op2_type` and `result_type` resp
 
 The three latter types designated a variable operand (with three different types of VM variables), `IS_CONST` denotes
 a constant operand (`5` or `"string"` or even `[1, 2, 3]`), while `IS_UNUSED` denotes an operand that is either actually
-unused, or which is used as a 32-bit numeric value (an "immediate", in assembly jargon). For example jump instructions
+unused, or which is used as a 32-bit numeric value (an "immediate", in assembly jargon). Jump instructions for example
 will store the jump target in an `UNUSED` operand.
 
 ### Obtaining opcode dumps
@@ -162,7 +162,7 @@ struct _zend_op_array {
 The most important part here are of course the `opcodes`, which is an array of opcodes (instructions). `last` is the
 number of opcodes in this array. Note that the terminology is confusing here, as `last` sounds like it should be the
 index of the last opcode, while it really is the number of opcodes (which is one greater than the last index). The same
-applies to all other "last_*" values in the op array structure.
+applies to all other `last_*` values in the op array structure.
 
 `last_var` is the number of CVs, and `T` is the number of TMPs and VARs (in most places we make no strong distinction
 between them). `vars` in array of names for CVs.
@@ -177,10 +177,9 @@ Stack frame layout
 ------------------
 
 Apart from some executor globals (EG), all execution state is stored on the virtual machine stack. The VM stack is
-allocated in pages of (usually) 256 KiB and individual pages are connected through a linked list.
+allocated in pages of 256 KiB and individual pages are connected through a linked list.
 
-On each function call, a new stack frame is allocated on the VM stack. For an ordinary non-generator function this
-frame has the following layout:
+On each function call, a new stack frame is allocated on the VM stack, with the following layout:
 
     +----------------------------------------+
     | zend_execute_data                      |
@@ -232,7 +231,7 @@ the currently executed function. Furthermore:
  * `called_scope` is the scope that `static::` refers to in PHP code.
  * `prev_execute_data` points to the previous stack frame, to which execution will return after this function finished
    running.
- * `symbol_table` is a typically unused symbol table used in case some crazy person actually uses variable variable or
+ * `symbol_table` is a typically unused symbol table used in case some crazy person actually uses variable variables or
    similar features.
  * `run_time_cache` caches the op array runtime cache, in order to avoid one pointer indirection when accessing this
    structure (which is discussed later).
@@ -244,9 +243,9 @@ Function calls
 I've skipped one field in the execute_data structure, namely `call`, as it requires some further context about how
 function calls work.
 
-All calls use a variations on the same instruction sequence. A `var_dump($a, $b)` in global scope will compile to
+All calls use a variation on the same instruction sequence. A `var_dump($a, $b)` in global scope will compile to:
 
-    INIT_FCALL (2 args) 'var_dump'
+    INIT_FCALL (2 args) "var_dump"
     SEND_VAR $a
     SEND_VAR $b
     V0 = DO_ICALL   # or just DO_ICALL if retval unused
@@ -260,12 +259,12 @@ While the specific instructions may differ, the structure is always the same: IN
 call sequence has to contend with are nested function calls, which compile something like this:
 
     # var_dump(foo($a), bar($b))
-    INIT_FCALL (2 args) 'var_dump'
-        INIT_FCALL (1 arg) 'foo'
+    INIT_FCALL (2 args) "var_dump"
+        INIT_FCALL (1 arg) "foo"
         SEND_VAR $a
         V0 = DO_UCALL
     SEND_VAR V0
-        INIT_FCALL (1 arg) 'bar'
+        INIT_FCALL (1 arg) "bar"
         SEND_VAR $b
         V1 = DO_UCALL
     SEND_VAR V1
@@ -285,7 +284,7 @@ stack frame of the `var_dump` (rather than that of the surrounding function). As
 forms a linked list of "unfinished" calls, while usually it would provide the backtrace chain.
 
 The SEND opcodes then proceed to push arguments into the variable slots of `EX(call)`. At this point the arguments are
-all consecutive and may overflow from the section designed for arguments into other CVs or TMPs. This will be fixed
+all consecutive and may overflow from the section designated for arguments into other CVs or TMPs. This will be fixed
 later.
 
 Lastly DO_FCALL performs the actual call. What was `EX(call)` becomes the current function and `prev_execute_data` is
@@ -295,7 +294,7 @@ frame.
 
 This initialization involves fixing up the argument stack. PHP allows passing more arguments to a function than it
 expects (and `func_get_args` relies on this). However, only the actually declared arguments have corresponding CVs.
-Any arguments beyond this will write in memory reserved for other CVs and TMPs. As such these arguments will be moved
+Any arguments beyond this will write into memory reserved for other CVs and TMPs. As such, these arguments will be moved
 after the TMPs, ending up with arguments segmented into two non-continuous chunks.
 
 To have it clearly stated, userland function calls do not involve recursion at the virtual machine level. They only
@@ -306,7 +305,7 @@ stack overflow by recursion through callback-functions or magic methods.
 
 ### Argument sending
 
-PHP uses a large number of different argument sending opcodes, those differences can be confusing, no thanks to some
+PHP uses a large number of different argument sending opcodes, whose differences can be confusing, no thanks to some
 unfortunate naming.
 
 SEND_VAL and SEND_VAR are the simplest variants, which handle sending of by-value arguments that are known to be
@@ -320,9 +319,9 @@ argument is by-value or by-reference. These opcodes will check the kind of the a
 accordingly. In most cases the actual arginfo structure is not used, but rather a compact bit vector representation
 directly in the function structure.
 
-And then there is SEND_VAR_NO_REF_EX. Don't try to reading anything into its name, it's outright lying. This opcode is
+And then there is SEND_VAR_NO_REF_EX. Don't try to read anything into its name, it's outright lying. This opcode is
 used when passing something that isn't really a "variable" but does return a VAR to a statically unknown argument. Two
-particular examples where it is used is passing the result of a function call as an argument, or passing the result of
+particular examples where it is used are passing the result of a function call as an argument, or passing the result of
 an assignment.
 
 This case needs a separate opcode for two reasons: Firstly, it will generate the familiar "Only variables should be
@@ -344,14 +343,14 @@ The last opcode is SEND_USER, which is used for inlined `call_user_func` calls a
 
 While we haven't yet discussed the different variable fetch modes, this seems like a good place to introduce the
 FUNC_ARG fetch mode. Consider a simple call like `func($a[0][1][2])`, for which we do not know at compile-time whether
-the argument will be passed by-value or by-value. In both cases the behavior will be wildly different. If the pass is
+the argument will be passed by-value or by-reference. In both cases the behavior will be wildly different. If the pass is
 by-value and `$a` was previously empty, this could would have to generate a bunch of "undefined index" notices. If the
 pass is by-reference we'd have to silently initialize the nested arrays instead.
 
 The FUNC_ARG fetch mode will dynamically choose one of the two behaviors (R or W), by inspecting the arginfo of the
-current EX(call) function. For the `func($a[0][1][2])` example, the opcode sequence might look something like this:
+current `EX(call)` function. For the `func($a[0][1][2])` example, the opcode sequence might look something like this:
 
-    INIT_FCALL_BY_NAME 'func'
+    INIT_FCALL_BY_NAME "func"
     V0 = FETCH_DIM_FUNC_ARG (arg 1) $a, 0
     V1 = FETCH_DIM_FUNC_ARG (arg 1) V0, 1
     V2 = FETCH_DIM_FUNC_ARG (arg 1) V1, 2
@@ -449,9 +448,10 @@ alone. A normal write-fetch would initialize undefined offsets instead.
 ### Writes and memory safety
 
 Write fetches return VARs that may contain either a normal zval or an INDIRECT pointer to another zval. Of course, in
-the former case a change will not be visible, as the value is only accessible through a VM temporary. While PHP
-prohibits expression such as `[][0] = 42`, we still need to handle this for cases like `call()[0] = 42`. Depending on
-whether `call()` returns by-value or by-reference, this expression may or may not have an observable effect.
+the former case any changes applied to the zval will not be visible, as the value is only accessible through a VM
+temporary. While PHP prohibits expression such as `[][0] = 42`, we still need to handle this for cases like
+`call()[0] = 42`. Depending on whether `call()` returns by-value or by-reference, this expression may or may not have an
+observable effect.
 
 The more typical case is when the fetch returns an INDIRECT, which contains a pointer to the storage location that is
 being modified, for example a certain location in a hashtable data array. Unfortunately, such pointers are fragile
@@ -461,7 +461,9 @@ created and where it is consumed.
 
 Consider this example:
 
-    $arr[a()][b()] = c();
+```php?start_inline=1
+$arr[a()][b()] = c();
+```
 
 Which generates:
 
@@ -481,7 +483,9 @@ instruction are directly adjacent.
 
 Consider another example:
 
-    $arr[0] =& $arr[1];
+```php?start_inline=1
+$arr[0] =& $arr[1];
+```
 
 Here we have a bit of problem: Both sides of the assignment must be fetched for write. However, if we fetch `$arr[0]`
 for write and then `$arr[1]` for write, the latter might invalidate the former. This problem is solved as follows:
@@ -544,17 +548,16 @@ are indeed inside a try block, the VM needs to clean up all unfinished operation
 opline and don't span past the end of the try block.
 
 This involves freeing the stack frames and associated data of all calls currently in flight, as well as freeing live
-temporaries. In the majority of cases temporaries are short-lived to the point that the generating and the consuming
-instruction immediately follow. However it can happen that the live-range spans multiple, potentially throwing
-instructions:
+temporaries. In the majority of cases temporaries are short-lived to the point that the consuming instruction directly
+follows the generating one. However it can happen that the live-range spans multiple, potentially throwing instructions:
 
     # (array)[] + throwing()
     L0:   T0 = CAST (array) []
-    L1:   INIT_FCALL (0 args) throwing
+    L1:   INIT_FCALL (0 args) "throwing"
     L2:   V1 = DO_FCALL
     L3:   T2 = ADD T0, V1
 
-In this case the T0 variable is live-in during instructions L1 and L2, and as such would need to be destroyed if the
+In this case the T0 variable is live during instructions L1 and L2, and as such would need to be destroyed if the
 function call throws. One particular type of temporary tends to have particularly long live ranges: Loop variables.
 For example:
 
@@ -606,8 +609,8 @@ even if an exception is thrown.
 
 The case of the result operand is more tricky, because the answer here changed between PHP 7.1 and 7.2: In PHP 7.1 the
 instruction was responsible for freeing the result in case of an exception. In PHP 7.2 it is automatically freed (and
-the instruction is responsible for making sure it is *always* populated). The motivation for this change is the way that
-many basic instructions (such as ADD) are implemented. Their usual structure goes roughly as follows:
+the instruction is responsible for making sure the result is *always* populated). The motivation for this change is the
+way that many basic instructions (such as ADD) are implemented. Their usual structure goes roughly as follows:
 
     1. read input operands
     2. perform operation, write it into result operand
