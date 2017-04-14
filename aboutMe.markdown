@@ -22,7 +22,11 @@ My most popular open-source projects, sorted by stars:
 
 ### Accepted PHP proposals
 
-**PHP 7:**
+**PHP 7.1:**
+
+ * [Forbid dynamic calls to scope introspection functions](https://wiki.php.net/rfc/forbid_dynamic_scope_introspection)
+
+**PHP 7.0:**
 
  * [*Exceptions in the engine*](https://wiki.php.net/rfc/engine_exceptions_for_php7)
  * [*Abstract syntax tree*](https://wiki.php.net/rfc/abstract_syntax_tree)
@@ -45,9 +49,24 @@ My most popular open-source projects, sorted by stars:
  * [Remove `/e` modifier from `preg_replace()`](https://wiki.php.net/rfc/remove_preg_replace_eval_modifier)
  * [Support non-scalar foreach keys](https://wiki.php.net/rfc/foreach-non-scalar-keys)
 
+### Presentations
+
+ * PHP 7: What changed internally? [IPC'15] <br>
+   ([slides](http://www.slideshare.net/nikita_ppv/php-7-what-changed-internally))
+ * PHP 7: What changed internally? [PHP Barcelona'15] <br>
+   ([slides](https://www.slideshare.net/nikita_ppv/php-7-what-changed-internally-php-barcelona-2015),
+    [video](https://www.youtube.com/watch?v=M8Ktic5sPlo))
+ * PHP 7: What changed internally? [Forum PHP'15] <br>
+   ([slides](https://www.slideshare.net/nikita_ppv/php-7-what-changed-internally-forum-php-2015),
+    [video](https://www.youtube.com/watch?v=zekEqhaPmag))
+
+### Papers
+
+ * Static Optimization of PHP 7 [CC'17] <br>
+   ([pdf](pdf/cc17_static_optimization.pdf),
+    [acm](http://dl.acm.org/citation.cfm?id=3033026))
+
 ### Miscellaneous
 
  * [PHP internals book](http://www.phpinternalsbook.com/)
-   <br> Free (but incomplete) book on PHP extension development
- * [PHP 7: What changed internally?](http://www.slideshare.net/nikita_ppv/php-7-what-changed-internally)
-   <br> Slides for presentation at IPC'15
+   <br> Free (but incomplete) book on PHP 5 extension development
