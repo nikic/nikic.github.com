@@ -1035,7 +1035,7 @@ return value is used. ASSIGN_DIM specializes based on the operand type of the fo
     ZEND_VM_HANDLER(147, ZEND_ASSIGN_DIM,
         VAR|CV, CONST|TMPVAR|UNUSED|NEXT|CV, SPEC(OP_DATA=CONST|TMP|VAR|CV))
 
-Based on this signature, 2*4*4=32 different variants of ASSIGN_DIM will be generated. The specification for the second
+Based on this signature, 2\*4\*4=32 different variants of ASSIGN_DIM will be generated. The specification for the second
 operand also contains an entry for `NEXT`. This is not related to specialization, instead it specifies what the meaning
 of an UNUSED operand is in this context: it means that this is an append operations (`$arr[]`). Another example:
 
