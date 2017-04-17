@@ -543,7 +543,7 @@ typedef struct _zend_try_catch_element {
 } zend_try_catch_element;
 ```
 
-For now we will pretend that finally blocks do not exist, as they are a whole different rabbit whole. Assuming that we
+For now we will pretend that finally blocks do not exist, as they are a whole different rabbit hole. Assuming that we
 are indeed inside a try block, the VM needs to clean up all unfinished operations that started before the throwing
 opline and don't span past the end of the try block.
 
