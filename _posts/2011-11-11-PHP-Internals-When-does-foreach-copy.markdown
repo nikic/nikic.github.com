@@ -3,9 +3,13 @@ layout: post
 title: "PHP internals: When does foreach copy?"
 excerpt: PHP's foreach language construct sometimes copies the array it iterates and sometimes does not. This post analyzes when and why this happens.
 ---
-**Important**: This post requires some knowledge of PHP's internal workings, namely `zval`s,
-`refcount`s and copy-on-write behavior. If those terms don't mean anything to you, you will need to
-read up on them in oder to understand this post. I would recommend [an article by Sara Golemon][0].
+**Update** (2017-24-12): This article describes the copying behavior of `foreach` in PHP 5. A better description of the
+overall foreach behavior and the reasons behind it, covering both PHP 5 and PHP 7, is available in [this StackOverflow
+answer][foreach].
+
+This post requires some knowledge of PHP's internal workings, namely `zval`s, `refcount`s and
+copy-on-write behavior. If those terms don't mean anything to you, you will need to read up on
+them in oder to understand this post. I would recommend [an article by Sara Golemon][0].
 
 PHP's `foreach` is a very neat and to-the-point language construct. Still some people don't like to
 use it, because they think it is slow. One reason usually named is that `foreach` copies the array
@@ -149,3 +153,4 @@ To summarize:
  [7]: http://codepad.viper-7.com/O584we
  [8]: http://codepad.viper-7.com/nNX1Rt
  [9]: http://codepad.viper-7.com/lQC1K6
+ [foreach]: https://stackoverflow.com/a/14854568/385378
