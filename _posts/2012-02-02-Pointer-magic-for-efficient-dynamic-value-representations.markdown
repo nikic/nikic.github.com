@@ -10,7 +10,7 @@ and space efficient.
 I think it's worth the time to look at those neat little tricks for two reasons: Firstly, some of
 them are also applicable in other situations (though most of them admittedly are not). And secondly,
 because they remind you of how various data is represented at the low level (stuff you may have
-learned in your CS courses at some point - or probably not).
+learned in your CS courses at some point - or maybe not).
 
 So, let's start!
 
@@ -18,7 +18,7 @@ The trivial approach: Tagged unions
 -----------------------------------
 
 JavaScript is a dynamically typed language and as such needs some kind of "value" data structure,
-which stores the current type and the value in that type. The trivial approach to this problem is to
+which stores the current type and a value of that type. The trivial approach to this problem is to
 use a tagged union. This could look roughly like this:
 
 {% highlight cpp %}
@@ -57,20 +57,21 @@ inline Value::Value(Object *object) {
 }
 {% endhighlight %}
 
-This straightforward approach has several problems: The size of the above object would be 16 bytes =
-128 bits (on a 64 bit machine). This is a size that you wouldn't just pass around by value. So you
-need to allocate it on the heap and use a pointer to it. Allocating stuff on the heap is slow and
-incurs memory overhead. When using the value later it has to be fetched from the heap, which is
-again slow.
+The problem with this straightforward approach is that the size of the above object would be
+16 bytes = 128 bits (on a 64 bit machine), even though the actual information content is much
+lower (any individual value can be stored in 64 bits or less). Especially if this value structure
+is stored in an array, the overhead quickly adds up. Even outside of arrays, simply passing around
+this structure will already take up two 64 bit registers, and so on.
 
-So what we want is to make values smaller and move them off the heap. Before we get to that, let's
-first have a look at a technique called pointer tagging:
+So what we want is to make values smaller, ideally reducing them to just the size of the payload.
+Before we get to that for the general case, let's first have a look at a technique called pointer
+tagging:
 
 An interlude: Pointer tagging
 -----------------------------
 
 Have a look at the above structure again. It consists of a union, which has a size of 8 bytes, and
-an integer which fits into a single byte (a `char`). So theoretically the total size should be 9
+an integer which could fit into a single byte (a `char`). So theoretically the total size should be 9
 bytes. But it's not - it's 16 bytes. This is because the compiler adds padding to the data structure
 in order to align it in memory.
 
@@ -85,7 +86,7 @@ be aligned to 8 bytes it means that they will be multiples of 8. A pointer thus 
 0b11000 (=24), 0b11010101001011000 (=109144).
 
 As you can see the lower three bits are always zero. So those three bits are basically free to use.
-We can use them to store a "tag" in where, which is an integer between 0 (0b000) and 7 (0b111).
+We can use them to store a "tag", which is an integer between 0 (0b000) and 7 (0b111).
 
     pppppppp|pppppppp|pppppppp|pppppppp|pppppppp|pppppppp|pppppppp|pppppTTT
     ^- actual pointer                                   three tag bits -^
@@ -133,10 +134,10 @@ public:
         asBits |= tag;
     }
 
-    inline T *getPointer() {
+    inline T *getPointer() const {
         return reinterpret_cast<T *>(asBits & pointerMask);
     }
-    inline int getTag() {
+    inline int getTag() const {
         return asBits & tagMask;
     }
 };
@@ -160,21 +161,21 @@ But before we get to that let's first have a look at another, very similar trick
 Storing integers in the pointer
 -------------------------------
 
-JavaScript does not have an integer type per se, it only has IEEE 754 doubles. Still people mainly
+JavaScript does not have an integer type per se, it only has IEEE 754 doubles. Still, people mainly
 work with small integral numbers (think of loops, array indexes, etc). Thus it makes sense to store
 those small integers in a real integer variable instead of a double, because many operations are
 much faster this way. That's also the reason why in the `Value` class above I have a distinct int32
 type and not just a double type.
 
-Especially for integers the above `Value` approach seems like overkill. One has to allocate 16 bytes
-of memory (+ overhead) and has to maintain a pointer, just to store 4 bytes of data. That's
-inefficient both in terms of memory and performance.
+Especially for integers the above `Value` approach seems like overkill: The 16 byte `Value` structure
+only stores 4 bytes of actual data, one byte of type information, and the remaining 11 bytes being
+padding.
 
 The solution obviously is to use something similar to the tagged pointers introduced above. You can
 say: "If the last bit of the pointer is 1 then it actually isn't a pointer at all, but it's an
 integer."
 
-Here is how a pointer would look:
+Here is how a pointer would look like:
 
     pppppppp|pppppppp|pppppppp|pppppppp|pppppppp|pppppppp|pppppppp|pppppTT0
     ^- actual pointer                                     two tag bits -^ ^- last bit 0
@@ -246,26 +247,26 @@ public:
         asBits = (number << 1) | 1;
     }
 
-    inline T *getPointer() {
+    inline T *getPointer() const {
         assert(isPointer());
 
         return reinterpret_cast<T *>(asBits & pointerMask);
     }
-    inline int getTag() {
+    inline int getTag() const {
         assert(isPointer());
 
         return (asBits & tagMask) >> 1;
     }
-    inline intptr_t getInt() {
+    inline intptr_t getInt() const {
         assert(isInt());
 
         return asBits >> 1;
     }
 
-    inline bool isPointer() {
+    inline bool isPointer() const {
         return (asBits & 1) == 0;
     }
-    inline bool isInt() {
+    inline bool isInt() const {
         return (asBits & 1) == 1;
     }
 };
@@ -295,13 +296,12 @@ Booleans could be stored similarly to ints (and fetched using a simple `bool >> 
                                                     actual bool value -^  ^- last bit 0 (as it isn't an int)
                            tag = 3 = 0b11 to identify that it's a bool -^^
 
-So what have we gained overall? Quite a bit! Integers (and bools) aren't allocated on the heap
-anymore. That saves memory and probably more importantly improves performance (because the code
-doesn't have to access the heap). Also the pointers to strings and objects can now be dereferenced
-directly, without first fetching a value (which stores a pointer to the real string/object).
+So what have we gained overall? Quite a bit: The size of the value structure is back to 64 bits,
+making it half as large. However, there is also a cost: Doubles now need to be stored as a pointer,
+which also implies that they have to be allocated on the heap. As such, we have improved the situation
+for most types, but introduced a large regression for doubles.
 
-But we aren't done yet: The double still requires a pointer; wouldn't it be nice to get rid of that
-too?
+Wouldn't it be nice if we could avoid that heap allocation for doubles as well?
 
 Pointers in the NaN-Space
 -------------------------
@@ -344,7 +344,7 @@ sign bit is set:
 
 {% highlight cpp %}
 inline bool isNegativeZero(double number) {
-    return number == 0 && *reinterpret_cast<int64_t *>(&number) != 0;
+    return number == 0. && *reinterpret_cast<int64_t *>(&number) != 0;
 }
 {% endhighlight %}
 
@@ -367,15 +367,15 @@ by the sign bit.
     seeeeeee|eeeemmmm|mmmmmmmm|mmmmmmmm|mmmmmmmm|mmmmmmmm|mmmmmmmm|mmmmmmmm
     s1111111|11110ppp|pppppppp|pppppppp|pppppppp|pppppppp|pppppppp|pppppppp
                  ^- first mantissa bit 0    everything else is "payload" -^
-     ^- exponent bits all 1
-    ^- any sign bit
+     ^- exponent bits all 1                 and mustn't be all-zero (as it
+    ^- any sign bit                         would be INF then)
 
     Quiet NaN:
     seeeeeee|eeeemmmm|mmmmmmmm|mmmmmmmm|mmmmmmmm|mmmmmmmm|mmmmmmmm|mmmmmmmm
     s1111111|11111ppp|pppppppp|pppppppp|pppppppp|pppppppp|pppppppp|pppppppp
                  ^- first mantissa bit 1    everything else is "payload" -^
-     ^- exponent bits all 1                 and mustn't be all-zero (as it
-    ^- any sign bit                         would be INF then)
+     ^- exponent bits all 1
+    ^- any sign bit
 
 NaNs represent values that are Not a Number. E.g. 0.0/0.0 = NaN. NaNs also have interesting
 comparison semantics, as any comparison with NaN will be false (including NaN == NaN).
@@ -393,17 +393,16 @@ used much, at least in MSVC this is disabled by default and needs to be enabled 
 Where it starts to get interesting for us is that NaNs additionally encode a 51 bit "payload" in the
 mantissa. This payload was originally designed to contain error information.
 
-But deceitful as we are we will misuse that NaN payload to stuff other things in it - like integers
+But deceitful as we are, we will misuse that NaN payload to stuff other things in it - like integers
 and pointers.
 
 ### 64 bit is a lie
 
 On 64 bit architectures pointers have a size of 64 bits, obviously. But think about that again: How
 much is 64 bit actually? That's 2^64 = 1.84467441 * 10^19 addressable memory bytes. That's 16 EiB
-(Exabytes). Or talking in more convenient terms that's 17179869184 Gigabytes. I don't know about you
-but I only have 4GB of memory. I've heard of exotic server setups that have around 800 GB of memory.
-But even those abominations costing hundreds of thousands of dollars still would only need a 40 bit
-pointer space (2^40 = 1024 GB).
+(Exabytes). Or talking in more convenient terms that's 17179869184 Gigabytes. I don't know about you,
+but I only have 16GB of memory. Some high-end server setups may have 4 TiB of memory, but even those
+only need a 42 bit address space (2^42 = 4 TiB).
 
 Unsurprisingly we aren't the first to notice this: the x86-64 architecture utilizes only the lower
 48 bits (which still allows 256 TiB) of a pointer. Additionally bits 63 through 48 must be copies
@@ -479,27 +478,27 @@ public:
         asBits = reinterpret_cast<uint64_t>(pointer) | PtrTag;
     }
 
-    inline bool isDouble() {
+    inline bool isDouble() const {
         return asBits < MaxDouble;
     }
-    inline bool isInt32() {
+    inline bool isInt32() const {
         return (asBits & Int32Tag) == Int32Tag;
     }
-    inline bool isPointer() {
+    inline bool isPointer() const {
         return (asBits & PtrTag) == PtrTag;
     }
 
-    inline double getDouble() {
+    inline double getDouble() const {
         assert(isDouble());
 
         return asDouble;
     }
-    inline int32_t getInt32() {
+    inline int32_t getInt32() const {
         assert(isInt32());
 
         return static_cast<int32_t>(asBits & ~Int32Tag);
     }
-    inline void *getPointer() {
+    inline void *getPointer() const {
         assert(isPointer());
 
         return reinterpret_cast<void *>(asBits & ~PtrTag);
