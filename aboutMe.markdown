@@ -59,6 +59,10 @@ My most popular open-source projects, sorted by stars:
  * PHP 7: What changed internally? [Forum PHP'15] <br>
    ([slides](https://www.slideshare.net/nikita_ppv/php-7-what-changed-internally-forum-php-2015),
     [video](https://www.youtube.com/watch?v=zekEqhaPmag))
+ * PHP language trivia [PHPKonf'17] <br>
+   ([slides](https://www.slideshare.net/nikita_ppv/php-language-trivia)
+ * Static Optimization of PHP bytecode [PHPSC'17]
+   ([slides](https://www.slideshare.net/nikita_ppv/static-optimization-of-php-bytecode-phpsc-2017))
 
 ### Papers
 
