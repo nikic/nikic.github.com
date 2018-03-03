@@ -220,8 +220,7 @@ The reason is that we didn't specify how `in` should behave around other operato
 The above is called "operator precedence". A related concept is "operator associativity", which determines what happens
 when you write `$foo in $bar in $baz`.
 
-In order to fix the shift/reduce conflicts all you have to do is find the following line at the start of the parser and
-`T_IN` at the end of it:
+In order to fix the shift/reduce conflicts all you have to do is find the following line at the start of the parser and add `T_IN` at the end of it:
 
     %nonassoc '<' T_IS_SMALLER_OR_EQUAL '>' T_IS_GREATER_OR_EQUAL
 
