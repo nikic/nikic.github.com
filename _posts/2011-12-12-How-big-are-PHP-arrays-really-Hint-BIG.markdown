@@ -282,16 +282,16 @@ uses. This is because a fixed array doesn't need the bucket structure: So it onl
 (48 bytes) and one pointer (8 bytes) for each element, giving us the observed 56 bytes.
 
   [3]: https://en.wikipedia.org/wiki/Union_%28computer_science%29
-  [4]: https://lxr.room11.org/xref/php-src@5.6/Zend/zend.h#307
+  [4]: https://lxr.room11.org/xref/php-src@5.6/Zend/zend.h#322
   [5]: http://blog.golemon.com/2007/01/youre-being-lied-to.html
-  [6]: https://lxr.room11.org/xref/php-src@5.6/Zend/zend_hash.h#54
+  [6]: https://lxr.room11.org/xref/php-src@5.6/Zend/zend_hash.h#55
   [7]: http://schlueters.de/blog/
   [8]: http://www.tyrael.hu/
   [9]: https://php.net/manual/en/features.gc.collecting-cycles.php
-  [10]: https://lxr.room11.org/xref/php-src@5.6/Zend/zend.h#318
-  [11]: https://lxr.room11.org/xref/php-src@5.6/Zend/zend_gc.h#zval_gc_info
+  [10]: https://lxr.room11.org/xref/php-src@5.6/Zend/zend.h#334
+  [11]: https://lxr.room11.org/xref/php-src@5.6/Zend/zend_gc.h#91
   [12]: https://php.net/manual/en/internals2.memory.php
   [13]: http://g.oswego.edu/dl/html/malloc.html
-  [14]: https://lxr.room11.org/xref/php-src@5.6/Zend/zend_alloc.c#336
+  [14]: https://lxr.room11.org/xref/php-src@5.6/Zend/zend_alloc.c#366
   [15]: https://php.net/SplFixedArray
   [16]: https://nikic.github.io/2014/12/22/PHPs-new-hashtable-implementation.html

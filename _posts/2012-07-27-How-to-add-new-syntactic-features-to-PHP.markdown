@@ -605,8 +605,8 @@ As always, if you have any further comments or questions, please leave them belo
   [compiler]: https://lxr.room11.org/xref/php-src@5.6/Zend/zend_compile.c
   [compiler_header]: https://lxr.room11.org/xref/php-src@5.6/Zend/zend_compile.h
   [tokenizer]: https://php.net/tokenizer
-  [zend_op]: https://lxr.room11.org/xref/php-src@5.6/Zend/zend_compile.h#106
-  [znode_op]: https://lxr.room11.org/xref/php-src@5.6/Zend/zend_compile.h#74
+  [zend_op]: https://lxr.room11.org/xref/php-src@5.6/Zend/zend_compile.h#111
+  [znode_op]: https://lxr.room11.org/xref/php-src@5.6/Zend/zend_compile.h#78
   [zend_op_array]: https://lxr.room11.org/xref/php-src@5.6/Zend/zend_compile.h#_zend_op_array
   [vm_def]: https://lxr.room11.org/xref/php-src@5.6/Zend/zend_vm_def.h
   [vm_gen]: https://lxr.room11.org/xref/php-src@5.6/Zend/zend_vm_execute.h

@@ -300,12 +300,12 @@ internally.
  [1]: https://blog.ircmaxell.com/2012/03/phps-source-code-for-php-developers.html
  [2]: https://nikic.github.com/2012/03/16/Understanding-PHPs-internal-function-definitions.html
  [3]: https://blog.ircmaxell.com/2012/03/phps-source-code-for-php-developers_21.html
- [4]: https://lxr.room11.org/xref/php-src@5.6/Zend/zend_hash.h#261
- [5]: https://lxr.room11.org/xref/php-src@5.6/Zend/zend_hash.h#66
- [6]: https://lxr.room11.org/xref/php-src@5.6/Zend/zend_hash.h#54
- [7]: https://lxr.room11.org/xref/php-src@5.6/ext/standard/array.c#1583
+ [4]: https://lxr.room11.org/xref/php-src@5.6/Zend/zend_hash.h#269
+ [5]: https://lxr.room11.org/xref/php-src@5.6/Zend/zend_hash.h#67
+ [6]: https://lxr.room11.org/xref/php-src@5.6/Zend/zend_hash.h#55
+ [7]: https://lxr.room11.org/xref/php-src@5.6/ext/standard/array.c#1551
  [8]: https://lxr.room11.org/xref/php-src@5.6/Zend/zend_hash.h#98
- [9]: https://lxr.room11.org/xref/php-src@5.6/Zend/zend_API.h#353
+ [9]: https://lxr.room11.org/xref/php-src@5.6/Zend/zend_API.h#364
  [10]: https://php.net/array_fill_keys
  [11]: https://nikic.github.com/2012/03/16/Understanding-PHPs-internal-function-definitions.html
  [12]: https://blog.ircmaxell.com/

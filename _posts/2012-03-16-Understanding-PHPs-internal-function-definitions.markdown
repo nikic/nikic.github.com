@@ -249,9 +249,9 @@ they are used in the source code (all those `Z_***` macros...)
   [3]: https://lxr.room11.org/search?project=php-src@5.6&q=strpos
   [4]: https://lxr.room11.org/search?project=php-src@5.6&q="PHP_FUNCTION+strpos"
   [5]: https://lxr.room11.org/xref/php-src@5.6/ext/standard/php_string.h#48
-  [6]: https://lxr.room11.org/xref/php-src@5.6/ext/standard/string.c#1789
+  [6]: https://lxr.room11.org/xref/php-src@5.6/ext/standard/string.c#1827
   [7]: https://php.net/sprintf
   [8]: https://lxr.room11.org/search?project=php-src@5.6&q="ZEND_FUNCTION+strlen"
-  [9]: https://lxr.room11.org/xref/php-src@5.6/Zend/zend_builtin_functions.c#478
+  [9]: https://lxr.room11.org/xref/php-src@5.6/Zend/zend_builtin_functions.c#481
   [10]: https://lxr.room11.org/search?project=php-src@5.6&q=SplFixedArray::getSize
   [11]: https://blog.ircmaxell.com/
