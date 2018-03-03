@@ -204,13 +204,13 @@ Does this still teach us something? Yes, it does: "Never trust a statistic you d
 yourself." Amen.
 
   [1]: https://www.google.com/search?q=php+single+quotes+performance
-  [2]: http://stackoverflow.com/questions/482202/is-there-a-performance-benefit-single-quote-vs-double-quote-in-php
-  [3]: http://stackoverflow.com/questions/3316060/single-quotes-or-double-quotes-for-variable-concatenation
+  [2]: https://stackoverflow.com/questions/482202/is-there-a-performance-benefit-single-quote-vs-double-quote-in-php
+  [3]: https://stackoverflow.com/questions/3316060/single-quotes-or-double-quotes-for-variable-concatenation
   [4]: http://atomized.org/2005/04/php-performance-best-practices/
   [5]: https://github.com/fabpot/Twig/issues/407
   [6]: http://classyllama.com/development/php/php-single-vs-double-quotes/
-  [7]: http://stackoverflow.com/questions/482202/is-there-a-performance-benefit-single-quote-vs-double-quote-in-php#comment-299001
-  [8]: http://php.net/manual/en/book.apc.php
-  [9]: http://php.net/token_get_all
+  [7]: https://stackoverflow.com/questions/482202/is-there-a-performance-benefit-single-quote-vs-double-quote-in-php#comment-299001
+  [8]: https://php.net/manual/en/book.apc.php
+  [9]: https://php.net/token_get_all
   [10]: http://codepad.viper-7.com/tBx3TZ
   [11]: http://codepad.viper-7.com/p4aUGN

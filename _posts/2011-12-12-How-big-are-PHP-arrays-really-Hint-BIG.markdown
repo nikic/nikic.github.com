@@ -281,17 +281,17 @@ bytes. That's 56 bytes per element and thus much less than the 144 bytes per ele
 uses. This is because a fixed array doesn't need the bucket structure: So it only requires one zval
 (48 bytes) and one pointer (8 bytes) for each element, giving us the observed 56 bytes.
 
-  [3]: http://en.wikipedia.org/wiki/Union_%28computer_science%29
-  [4]: http://lxr.php.net/opengrok/xref/PHP_5_4/Zend/zend.h#307
+  [3]: https://en.wikipedia.org/wiki/Union_%28computer_science%29
+  [4]: https://lxr.room11.org/xref/php-src@5.6/Zend/zend.h#307
   [5]: http://blog.golemon.com/2007/01/youre-being-lied-to.html
-  [6]: http://lxr.php.net/opengrok/xref/PHP_5_4/Zend/zend_hash.h#54
+  [6]: https://lxr.room11.org/xref/php-src@5.6/Zend/zend_hash.h#54
   [7]: http://schlueters.de/blog/
   [8]: http://www.tyrael.hu/
-  [9]: http://php.net/manual/en/features.gc.collecting-cycles.php
-  [10]: http://lxr.php.net/xref/PHP_5_4/Zend/zend.h#318
-  [11]: http://lxr.php.net/opengrok/xref/PHP_5_4/Zend/zend_gc.h#zval_gc_info
-  [12]: http://php.net/manual/en/internals2.memory.php
+  [9]: https://php.net/manual/en/features.gc.collecting-cycles.php
+  [10]: https://lxr.room11.org/xref/php-src@5.6/Zend/zend.h#318
+  [11]: https://lxr.room11.org/xref/php-src@5.6/Zend/zend_gc.h#zval_gc_info
+  [12]: https://php.net/manual/en/internals2.memory.php
   [13]: http://g.oswego.edu/dl/html/malloc.html
-  [14]: http://lxr.php.net/xref/PHP_5_4/Zend/zend_alloc.c#336
-  [15]: http://php.net/SplFixedArray
+  [14]: https://lxr.room11.org/xref/php-src@5.6/Zend/zend_alloc.c#336
+  [15]: https://php.net/SplFixedArray
   [16]: https://nikic.github.io/2014/12/22/PHPs-new-hashtable-implementation.html

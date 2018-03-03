@@ -176,10 +176,10 @@ important improvements.
 htmlspecialchars("<\x80The End\xef\xbf\xbf>", ENT_QUOTES | ENT_HTML5 | ENT_DISALLOWED | ENT_SUBSTITUTE, 'UTF-8');
 ```
 
-  [1]: http://stackoverflow.com/users/127724/artefacto
-  [2]: http://docs.php.net/htmlspecialchars
-  [3]: http://docs.php.net/htmlentities
-  [4]: http://docs.php.net/htmlspecialchars_decode
-  [5]: http://docs.php.net/html_entity_decode
-  [6]: http://docs.php.net/get_html_translation_table
+  [1]: https://stackoverflow.com/users/127724/artefacto
+  [2]: https://php.net/htmlspecialchars
+  [3]: https://php.net/htmlentities
+  [4]: https://php.net/htmlspecialchars_decode
+  [5]: https://php.net/html_entity_decode
+  [6]: https://php.net/get_html_translation_table
   [7]: http://unicode.org/reports/tr36/#Deletion_of_Noncharacters

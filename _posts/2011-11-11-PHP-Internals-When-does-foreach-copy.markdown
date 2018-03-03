@@ -144,7 +144,7 @@ To summarize:
 
 
  [0]: http://blog.golemon.com/2007/01/youre-being-lied-to.html
- [1]: http://blog.ircmaxell.com/2011/08/on-optimization-in-php.html
+ [1]: https://blog.ircmaxell.com/2011/08/on-optimization-in-php.html
  [2]: http://codepad.viper-7.com/MFNrmk
  [3]: http://codepad.viper-7.com/mixX1H
  [4]: http://codepad.viper-7.com/9bKciB

@@ -243,8 +243,8 @@ Now it's your turn! PHP needs your valuable feedback on the different proposals,
 You can give feedback directly on the internals [mailing list][4], but if you don't want to do that, you can also
 leave a comment or ping ircmaxell or me in the [StackOverflow PHP chatroom][5].
 
- [1]: http://blog.ircmaxell.com/2012/03/parameter-type-casting-in-php.html
- [2]: http://www.reddit.com/r/PHP/comments/qiniv/parameter_type_casting_in_php/
- [3]: http://www.reddit.com/r/PHP/comments/qiniv/parameter_type_casting_in_php/c3xyzc5
- [4]: http://php.net/mailing-lists.php
- [5]: http://chat.stackoverflow.com/rooms/11/php
+ [1]: https://blog.ircmaxell.com/2012/03/parameter-type-casting-in-php.html
+ [2]: https://www.reddit.com/r/PHP/comments/qiniv/parameter_type_casting_in_php/
+ [3]: https://www.reddit.com/r/PHP/comments/qiniv/parameter_type_casting_in_php/c3xyzc5
+ [4]: https://php.net/mailing-lists.php
+ [5]: https://chat.stackoverflow.com/rooms/11/php

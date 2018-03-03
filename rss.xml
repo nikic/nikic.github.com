@@ -5,8 +5,8 @@ layout: null
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>nikic's blog</title>
-    <link>http://nikic.github.com/</link>
-    <atom:link href="http://nikic.github.com/rss.xml" rel="self" type="application/rss+xml" />
+    <link>https://nikic.github.com/</link>
+    <atom:link href="https://nikic.github.com/rss.xml" rel="self" type="application/rss+xml" />
     <description>NikiC's blog about PHP</description>
     <language>en-us</language>
     <pubDate>{{ site.time | date: "%a, %d %b %Y %H:%M:%S %z" }}</pubDate>
@@ -15,10 +15,10 @@ layout: null
     {% for post in site.posts limit:9 %}
     <item>
       <title>{{ post.title }}</title>
-      <link>http://nikic.github.com{{ post.url }}</link>
+      <link>https://nikic.github.com{{ post.url }}</link>
       <pubDate>{{ post.date | date: "%a, %d %b %Y %H:%M:%S %z" }}</pubDate>
       <author>nikic@php.net (NikiC)</author>
-      <guid>http://nikic.github.com{{ post.id }}</guid>
+      <guid>https://nikic.github.com{{ post.id }}</guid>
       <description>{{ post.content | xml_escape }}</description>
     </item>
     {% endfor %}

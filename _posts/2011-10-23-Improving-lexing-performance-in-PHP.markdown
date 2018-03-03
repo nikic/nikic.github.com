@@ -139,9 +139,9 @@ regexed has less influence on the execution time ([online demo][6]). I.e. it is 
 to put the more probable regexes first and the less probable ones last. (But it still is important,
 only less important!)
 
-  [1]: http://en.wikipedia.org/wiki/Lexical_analysis
-  [2]: http://en.wikipedia.org/wiki/Domain-specific_language
-  [3]: http://php.net/fgetcsv
-  [4]: http://php.net/str_getcsv
+  [1]: https://en.wikipedia.org/wiki/Lexical_analysis
+  [2]: https://en.wikipedia.org/wiki/Domain-specific_language
+  [3]: https://php.net/fgetcsv
+  [4]: https://php.net/str_getcsv
   [5]: http://codepad.viper-7.com/B5Arj5
   [6]: http://codepad.viper-7.com/hng1i0

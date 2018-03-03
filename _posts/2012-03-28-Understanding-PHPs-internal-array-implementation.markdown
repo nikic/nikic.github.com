@@ -297,15 +297,15 @@ In the next part
 The next part will again be published on [ircmaxell's blog][12]. It will analyze how objects and classes work
 internally.
 
- [1]: http://blog.ircmaxell.com/2012/03/phps-source-code-for-php-developers.html
- [2]: http://nikic.github.com/2012/03/16/Understanding-PHPs-internal-function-definitions.html
- [3]: http://blog.ircmaxell.com/2012/03/phps-source-code-for-php-developers_21.html
- [4]: http://lxr.php.net/opengrok/xref/PHP_5_4/Zend/zend_hash.h#261
- [5]: http://lxr.php.net/xref/PHP_5_4/Zend/zend_hash.h#66
- [6]: http://lxr.php.net/xref/PHP_5_4/Zend/zend_hash.h#54
- [7]: http://lxr.php.net/opengrok/xref/PHP_5_4/ext/standard/array.c#1583
- [8]: http://lxr.php.net/xref/PHP_5_4/Zend/zend_hash.h#98
- [9]: http://lxr.php.net/opengrok/xref/PHP_TRUNK/Zend/zend_API.h#353
- [10]: http://de.php.net/array_fill_keys
- [11]: http://nikic.github.com/2012/03/16/Understanding-PHPs-internal-function-definitions.html
- [12]: http://blog.ircmaxell.com/
+ [1]: https://blog.ircmaxell.com/2012/03/phps-source-code-for-php-developers.html
+ [2]: https://nikic.github.com/2012/03/16/Understanding-PHPs-internal-function-definitions.html
+ [3]: https://blog.ircmaxell.com/2012/03/phps-source-code-for-php-developers_21.html
+ [4]: https://lxr.room11.org/xref/php-src@5.6/Zend/zend_hash.h#261
+ [5]: https://lxr.room11.org/xref/php-src@5.6/Zend/zend_hash.h#66
+ [6]: https://lxr.room11.org/xref/php-src@5.6/Zend/zend_hash.h#54
+ [7]: https://lxr.room11.org/xref/php-src@5.6/ext/standard/array.c#1583
+ [8]: https://lxr.room11.org/xref/php-src@5.6/Zend/zend_hash.h#98
+ [9]: https://lxr.room11.org/xref/php-src@5.6/Zend/zend_API.h#353
+ [10]: https://php.net/array_fill_keys
+ [11]: https://nikic.github.com/2012/03/16/Understanding-PHPs-internal-function-definitions.html
+ [12]: https://blog.ircmaxell.com/

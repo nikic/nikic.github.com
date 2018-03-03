@@ -599,16 +599,16 @@ Oh, and one last thing: The `in` operator here was just an example. I don't plan
 
 As always, if you have any further comments or questions, please leave them below.
 
-  [scanner_def]: http://lxr.php.net/xref/PHP_TRUNK/Zend/zend_language_scanner.l
-  [scanner_gen]: http://lxr.php.net/xref/PHP_TRUNK/Zend/zend_language_scanner.c
-  [parser_def]: http://lxr.php.net/xref/PHP_TRUNK/Zend/zend_language_parser.y
-  [compiler]: http://lxr.php.net/xref/PHP_TRUNK/Zend/zend_compile.c
-  [compiler_header]: http://lxr.php.net/xref/PHP_TRUNK/Zend/zend_compile.h
-  [tokenizer]: http://php.net/tokenizer
-  [zend_op]: http://lxr.php.net/xref/PHP_TRUNK/Zend/zend_compile.h#106
-  [znode_op]: http://lxr.php.net/xref/PHP_TRUNK/Zend/zend_compile.h#74
-  [zend_op_array]: http://lxr.php.net/xref/PHP_TRUNK/Zend/zend_compile.h#_zend_op_array
-  [vm_def]: http://lxr.php.net/xref/PHP_TRUNK/Zend/zend_vm_def.h
-  [vm_gen]: http://lxr.php.net/xref/PHP_TRUNK/Zend/zend_vm_execute.h
-  [xref]: http://lxr.php.net
-  [internals_list]: http://php.net/mailing-lists.php
+  [scanner_def]: https://lxr.room11.org/xref/php-src@5.6/Zend/zend_language_scanner.l
+  [scanner_gen]: https://lxr.room11.org/xref/php-src@5.6/Zend/zend_language_scanner.c
+  [parser_def]: https://lxr.room11.org/xref/php-src@5.6/Zend/zend_language_parser.y
+  [compiler]: https://lxr.room11.org/xref/php-src@5.6/Zend/zend_compile.c
+  [compiler_header]: https://lxr.room11.org/xref/php-src@5.6/Zend/zend_compile.h
+  [tokenizer]: https://php.net/tokenizer
+  [zend_op]: https://lxr.room11.org/xref/php-src@5.6/Zend/zend_compile.h#106
+  [znode_op]: https://lxr.room11.org/xref/php-src@5.6/Zend/zend_compile.h#74
+  [zend_op_array]: https://lxr.room11.org/xref/php-src@5.6/Zend/zend_compile.h#_zend_op_array
+  [vm_def]: https://lxr.room11.org/xref/php-src@5.6/Zend/zend_vm_def.h
+  [vm_gen]: https://lxr.room11.org/xref/php-src@5.6/Zend/zend_vm_execute.h
+  [xref]: https://lxr.room11.org/
+  [internals_list]: https://php.net/mailing-lists.php

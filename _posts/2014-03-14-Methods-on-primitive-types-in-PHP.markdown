@@ -341,7 +341,7 @@ also a number of other projects working on such APIs.
 
 So, this is one of the things I'd like to see for PHP 6. I may write another post for my other plans in that direction.
 
-  [ircmaxell_opinion]: http://blog.ircmaxell.com/2014/03/an-opinion-on-future-of-php.html
+  [ircmaxell_opinion]: https://blog.ircmaxell.com/2014/03/an-opinion-on-future-of-php.html
   [scalar_objects]: https://github.com/nikic/scalar_objects
   [string_handler]: https://github.com/nikic/scalar_objects/blob/master/handlers/string.php
   [string_api]: https://github.com/nikic/scalar_objects/blob/master/doc/string_api.md

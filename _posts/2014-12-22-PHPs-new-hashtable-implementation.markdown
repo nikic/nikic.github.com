@@ -474,6 +474,6 @@ said on the topic.
 
 
   [array_size]: https://nikic.github.io/2011/12/12/How-big-are-PHP-arrays-really-Hint-BIG.html
-  [wiki_hashtable]: http://en.wikipedia.org/wiki/Hash_table
-  [wiki_open_addressing]: http://en.wikipedia.org/wiki/Open_addressing
+  [wiki_hashtable]: https://en.wikipedia.org/wiki/Hash_table
+  [wiki_open_addressing]: https://en.wikipedia.org/wiki/Open_addressing
   [pib_hashtable]: http://www.phpinternalsbook.com/hashtables/basic_structure.html
