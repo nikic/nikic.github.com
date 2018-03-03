@@ -289,7 +289,7 @@ To finish up this post, let me show you another *very* elegant way of approachin
 
   [igorw_traversal]: https://igor.io/2014/01/08/functional-library-traversal.html
   [get_in]: https://github.com/igorw/get-in
-  [reddit_ifsetor]: http://www.reddit.com/r/PHP/comments/1upjhn/functional_library_traversal/cekfpyj
+  [reddit_ifsetor]: https://www.reddit.com/r/PHP/comments/1upjhn/functional_library_traversal/cekfpyj
   [copy_on_write]: http://www.phpinternalsbook.com/zvals/memory_management.html#reference-counting-and-copy-on-write
   [twig_ternary]: http://fabien.potencier.org/article/48/the-php-ternary-operator-fast-or-not
   [ifsetor_rfc]: https://wiki.php.net/rfc/ifsetor

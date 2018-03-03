@@ -397,4 +397,4 @@ the improvements that were made to the compiler infrastructure.
 
 
   [part1]: //nikic.github.io/2015/05/05/Internal-value-representation-in-PHP-7-part-1.html
-  [ht7]: http://nikic.github.io/2014/12/22/PHPs-new-hashtable-implementation.html
+  [ht7]: https://nikic.github.io/2014/12/22/PHPs-new-hashtable-implementation.html

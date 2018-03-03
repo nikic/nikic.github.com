@@ -310,23 +310,23 @@ If you want to stay updated on the new features or want to help out in discussio
 
 Comments welcome!
 
- [mailing_list]: http://php.net/mailing-lists.php
- [preg_replace]: http://php.net/preg_replace
- [preg_replace_callback]: http://php.net/preg_replace_callback
+ [mailing_list]: https://php.net/mailing-lists.php
+ [preg_replace]: https://php.net/preg_replace
+ [preg_replace_callback]: https://php.net/preg_replace_callback
  [e_modifier]: https://wiki.php.net/rfc/remove_preg_replace_eval_modifier
- [pbkdf2]: http://en.wikipedia.org/wiki/PBKDF2
+ [pbkdf2]: https://en.wikipedia.org/wiki/PBKDF2
  [hash_pbkdf2]: https://wiki.php.net/rfc/hash_pbkdf2
- [intl]: http://php.net/intl
+ [intl]: https://php.net/intl
  [intl_calendar]: http://markmail.org/thread/b7sldwebskmhbxmx
  [intl_breakiterator]: http://markmail.org/thread/ulnm3hhist5ygido
  [array_column]: https://wiki.php.net/rfc/array_column
- [crypt]: http://php.net/crypt
+ [crypt]: https://php.net/crypt
  [password_hash]: https://wiki.php.net/rfc/password_hash
  [const_dereference]: https://wiki.php.net/rfc/constdereference
  [empty_exprs]: https://wiki.php.net/rfc/empty_isset_exprs
  [class_name_resolution]: https://wiki.php.net/rfc/class_name_scalars
  [skip_params]: https://wiki.php.net/rfc/skipparams
- [harder_than_you_think]: http://nikic.github.com/2012/03/06/Scalar-type-hinting-is-harder-than-you-think.html
+ [harder_than_you_think]: https://nikic.github.com/2012/03/06/Scalar-type-hinting-is-harder-than-you-think.html
  [scalar_typehinting]: https://wiki.php.net/rfc/scalar_type_hinting_with_cast
  [getter_setter]: https://wiki.php.net/rfc/propertygetsetsyntax-as-implemented
  [generators]: https://wiki.php.net/rfc/generators

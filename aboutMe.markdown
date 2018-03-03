@@ -7,7 +7,7 @@ science and physics at the Technical University of Berlin (Germany). I contribut
 number of open-source PHP libraries.
 
 Feel free to contact me via [nikic@php.net](mailto:nikic@php.net). Alternatively you can usually find me in the
-[PHP chatroom on StackOverflow](http://chat.stackoverflow.com/rooms/11/php).
+[PHP chatroom on StackOverflow](https://chat.stackoverflow.com/rooms/11/php).
 
 ### Projects
 
@@ -52,7 +52,7 @@ My most popular open-source projects, sorted by stars:
 ### Presentations
 
  * PHP 7: What changed internally? [IPC'15] <br>
-   ([slides](http://www.slideshare.net/nikita_ppv/php-7-what-changed-internally))
+   ([slides](https://www.slideshare.net/nikita_ppv/php-7-what-changed-internally))
  * PHP 7: What changed internally? [PHP Barcelona'15] <br>
    ([slides](https://www.slideshare.net/nikita_ppv/php-7-what-changed-internally-php-barcelona-2015),
     [video](https://www.youtube.com/watch?v=M8Ktic5sPlo))

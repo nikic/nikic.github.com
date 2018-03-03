@@ -550,7 +550,7 @@ heap.
  * WebKit's implementation: [declaration][4]; [inline methods][5]; [methods][7]
  * [Mozilla's implementation][6]
 
- [1]: http://en.wikipedia.org/wiki/X86-64#Virtual_address_space_details
+ [1]: https://en.wikipedia.org/wiki/X86-64#Virtual_address_space_details
  [2]: https://bugzilla.mozilla.org/show_bug.cgi?id=577056
  [3]: http://wingolog.org/archives/2011/05/18/value-representation-in-javascript-implementations
  [4]: http://trac.webkit.org/browser/trunk/Source/JavaScriptCore/runtime/JSValue.h#L250

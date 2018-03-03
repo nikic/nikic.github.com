@@ -510,5 +510,5 @@ will store the refcount themselves. This usually leads to less allocations, less
 
 In the second part of this article the remaining complex types will be discussed.
 
-  [ht7]: http://nikic.github.io/2014/12/22/PHPs-new-hashtable-implementation.html
-  [cycle]: http://php.net/manual/en/features.gc.collecting-cycles.php
+  [ht7]: https://nikic.github.io/2014/12/22/PHPs-new-hashtable-implementation.html
+  [cycle]: https://php.net/manual/en/features.gc.collecting-cycles.php

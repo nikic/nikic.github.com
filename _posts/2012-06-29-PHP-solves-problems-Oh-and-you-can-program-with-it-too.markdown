@@ -53,6 +53,6 @@ tell me nothing changed?
 End of rant.
 
   [phpSingularity]: http://www.codinghorror.com/blog/2012/06/the-php-singularity.html
-  [wikipedia]: http://en.wikipedia.org/wiki/Main_Page
+  [wikipedia]: https://en.wikipedia.org/wiki/Main_Page
   [moodle]: http://moodle.org/
   [wordpress]: http://wordpress.org/

@@ -244,14 +244,14 @@ In the next part
 The next part will again be published on [ircmaxell's blog][11]. It will cover what `zval`s are, how they work and how
 they are used in the source code (all those `Z_***` macros...)
 
-  [1]: http://blog.ircmaxell.com/2012/03/phps-source-code-for-php-developers.html
-  [2]: http://lxr.php.net/xref/PHP_5_4/
-  [3]: http://lxr.php.net/opengrok/search?q=strpos&project=PHP_5_4
-  [4]: http://lxr.php.net/opengrok/search?q=%22PHP_FUNCTION+strpos%22&project=PHP_5_4
-  [5]: http://lxr.php.net/opengrok/xref/PHP_5_4/ext/standard/php_string.h#48
-  [6]: http://lxr.php.net/opengrok/xref/PHP_5_4/ext/standard/string.c#1789
-  [7]: http://de2.php.net/sprintf
-  [8]: http://lxr.php.net/opengrok/search?q=%22ZEND_FUNCTION+strlen%22&project=PHP_5_4
-  [9]: http://lxr.php.net/opengrok/xref/PHP_5_4/Zend/zend_builtin_functions.c#478
-  [10]: http://lxr.php.net/opengrok/search?q=SplFixedArray%3A%3AgetSize&project=PHP_5_4
-  [11]: http://blog.ircmaxell.com/
+  [1]: https://blog.ircmaxell.com/2012/03/phps-source-code-for-php-developers.html
+  [2]: https://lxr.room11.org/xref/php-src@5.6
+  [3]: https://lxr.room11.org/search?project=php-src@5.6&q=strpos
+  [4]: https://lxr.room11.org/search?project=php-src@5.6&q="PHP_FUNCTION+strpos"
+  [5]: https://lxr.room11.org/xref/php-src@5.6/ext/standard/php_string.h#48
+  [6]: https://lxr.room11.org/xref/php-src@5.6/ext/standard/string.c#1789
+  [7]: https://php.net/sprintf
+  [8]: https://lxr.room11.org/search?project=php-src@5.6&q="ZEND_FUNCTION+strlen"
+  [9]: https://lxr.room11.org/xref/php-src@5.6/Zend/zend_builtin_functions.c#478
+  [10]: https://lxr.room11.org/search?project=php-src@5.6&q=SplFixedArray::getSize
+  [11]: https://blog.ircmaxell.com/

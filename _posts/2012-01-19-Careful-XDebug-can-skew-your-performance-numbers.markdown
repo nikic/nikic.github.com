@@ -94,7 +94,7 @@ degradation.
 
   [1]: http://xdebug.org/
   [2]: https://github.com/nikic/PHP-Parser
-  [3]: http://php.net/token_get_all
+  [3]: https://php.net/token_get_all
   [4]: http://gonzalo123.wordpress.com/2012/01/16/checking-the-performance-of-php-exceptions/
   [5]: http://edorian.posterous.com/never-trust-other-peoples-benchmarks-a-recent
-  [6]: http://stackoverflow.com/q/3691625/385378
+  [6]: https://stackoverflow.com/q/3691625/385378

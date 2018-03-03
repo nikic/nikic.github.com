@@ -263,21 +263,21 @@ StackOverlow][10] and the individual components were formed by edorian ([StackOv
 [Github][11], [Twitter][12]), [James][14] and me. Gordon ([StackOverflow][16], [Github][17],
 [Twitter][18]) [came up][15] with the title of this blog post.
 
-  [1]: http://en.wikipedia.org/wiki/SOLID_%28object-oriented_design%29
+  [1]: https://en.wikipedia.org/wiki/SOLID_%28object-oriented_design%29
   [2]: http://cleancoder.posterous.com/
-  [3]: http://en.wikipedia.org/wiki/Don%27t_repeat_yourself
-  [4]: http://en.wikipedia.org/wiki/KISS_principle
-  [5]: http://en.wikipedia.org/wiki/Unit_testing
-  [6]: http://php.net/strpbrk
-  [7]: http://php.net/strcspn
+  [3]: https://en.wikipedia.org/wiki/Don%27t_repeat_yourself
+  [4]: https://en.wikipedia.org/wiki/KISS_principle
+  [5]: https://en.wikipedia.org/wiki/Unit_testing
+  [6]: https://php.net/strpbrk
+  [7]: https://php.net/strcspn
   [8]: http://www.martinfowler.com/articles/injection.html
-  [9]: http://en.wikipedia.org/wiki/GRASP_%28object-oriented_design%29
-  [10]: http://chat.stackoverflow.com/rooms/11/php
+  [9]: https://en.wikipedia.org/wiki/GRASP_%28object-oriented_design%29
+  [10]: https://chat.stackoverflow.com/rooms/11/php
   [11]: https://github.com/edorian
-  [12]: http://twitter.com/#!/__edorian
-  [13]: http://chat.stackoverflow.com/transcript/11?m=2182205#2182205
-  [14]: http://stackoverflow.com/users/336242/james-butler
+  [12]: https://twitter.com/__edorian
+  [13]: https://chat.stackoverflow.com/transcript/11?m=2182205#2182205
+  [14]: https://stackoverflow.com/users/336242/james-butler
   [15]: https://twitter.com/#!/go_oh/status/150187219020300288
-  [16]: http://stackoverflow.com/users/208809/gordon
+  [16]: https://stackoverflow.com/users/208809/gordon
   [17]: https://github.com/gooh
-  [18]: http://twitter.com/#!/go_oh
+  [18]: https://twitter.com/go_oh

@@ -8,4 +8,4 @@ introduces how PHP values are internally represented and how they are used in th
 
 The fourth part, which will again be published on this blog, will cover how arrays are implemented in PHP.
 
-  [1]: http://blog.ircmaxell.com/2012/03/phps-source-code-for-php-developers_21.html
+  [1]: https://blog.ircmaxell.com/2012/03/phps-source-code-for-php-developers_21.html

@@ -1016,7 +1016,7 @@ above is really beneficial.
 
 In any case, I think it's an interesting topic and I hope you found it interesting too. Comments welcome :)
 
-  [gen_doc]: http://de2.php.net/manual/en/language.generators.overview.php
-  [gen_irc]: http://blog.ircmaxell.com/2012/07/what-generators-can-do-for-you.html
+  [gen_doc]: https://php.net/manual/en/language.generators.overview.php
+  [gen_irc]: https://blog.ircmaxell.com/2012/07/what-generators-can-do-for-you.html
   [gen_gg]: http://sheriframadan.com/2012/10/test-drive-php-5-5-a-sneak-peek/#generators
-  [stream_select]: http://de3.php.net/manual/en/function.stream-select.php
+  [stream_select]: https://php.net/stream_select

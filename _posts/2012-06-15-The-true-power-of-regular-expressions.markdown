@@ -566,10 +566,10 @@ and readable.
 
 That's it.
 
- [1]: http://stackoverflow.com/questions/tagged/php
- [2]: http://en.wikipedia.org/wiki/Formal_language
- [3]: http://en.wikipedia.org/wiki/Chomsky_hierarchy
+ [1]: https://stackoverflow.com/questions/tagged/php
+ [2]: https://en.wikipedia.org/wiki/Formal_language
+ [3]: https://en.wikipedia.org/wiki/Chomsky_hierarchy
  [4]: http://www.ex-parrot.com/pdw/Mail-RFC822-Address.html
- [5]: http://en.wikipedia.org/wiki/Thue_%28programming_language%29
- [6]: http://stackoverflow.com/a/3644267/385378
+ [5]: https://en.wikipedia.org/wiki/Thue_%28programming_language%29
+ [6]: https://stackoverflow.com/a/3644267/385378
  [7]: http://tools.ietf.org/html/rfc5322
