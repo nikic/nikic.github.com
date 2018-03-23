@@ -67,6 +67,8 @@ My most popular open-source projects, sorted by stars:
    ([slides](https://www.slideshare.net/nikita_ppv/php-language-trivia))
  * Static Optimization of PHP bytecode [PHPSC'17] <br>
    ([slides](https://www.slideshare.net/nikita_ppv/static-optimization-of-php-bytecode-phpsc-2017))
+ * Static Optimization of PHP bytecode [phpDay'17] <br>
+   ([video](https://vimeo.com/237704382))
 
 ### Papers
 
