@@ -22,6 +22,11 @@ My most popular open-source projects, sorted by stars:
 
 ### Accepted PHP proposals
 
+**PHP 7.3:**
+
+ * [Deprecations for PHP 7.3](https://wiki.php.net/rfc/deprecations_php_7_3)
+ * [Deprecate and Remove Case-Insensitive Constants](https://wiki.php.net/rfc/case_insensitive_constant_deprecation)
+
 **PHP 7.2:**
 
  * [Deprecations for PHP 7.2](https://wiki.php.net/rfc/deprecations_php_7_2)
