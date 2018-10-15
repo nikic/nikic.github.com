@@ -277,7 +277,7 @@ You *can't* directly convert it into a grammar based regex. The following will n
       | (?&non_empty_parameter_list) , (?&parameter)
     )
 
-The reason is that here `non_empty_parameter_list` appears as the leftmost part of it's own rule definition. This is
+The reason is that here `non_empty_parameter_list` appears as the leftmost part of its own rule definition. This is
 called left-recursion and is very common in grammar definitions. The reason is that the LALR(1) parsers which are
 usually used to parse them handle left-recursion much better than right-recursion.
 
@@ -318,7 +318,7 @@ In a context-sensitive language all production rules have the following form:
 
     αAβ → αγβ
 
-This mix of characters might start to look more complicated, but it is actually quite simple. At it's core you still
+This mix of characters might start to look more complicated, but it is actually quite simple. At its core you still
 have the pattern `A → γ`, which was how we defined context-free grammars. The new thing now is that you additionally
 have `α` and `β` on both sides. Those two form the *context* (which also gives this grammar class the name). So
 basically `A` can now only be replaced with `γ` if it has `α` to its left and `β` to its right.
