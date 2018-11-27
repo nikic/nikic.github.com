@@ -997,7 +997,7 @@ is cached for the new class entry.
 VM interrupts
 -------------
 
-Prior to PHP 7.0, execution timeouts used to handled by a longjump into the shutdown sequence directly from the signal
+Prior to PHP 7.0, execution timeouts used to be handled by a longjump into the shutdown sequence directly from the signal
 handler. As you may imagine, this caused all manner of unpleasantness. Since PHP 7.0 timeouts are instead delayed until
 control returns to the virtual machine. If it doesn't return within a certain grace period, the process is aborted.
 Since PHP 7.1 pcntl signal handlers use the same mechanism as execution timeouts.
