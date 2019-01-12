@@ -2,9 +2,10 @@
 layout: special
 title: About Me
 ---
-Hi! My name is **Nikita Popov**, but you'll mostly meet me as **nikic** on the internet. Currently I'm studying computer
-science and physics at the Technical University of Berlin (Germany). I contribute to the PHP project and maintain a
-number of open-source PHP libraries.
+Hi! My name is **Nikita Popov**, but you'll mostly meet me as **nikic** on the internet. I'm working as a software
+developer at [JetBrains](https://www.jetbrains.com/) on the [PhpStorm](https://www.jetbrains.com/phpstorm/) team. Before
+that, I studied computer science and physics at the Technical University of Berlin. I contribute to the PHP and
+LLVM projects and maintain a number of open-source PHP libraries.
 
 Feel free to contact me via [nikic@php.net](mailto:nikic@php.net). Alternatively you can usually find me in the
 [PHP chatroom on StackOverflow](https://chat.stackoverflow.com/rooms/11/php).
@@ -21,6 +22,10 @@ My most popular open-source projects, sorted by stars:
  * [php-ast](https://github.com/nikic/php-ast) -- Extension exposing PHP 7 abstract syntax tree
 
 ### Accepted PHP proposals
+
+**PHP 7.4:**
+
+ * [Typed properties](https://wiki.php.net/rfc/typed_properties_v2)
 
 **PHP 7.3:**
 
