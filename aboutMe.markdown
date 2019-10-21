@@ -23,9 +23,21 @@ My most popular open-source projects, sorted by stars:
 
 ### Accepted PHP proposals
 
+**PHP 8.0:**
+
+ * [*Consistent type errors for internal functions*](https://wiki.php.net/rfc/consistent_type_errors)
+ * [Reclassify engine warnings](https://wiki.php.net/rfc/engine_warnings)
+ * [Always generate fatal error for incompatible method signature](https://wiki.php.net/rfc/lsp_errors)
+
 **PHP 7.4:**
 
- * [Typed properties](https://wiki.php.net/rfc/typed_properties_v2)
+ * [*Typed properties*](https://wiki.php.net/rfc/typed_properties_v2)
+ * [*Arrow functions*](https://wiki.php.net/rfc/arrow_functions_v2)
+ * [Allow throwing exceptions from `__toString()`](https://wiki.php.net/rfc/tostring_exceptions)
+ * [Reflection for references](https://wiki.php.net/rfc/reference_reflection)
+ * [New custom object serialization mechanism](https://wiki.php.net/rfc/custom_object_serialization)
+ * [Deprecations for PHP 7.4](https://wiki.php.net/rfc/deprecations_php_7_4)
+ * [Deprecate left-associative ternary operator](https://wiki.php.net/rfc/ternary_associativity)
 
 **PHP 7.3:**
 
