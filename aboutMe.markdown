@@ -91,6 +91,9 @@ My most popular open-source projects, sorted by stars:
    ([slides](https://www.slideshare.net/nikita_ppv/static-optimization-of-php-bytecode-phpsc-2017))
  * Static Optimization of PHP bytecode [phpDay'17] <br>
    ([video](https://vimeo.com/237704382))
+ * Typed Properties and more: What’s coming in PHP 7.4? [PHP Russia'19] <br>
+   ([slides](https://www.slideshare.net/nikita_ppv/typed-properties-and-more-whats-coming-in-php-74),
+    [video](https://www.youtube.com/watch?v=teKnckg5x7I))
 
 ### Papers
 
