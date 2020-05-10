@@ -25,9 +25,18 @@ My most popular open-source projects, sorted by stars:
 
 **PHP 8.0:**
 
+ * [*Union types*](https://wiki.php.net/rfc/union_types_v2)
  * [*Consistent type errors for internal functions*](https://wiki.php.net/rfc/consistent_type_errors)
  * [Reclassify engine warnings](https://wiki.php.net/rfc/engine_warnings)
  * [Always generate fatal error for incompatible method signature](https://wiki.php.net/rfc/lsp_errors)
+ * [Stricter type checks for arithmetic/bitwise operators](https://wiki.php.net/rfc/arithmetic_operator_type_checks)
+ * [Allow trailing comma in parameter list](https://wiki.php.net/rfc/trailing_comma_in_parameter_list)
+ * [Object-based token_get_all() alternative](https://wiki.php.net/rfc/token_as_object)
+ * [Validation for abstract trait methods](https://wiki.php.net/rfc/abstract_trait_method_validation)
+ * [Allow ::class on objects](https://wiki.php.net/rfc/class_name_literal_on_object)
+ * [Static return type](https://wiki.php.net/rfc/static_return_type)
+ * [Variable syntax tweaks](https://wiki.php.net/rfc/variable_syntax_tweaks)
+ * [Weak maps](https://wiki.php.net/rfc/weak_maps)
 
 **PHP 7.4:**
 
