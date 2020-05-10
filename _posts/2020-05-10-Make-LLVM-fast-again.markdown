@@ -59,7 +59,7 @@ The server this runs on only has 2 cores, so a full LLVM build can take more tha
 
 Since I started tracking, the geomean compile-time on CTMark has been reduced by 8-9%, as the following graph shows.
 
-<img src="/images/llvm_geomean_instructions.png" alt="LLVM geomean instruction count over time" width="780" />
+<img src="/images/llvm_geomean_instructions.png" alt="LLVM geomean instruction count over time" style="max-width: 100%" />
 
 Most compile-time improvements and regressions tend to be small, with only few large jumps. A change of 0.25% is already worth looking at. A change of 1% is large. In the following I'll describe some of the improvements that I have implemented over the last few weeks.
 
