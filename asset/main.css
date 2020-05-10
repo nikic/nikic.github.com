@@ -1,6 +1,7 @@
 body {
     margin: 0 auto;
-    width: 780px;
+    padding: 0 15px;
+    max-width: 780px;
     font-family: Georgia, "Times New Roman", serif;
     font-size: 18px;
     line-height: 1.5em;

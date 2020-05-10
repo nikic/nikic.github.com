@@ -20,6 +20,7 @@ My most popular open-source projects, sorted by stars:
    primitive types in PHP
  * [iter](https://github.com/nikic/iter) -- Iteration primitives using generators
  * [php-ast](https://github.com/nikic/php-ast) -- Extension exposing PHP 7 abstract syntax tree
+ * [PHP-Fuzzer](https://github.com/nikic/PHP-Fuzzer) -- A fuzzer for PHP libraries
 
 ### Accepted PHP proposals
 
