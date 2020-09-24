@@ -27,17 +27,22 @@ My most popular open-source projects, sorted by stars:
 **PHP 8.0:**
 
  * [*Union types*](https://wiki.php.net/rfc/union_types_v2)
- * [*Consistent type errors for internal functions*](https://wiki.php.net/rfc/consistent_type_errors)
+ * [*Constructor property promotion*](https://wiki.php.net/rfc/constructor_promotion)
+ * [*Named arguments*](https://wiki.php.net/rfc/named_params)
  * [Reclassify engine warnings](https://wiki.php.net/rfc/engine_warnings)
+ * [Consistent type errors for internal functions](https://wiki.php.net/rfc/consistent_type_errors)
  * [Always generate fatal error for incompatible method signature](https://wiki.php.net/rfc/lsp_errors)
  * [Stricter type checks for arithmetic/bitwise operators](https://wiki.php.net/rfc/arithmetic_operator_type_checks)
+ * [Validation for abstract trait methods](https://wiki.php.net/rfc/abstract_trait_method_validation)
  * [Allow trailing comma in parameter list](https://wiki.php.net/rfc/trailing_comma_in_parameter_list)
  * [Object-based token_get_all() alternative](https://wiki.php.net/rfc/token_as_object)
- * [Validation for abstract trait methods](https://wiki.php.net/rfc/abstract_trait_method_validation)
  * [Allow ::class on objects](https://wiki.php.net/rfc/class_name_literal_on_object)
  * [Static return type](https://wiki.php.net/rfc/static_return_type)
  * [Variable syntax tweaks](https://wiki.php.net/rfc/variable_syntax_tweaks)
  * [Weak maps](https://wiki.php.net/rfc/weak_maps)
+ * [Treat namespaced names as single token](https://wiki.php.net/rfc/namespaced_names_as_token)
+ * [Saner string to number comparison](https://wiki.php.net/rfc/string_to_number_comparison)
+ * [Make sorting stable](https://wiki.php.net/rfc/stable_sorting)
 
 **PHP 7.4:**
 
