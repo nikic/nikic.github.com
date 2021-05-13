@@ -22,6 +22,8 @@ My most popular open-source projects, sorted by stars:
  * [php-ast](https://github.com/nikic/php-ast) -- Extension exposing PHP 7 abstract syntax tree
  * [PHP-Fuzzer](https://github.com/nikic/PHP-Fuzzer) -- A fuzzer for PHP libraries
 
+I also maintain the [LLVM compile-time tracker](https://llvm-compile-time-tracker.com/).
+
 ### Accepted PHP proposals
 
 **PHP 8.0:**
@@ -110,8 +112,14 @@ My most popular open-source projects, sorted by stars:
    ([slides](https://www.slideshare.net/nikita_ppv/typed-properties-and-more-whats-coming-in-php-74),
     [video](https://www.youtube.com/watch?v=teKnckg5x7I))
 
-### Papers
+### Theses and Papers
 
+ * Spinor formulation of Lanczos potentials in Riemannian Geometry [Bachelor Physics] <br>
+   ([pdf](pdf/thesis_physics_bachelor_lanczos_spinors.pdf))
+ * Optimizing PHP Bytecode using Type-Inferred SSA Form [Bachelor CS] <br>
+   ([pdf](pdf/thesis_cs_bachelor_php_optimization.pdf))
+ * The Tradeoff of Latency, Reliability and Rate for Spinal Codes [Master CS] <br>
+   ([pdf](pdf/thesis_cs_master_spinal_codes.pdf))
  * Static Optimization of PHP 7 [CC'17] <br>
    ([pdf](pdf/cc17_static_optimization.pdf),
     [acm](http://dl.acm.org/citation.cfm?id=3033026))
