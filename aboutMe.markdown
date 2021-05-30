@@ -127,4 +127,4 @@ I also maintain the [LLVM compile-time tracker](https://llvm-compile-time-tracke
 ### Miscellaneous
 
  * [PHP internals book](http://www.phpinternalsbook.com/)
-   <br> Free (but incomplete) book on PHP 5 extension development
+   <br> Free (but incomplete) book on PHP extension development
