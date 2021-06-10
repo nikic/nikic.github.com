@@ -143,7 +143,7 @@ define i32* @test(%struct* %base) {
 }
 ```
 
-These two GEPs compute the same address in two different ways, which adds up to another canonicalization problem. It also means that analyses usually need to decompose type-based GEPs into offset-based calculations. This is surprisingly expensive, because it requires computing the store size of all involved types from data layout information, including potential alignment constraints. It is not atypical for a couple percent of total compile-time to be spent in nothing but GEP offset calculations.
+These two GEPs compute the same address in two different ways, which adds up to another canonicalization problem. It also means that analyses usually need to decompose type-based GEPs into offset-based calculations. This is surprisingly expensive, because it requires computing the alloc size of all involved types from data layout information, including potential alignment constraints. It is not atypical for a couple percent of total compile-time to be spent in nothing but GEP offset calculations.
 
 The better alternative is to make GEPs directly offset based, which works best in conjunction with opaque pointers:
 
@@ -224,7 +224,7 @@ define i64 @sizeof_int64() {
 }
 ```
 
-This expression is the encoding for the store size of `i64`, and requires knowing the ABI alignment of `i64`, which is provided by the data layout, and not known by the constant expression itself.
+This expression is the encoding for the alloc size of `i64`, and requires knowing the ABI alignment of `i64`, which is provided by the data layout, and not known by the constant expression itself.
 
 This means that there are two levels of constant folding: One that is target-independent and happens on construction, and one that is target-dependent and performed by certain passes like instruction combining. This second folding needs to recursively walk all referenced constant expressions and attempt to fold them at all levels, essentially defeating the benefits of the "always folded" representation.
 
