@@ -18,9 +18,9 @@ On Unix-like systems, a single fixed-size shared memory (SHM) segment is allocat
 
 As Windows does not support forking, it is common to instead spawn entirely separate PHP processes, which do not have any shared address space. This is a big problem for opcache, because it requires the SHM segment to be mapped at the same address in each process. Otherwise, pointers into SHM would not be valid across processes.
 
-To make this work, opcache stores the SHM base address in a file, and tries to map the segment at the same address in other processes. If this fails, opcache falls back to using the file cache. However, even if it succeeds, there are limitations: While this guarantees the same address for the SHM segment, the addresses of internal functions/classes may differ between processes due to ASLR. This means that on Windows, it's not possible for cached artifacts to depend on internal functions/classes etc.
+To make this work, opcache stores the SHM base address, and tries to map the segment at the same address in other processes. If this fails, opcache falls back to using the file cache. However, even if it succeeds, there are limitations: While this guarantees the same address for the SHM segment, the addresses of internal functions/classes may differ between processes due to ASLR. This means that on Windows, it's not possible for cached artifacts to depend on internal functions/classes etc.
 
-Windows is the only platform where two unrelated PHP processes can share the same opcache SHM. For example, it's possible for the CLI binary to share the cache with an Apache module, which is not possible on other operating systems. The `opcache.cache_id` setting exists to force a different cache in this case.
+Windows is the only platform where two unrelated PHP processes can share the same opcache SHM. For example, it's possible for two concurrent CLI invocations to share the same cache, which is not possible on other operating systems. The `opcache.cache_id` setting exists to force a different cache in this case.
 
 Because maintaining the separate behavior for Windows is something of a pain, opcache may drop support for reattachment from unrelated processes in the future, which means that on Windows, the use of a thread-based rather than process-based SAPI would be required.
 
