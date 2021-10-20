@@ -103,7 +103,7 @@ The situation becomes more complicated once opcache gets involved. Normally, ear
 
 This wouldn't work for opcache, because cached scripts must be isolated and cannot use dependencies from other scripts. A dependency might not be available during initial compilation (should not early bind) but be available during a later use of the cached script (should early bind).
 
-Opcache solves this through "delayed early binding". `DECLARE_CLASS_DELAYED` opcodes are emitted for classes that are potentially eligible for early binding and placed in a linked list. When a script is loaded, opcache walks the `DECLARE_CLASS_DELAYED` opcodes and tries to perform early binding. It it suceeds, it marks the class as already declared in the run-time cache, so that another declaration is not attempted when the class declaration opcode is executed through normal control flow.
+Opcache solves this through "delayed early binding". `DECLARE_CLASS_DELAYED` opcodes are emitted for classes that are potentially eligible for early binding and placed in a linked list. When a script is loaded, opcache walks the `DECLARE_CLASS_DELAYED` opcodes and tries to perform early binding. If it succeeds, it marks the class as already declared in the run-time cache, so that another declaration is not attempted when the class declaration opcode is executed through normal control flow.
 
 Of course, it turns out that this approach is still too simplistic. Consider the following variant:
 
