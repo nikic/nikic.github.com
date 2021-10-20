@@ -89,13 +89,13 @@ Normally, interned strings always have a reference count of 2. However, the actu
 
 This does come with some limitations, because it is bound to the interned string mechanism. For example, if opcache is enabled but a script is not cached, then interned strings won't be used and consequently the class entry cache will not be available.
 
-One of the nice things about the class entry cache is that it is fairly generic and not bound to specific language constructs (like the run-time cache). If you write `new ReflectionClass(Foo::class)`, the class lookup can be cached, even though it is happens dynamically.
+One of the nice things about the class entry cache is that it is fairly generic and not bound to specific language constructs (like the run-time cache). If you write `new ReflectionClass(Foo::class)`, the class lookup can be cached, even though it happens dynamically.
 
 ## Persist
 
 The actual persistence of scripts into shared memory is relatively straightforward. The script is first compiled as usual, apart from some options to make sure no cross-file dependencies are used during compilation. The compilation result is moved out of the global function/class tables into a self-contained persistent script structure.
 
-Then the size of the required shared memory segment is calculated. This step must mirror the logic of the actual persist step exactly, but (mostly) doesn't modify the script. If the shared memory allocation fails, we can still bypass opcache and execute it as usual. The only modification the "persist calc" step does is to convert strings into SHM interned strings if possible, as interned strings are stored in a fixed size segment that is separate from the persisted script. Strings that are succesfully interned do not count towards the script size.
+Then the size of the required shared memory segment is calculated. This step must mirror the logic of the actual persist step exactly, but (mostly) doesn't modify the script. If the shared memory allocation fails, we can still bypass opcache and execute it as usual. The only modification the "persist calc" step does is to convert strings into SHM interned strings if possible, as interned strings are stored in a fixed size segment that is separate from the persisted script. Strings that are successfully interned do not count towards the script size.
 
 Finally, the persist step copies the script into shared memory and frees the original script. To do so it keeps track of an xlat table, which maps the original pointers to the new pointers in shared memory. This allows resolving repeated uses of the same pointer.
 
@@ -109,7 +109,7 @@ Prior to PHP 8.1, this meant that only the unlinked class template was cached, a
 
 The inheritance cache stores the linked inheritance result for a given set of dependencies. When inheritance is requested at run-time, the class name dependencies are resolved into class entries and if a cache entry for this set of dependencies already exists, it is used. While dependencies *can* differ between requests, in practice they will usually be the same, so inheritance only needs to be performed once.
 
-If no cache entry exists, the unlinked class is copied from SHM into mutable per-process memory and the inheritance process is performed on it (in-place). The result is persisted into the inheritance cache using essentially the normal persistence process, together with the depedencies for which this cache entry is valid.
+If no cache entry exists, the unlinked class is copied from SHM into mutable per-process memory and the inheritance process is performed on it (in-place). The result is persisted into the inheritance cache using essentially the normal persistence process, together with the dependencies for which this cache entry is valid.
 
 ## Preloading
 
