@@ -73,6 +73,14 @@ blockquote {
     padding-left: 20px;
 }
 
+sub {
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
+  bottom: -0.25em;
+}
+
 body > header {
     background-color: #ddd;
     padding: 20px 15px 15px 15px;
