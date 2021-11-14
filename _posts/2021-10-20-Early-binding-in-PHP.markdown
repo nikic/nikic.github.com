@@ -2,6 +2,7 @@
 layout: post
 title: Early binding in PHP
 excerpt: Early binding allows using a class before its declaration in the same file. However, the precise behavior is rather arcane.
+translations: <a href="https://qiita.com/rana_kualu/items/942597f783fd428c9fb5">🇯🇵 Japanese</a>
 ---
 PHP allows using a class before its declaration in the same file -- sometimes. Internally we call this "early binding". However, the precise behavior is rather arcane and not well documented. After reading this blog post, you'll probably appreciate why bug reports related to early binding go right on the "won't fix" pile.
 

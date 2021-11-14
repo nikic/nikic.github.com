@@ -8,6 +8,11 @@ layout: default
         <time datetime="{{ page.date | date: '%Y-%m-%d' }}" pubdate>
             {{ page.date | date: '%d. %B %Y' }}
         </time>
+        {% if page.translations %}
+        <div class="translations">
+        Translations: {{ page.translations }}
+        </div>
+        {% endif %}
     </header>
     <section>
         {{ content }}

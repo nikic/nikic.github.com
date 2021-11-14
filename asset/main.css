@@ -87,6 +87,10 @@ body > header {
     margin: 0 -15px;
 }
 
+.translations {
+    float: right;
+}
+
 .postPreview {
     margin: 30px 0;
 }
