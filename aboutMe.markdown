@@ -2,10 +2,10 @@
 layout: special
 title: About Me
 ---
-Hi! My name is **Nikita Popov**, but you'll mostly meet me as **nikic** on the internet. I'm working as a software
-developer at [JetBrains](https://www.jetbrains.com/) on the [PhpStorm](https://www.jetbrains.com/phpstorm/) team. Before
-that, I studied computer science and physics at the Technical University of Berlin. I contribute to the PHP and
-LLVM projects and maintain a number of open-source PHP libraries.
+Hi! My name is **Nikita Popov**, but you'll mostly meet me as **nikic** on the internet.
+I'm a senior software engineer at [RedHat](https://www.redhat.com/), working on LLVM, Clang and Rust.
+
+Before that, I worked at [JetBrains](https://www.jetbrains.com/) as a core developer for the PHP project. I studied computer science and physics at the Technical University of Berlin.
 
 Feel free to contact me via [nikic@php.net](mailto:nikic@php.net). Alternatively you can usually find me in the
 [PHP chatroom on StackOverflow](https://chat.stackoverflow.com/rooms/11/php).
