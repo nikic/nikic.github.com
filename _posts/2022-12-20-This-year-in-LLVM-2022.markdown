@@ -207,7 +207,7 @@ Historically, LLVM has represented integer min/max operations as an icmp+select 
 
 Representing min/max operations as icmp and select has the big advantage that all existing optimizations on icmp and select instructions automatically work on them.
 
-It also has the big disadvantage that all existing optimizations work on them: We very much don't want to break up canonical min/max patterns, to ensure that the backend can recognize and efficiently lower them. As such, there is a continous tension between trying to optimize icmps and selects, while also trying to not break min/max patterns. The outcome has been many infinite transform loops.
+It also has the big disadvantage that all existing optimizations work on them: We very much don't want to break up canonical min/max patterns, to ensure that the backend can recognize and efficiently lower them. As such, there is a continuous tension between trying to optimize icmps and selects, while also trying to not break min/max patterns. The outcome has been many infinite transform loops.
 
 One of the other motivations for moving away from this representation is that, thanks to the peculiar semantics of [undef values][undef_values], some common-sense properties do not hold in SPF representation. For example, `min(x, 7) & 7` could not be legally folded into `min(x, 7)` if `x` is an undef value ([proof](https://alive2.llvm.org/ce/z/-xnUTT)). The reason is that the value of undef can be separately chosen in the icmp and select instructions (one of the reasons why we are moving away from undef).
 
