@@ -111,6 +111,19 @@ I also maintain the [LLVM compile-time tracker](https://llvm-compile-time-tracke
  * Typed Properties and more: What’s coming in PHP 7.4? [PHP Russia'19] <br>
    ([slides](https://www.slideshare.net/nikita_ppv/typed-properties-and-more-whats-coming-in-php-74),
     [video](https://www.youtube.com/watch?v=teKnckg5x7I))
+ * PHP performance trivia [PHP Barcelona'19] <br>
+   ([slides](https://www.slideshare.net/nikita_ppv/php-performance-trivia),
+    [video](https://www.youtube.com/watch?v=JBWgvUrb-q8))
+ * What's new in PHP 8.0? [PHP fwdays'20] <br>
+   ([slides](https://www.slideshare.net/nikita_ppv/whats-new-in-php-80),
+    [video](https://www.youtube.com/watch?v=NbBRXwu1Md8))
+ * Just-In-Time Compiler in PHP 8 [betterCode PHP'20] <br>
+   ([slides](https://www.slideshare.net/nikita_ppv/justintime-compiler-in-php-8))
+ * What's new in PHP 8.0? [SymfonyWorld'20] <br>
+   ([slides](https://www.slideshare.net/nikita_ppv/whats-new-in-php-80-239762987))
+ * Opaque pointers are coming [LLVM CGO'22] <br>
+   ([slides](https://www.slideshare.net/nikita_ppv/opaque-pointers-are-coming),
+    [video](https://www.youtube.com/watch?v=qWHLf31NnNk))
 
 ### Theses and Papers
 
