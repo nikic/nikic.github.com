@@ -26,6 +26,23 @@ I also maintain the [LLVM compile-time tracker](https://llvm-compile-time-tracke
 
 ### Accepted PHP proposals
 
+**PHP 8.2:**
+
+ * [Deprecate dynamic properties](https://wiki.php.net/rfc/deprecate_dynamic_properties)
+ * [Deprecate partially supported callables](https://wiki.php.net/rfc/deprecate_partially_supported_callables)
+
+**PHP 8.1:**
+
+ * [*Readonly properties*](https://wiki.php.net/rfc/readonly_properties_v2)
+ * [*First-class callable syntax*](https://wiki.php.net/rfc/first_class_callable_syntax)
+ * [New in initializers](https://wiki.php.net/rfc/new_in_initializers)
+ * [Array unpacking with string keys](https://wiki.php.net/rfc/array_unpacking_string_keys)
+ * [Deprecate passing null to non-nullable arguments of internal functions](https://wiki.php.net/rfc/deprecate_null_to_scalar_internal_arg)
+ * [Static variables in inherited methods](https://wiki.php.net/rfc/static_variable_inheritance)
+ * [Restrict $GLOBALS usage](https://wiki.php.net/rfc/restrict_globals_usage)
+ * [Phasing out Serializable](https://wiki.php.net/rfc/phase_out_serializable)
+ * [Deprecations for PHP 8.1](https://wiki.php.net/rfc/deprecations_php_8_1)
+
 **PHP 8.0:**
 
  * [*Union types*](https://wiki.php.net/rfc/union_types_v2)
