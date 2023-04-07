@@ -84,7 +84,7 @@ For the same reason, some other minor adjustments to the pre-link phase are perf
 
 Running the simplification pipeline over everything again post-link is not strictly necessary: Ideally, it would only be applied to functions where additional inlining actually happened. This is a possible optimization for the future.
 
-As for the fat LTO pipeline ... well, we don't talk about the fat LTO pipeline. It's design is somewhere between non-sensical and non-existent. Fat LTO runs the module optimization pipeline pre-link (which is not a good idea for the same reasons as for ThinLTO), and the post-link pipeline is entirely home-grown and not based on the standard simplification/optimization pipelines.
+As for the fat LTO pipeline ... well, we don't talk about the fat LTO pipeline. Its design is somewhere between non-sensical and non-existent. Fat LTO runs the module optimization pipeline pre-link (which is not a good idea for the same reasons as for ThinLTO), and the post-link pipeline is entirely home-grown and not based on the standard simplification/optimization pipelines.
 
 The module simplification pipeline
 ----------------------------------
