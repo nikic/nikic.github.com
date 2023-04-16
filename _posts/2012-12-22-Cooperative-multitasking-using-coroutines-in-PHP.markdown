@@ -546,6 +546,10 @@ ready and reschedules the respective tasks:
 
 ```php?start_inline=1
 protected function ioPoll($timeout) {
+    if (empty($this->waitingForRead) && empty($this->waitingForWrite)) {
+        return;
+    }
+    
     $rSocks = [];
     foreach ($this->waitingForRead as list($socket)) {
         $rSocks[] = $socket;
