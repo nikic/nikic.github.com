@@ -21,7 +21,7 @@ For LLVM crashes, it is usually *not* worthwhile to do any pre-reduction in the 
 
 ## Reproducing in opt/llc
 
-The first step is to reproduce this issue using standard LLVM tooling, which is `opt` for the middle-end and `llc` for the backend. When debugging `clang` crashes in particular, this is often not necessary, and one can jump directly to the new step. However, this is usually necessary for other compilers using LLVM, such as `rustc`.
+The first step is to reproduce the issue using standard LLVM tooling, which is `opt` for the middle-end and `llc` for the backend. When debugging `clang` crashes in particular, this is often not necessary, and one can jump directly to the new step. However, this is usually necessary for other compilers using LLVM, such as `rustc`.
 
 For `clang`, it is possible to obtain the *optimized* bitcode using `-emit-llvm` and the optimized IR using `-emit-llvm -S`. You can then feed the result into `llc` to confirm the crash.
 
@@ -61,7 +61,7 @@ opt -disable-output -passes='thinlto<O3>' < foo.3.import.bc
 llc -disable-output < foo.5.precodegen.bc
 ```
 
-When using ThinLTO, there will be many bitcode files. For middle-end crashes you can find the one missing opt/precodegen. For backend crashes, just try all of them:
+When using ThinLTO, there will be many bitcode files. For middle-end crashes, you can find the one missing opt/precodegen. For backend crashes, just try all of them:
 
 ```sh
 for f in *.precodegen.bc; do echo $f; llc -disable-output < $f; done
@@ -79,7 +79,7 @@ Sometimes, passing bitcode/IR to opt/llc fails to reproduce the issue. One commo
 
 The first thing to be aware of is that `llc` default to `-O2`, so you need to explicitly specify `-O0` for crashes in unoptimized builds. The second is that `llc` produces assembly by default and you need `-filetype=obj` to produce object code. This matters for crashes in the MC layer. Sometimes `-relocation-model=pic` is also relevant.
 
-Unfortunately this is something that requires domain knowledge -- if a straightforward opt/llc invocation doesn't work, it's often hard to figure out what the relevant difference is.
+Unfortunately, this is something that requires domain knowledge -- if a straightforward opt/llc invocation doesn't work, it's often hard to figure out what the relevant difference is.
 
 ## Obtaining IR directly before the crash
 
@@ -162,7 +162,7 @@ Save this to `crash.sh` and don't forget to `chmod +x crash.sh`. Then run `llvm-
 llvm-reduce --test crash.sh out.ll
 ```
 
-The reduction will be save to `reduced.ll`.
+The reduction will be saved to `reduced.ll`.
 
 One somewhat common gotcha is that `llvm-reduce` may run some IR passes during the reduction. If one of those passes is the crashing one, `llvm-reduce` itself is going to crash. The passes used by default (as of this writing) are `function(sroa,instcombine,gvn,simplifycfg,infer-address-spaces)`. If you're trying to reduce any of these, you're probably going to have a bad time.
 
@@ -188,7 +188,7 @@ opt -S -passes=metarenamer < reduced.ll > reduced2.ll
 
 This pass will rename all symbols (both functions and local variables). This serves the dual purpose of getting rid of unnamed symbols, and avoiding long and confusing symbol names like `%.sroa.0.0.copyload.i.i.i.i49.i`, where you have to carefully count the number of `.i`s to distinguish one variable from another.
 
-Afterwards, it is advisble to perform some final manual reduction. While `llvm-reduce` is quite good, it is not perfect, and it is often possible to further simplify the test.
+Afterwards, it is advisable to perform some final manual reduction. While `llvm-reduce` is quite good, it is not perfect, and it is often possible to further simplify the test.
 
 At this point, we are essentially done. Once you have a minimal test case, tracking down and fixing the actual bug tends to be easy. It may help to pass `-debug` to get some more information on what transforms the pass in question is performing.
 
@@ -212,7 +212,7 @@ annotation2metadata,forceattrs,inferattrs,coro-early,function<eager-inv>(lower-e
 
 Finding the invocations of the relevant pass and copying their parameters may help.
 
-The second reason why a single-pass reproduction may fail is because the issue cannot be reproduced using a single pass: This mainly happens when the issue is caused by missing invalidation of cached analyses. You need one pass to compute the analysis first, and another to use it later.
+The second reason why a single-pass reproduction may fail is that the issue *cannot* be reproduced using a single pass: This mainly happens when the issue is caused by missing invalidation of cached analyses. You need one pass to compute the analysis first, and another to use it later.
 
 In this case, it is possible to perform a pipeline reduction using the `llvm/utils/reduce_pipeline.py` script:
 
@@ -261,7 +261,7 @@ You can then use `llvm-reduce` with a timeout-based reproducer:
 
 This will consider any input that runs for 10 seconds as interesting. Of course, this means that reduction is quite slow, and you may have to keep this running in the background for a few hours.
 
-Additionally, this reduction approach has the tendency to give you a reduction that takes exactly 10 seconds to run. This is somewhat unavoidable if the original issue is not an actual infinite loop, but rather "just" strongly super-linar complexity. This may or may not be helpful.
+Additionally, this reduction approach has the tendency to give you a reduction that takes exactly 10 seconds to run. This is somewhat unavoidable if the original issue is not an actual infinite loop, but rather "just" strongly super-linear complexity. This may or may not be helpful.
 
 ## Cheatsheet of useful options and tools
 
