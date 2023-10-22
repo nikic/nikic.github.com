@@ -3,12 +3,11 @@ layout: special
 title: About Me
 ---
 Hi! My name is **Nikita Popov**, but you'll mostly meet me as **nikic** on the internet.
-I'm a senior software engineer at [RedHat](https://www.redhat.com/), working on LLVM, Clang and Rust.
+I'm a senior software engineer at [Red Hat](https://www.redhat.com/), working on LLVM, Clang and Rust.
 
 Before that, I worked at [JetBrains](https://www.jetbrains.com/) as a core developer for the PHP project. I studied computer science and physics at the Technical University of Berlin.
 
-Feel free to contact me via [nikic@php.net](mailto:nikic@php.net). Alternatively you can usually find me in the
-[PHP chatroom on StackOverflow](https://chat.stackoverflow.com/rooms/11/php).
+Feel free to contact me via [nikic@php.net](mailto:nikic@php.net). Alternatively you can usually find me on the [LLVM Discord](https://discord.gg/xS7Z362).
 
 ### Projects
 
