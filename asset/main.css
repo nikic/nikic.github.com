@@ -41,6 +41,7 @@ pre {
     font-size: 14px;
     line-height: 1.3em;
     padding: 5px;
+    overflow-x: auto;
 }
 
 strong {
