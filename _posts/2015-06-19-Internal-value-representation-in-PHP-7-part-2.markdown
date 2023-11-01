@@ -396,5 +396,5 @@ point are some of the optimizations done in the virtual machine, in particular t
 the improvements that were made to the compiler infrastructure.
 
 
-  [part1]: //nikic.github.io/2015/05/05/Internal-value-representation-in-PHP-7-part-1.html
-  [ht7]: https://nikic.github.io/2014/12/22/PHPs-new-hashtable-implementation.html
+  [part1]: {{site.url}}/2015/05/05/Internal-value-representation-in-PHP-7-part-1.html
+  [ht7]: {{site.url}}/2014/12/22/PHPs-new-hashtable-implementation.html

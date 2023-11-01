@@ -294,4 +294,4 @@ uses. This is because a fixed array doesn't need the bucket structure: So it onl
   [13]: http://g.oswego.edu/dl/html/malloc.html
   [14]: https://lxr.room11.org/xref/php-src@5.6/Zend/zend_alloc.c#366
   [15]: https://php.net/SplFixedArray
-  [16]: https://nikic.github.io/2014/12/22/PHPs-new-hashtable-implementation.html
+  [16]: {{site.url}}/2014/12/22/PHPs-new-hashtable-implementation.html
