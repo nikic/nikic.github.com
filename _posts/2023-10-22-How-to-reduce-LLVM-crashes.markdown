@@ -27,7 +27,7 @@ For `clang`, it is possible to obtain the *optimized* bitcode using `-emit-llvm`
 
 ```sh
 clang -O3 -emit-llvm -S test.c
-llc -disable-output < test.ll
+llc < test.ll > /dev/null
 ```
 
 The unoptimized IR can be obtained by adding `-Xclang -disable-llvm-optzns`. Do **not** use `-O0` instead, which will annotate all functions with `optnone`. In this case, `opt` is used to confirm the crash.
@@ -58,13 +58,13 @@ opt -disable-output -passes='lto<O3>' < foo.2.internalize.bc
 # Thin LTO middle-end crash.
 opt -disable-output -passes='thinlto<O3>' < foo.3.import.bc
 # Backend crash.
-llc -disable-output < foo.5.precodegen.bc
+llc < foo.5.precodegen.bc > /dev/null
 ```
 
 When using ThinLTO, there will be many bitcode files. For middle-end crashes, you can find the one missing opt/precodegen. For backend crashes, just try all of them:
 
 ```sh
-for f in *.precodegen.bc; do echo $f; llc -disable-output < $f; done
+for f in *.precodegen.bc; do echo $f; llc < $f > /dev/null; done
 ```
 
 For `rustc`, the first thing you want to do is reduce it to an actual `rustc` call, rather than an invocation of `cargo`, `x.py` or similar. Usually the crashing command gets dumped automatically, but otherwise `-v` will work.
@@ -153,7 +153,7 @@ The next (and final) step is to reduce the issue to a minimal IR reproducer, whi
 #!/bin/bash
 ! opt -disable-output -passes=gvn < $1
 # Or for a backend crash:
-! llc -disable-output < $1
+! llc < $1 > /dev/null
 ```
 
 Save this to `crash.sh` and don't forget to `chmod +x crash.sh`. Then run `llvm-reduce`:
