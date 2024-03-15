@@ -124,10 +124,10 @@ opt: [ASSERTION FAILURE MESSAGE]
 [STACK TRACE]
 ```
 
-Then run `opt` again, this time using `-print-at-pass-number` with the second-to-last pass number, here `12345`:
+Then run `opt` again, this time using `-print-before-pass-number` with the last pass number, here `12346`:
 
 ```sh
-opt -disable-output -O3 -print-at-pass-number=12345 -print-module-scope < input.bc 2>out.ll
+opt -disable-output -O3 -print-before-pass-number=12346 -print-module-scope < input.bc 2>out.ll
 ```
 
 Once again, it's necessary to manually delete the backtrace from the produced file, after which you can carry on using `opt` with a single pass.
@@ -135,8 +135,8 @@ Once again, it's necessary to manually delete the backtrace from the produced fi
 I mentioned before that the first step (reproducing in opt/llc) is optional. The reason is that you can also pass these options directly to the compiler frontend. Examples for `clang` and `rustc` would be:
 
 ```sh
-clang [ARGS] -mllvm -print-at-pass-number=12345 -mllvm -print-module-scope 2>out.ll
-rustc [ARGS] -Cllvm-args=-print-at-pass-number=12345 -Cllvm-args=-print-module-scope 2>out.ll
+clang [ARGS] -mllvm -print-before-pass-number=12346 -mllvm -print-module-scope 2>out.ll
+rustc [ARGS] -Cllvm-args=-print-before-pass-number=12346 -Cllvm-args=-print-module-scope 2>out.ll
 ```
 
 However, this only works if the frontend compiles a single module. For example, rustc will usually build multiple codegen units instead. Even if you disable parallelism (`-Z no-parallel-llvm`), you'll still be left with pass numbers for many separate optimization pipelines. As such, this is only really applicable when the issue reproduces under `-C codegen-units=1`. The same goes for LTO crashes with clang.
@@ -281,7 +281,7 @@ Tools:
  * `-print-on-crash`: Print IR before crashing pass.
  * `-print-module-scope`: Print whole module instead of single function.
  * `-print-pass-numbers`: Print log of executed passes, for use with next option.
- * `-print-at-pass-number`: Print IR at pass number printed by previous option.
+ * `-print-before-pass-number`: Print IR before pass with number printed by previous option.
  * `-print-pipeline-passes`: Print string representation of optimization pipeline.
  * `-verify-each`: Run IR verifier after each pass.
 
