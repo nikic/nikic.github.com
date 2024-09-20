@@ -250,7 +250,7 @@ In some cases, it is possible to replace one of the "real" passes with something
 
 Another interesting special case are IR verifier failures. The verifier will usually only run at the end of the pass pipeline, while the issue it detects will be introduced by an earlier pass. It is possible to verify after each pass instead, by passing the `-verify-each` option.
 
-Finally, a note on compiler hangs. The general approach for these is pretty similar to crashes. For example, you can use `-print-pass-numbers` to find out at which pass it starts hanging, and then use `-print-at-pass-number` to print the IR before the hang and get a single-pass reproducer.
+Finally, a note on compiler hangs. The general approach for these is pretty similar to crashes. For example, you can use `-print-pass-numbers` to find out at which pass it starts hanging, and then use `-print-before-pass-number` to print the IR before the hang and get a single-pass reproducer.
 
 You can then use `llvm-reduce` with a timeout-based reproducer:
 
