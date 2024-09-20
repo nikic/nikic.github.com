@@ -238,7 +238,7 @@ The output will often contain a bunch of unnecessary "pass adaptors", which can 
 ```sh
 # This will probably also work
 opt -passes="loop-mssa(loop-rotate<header-duplication;no-prepare-for-lto>,licm<allowspeculation>)" < out.ll
-# And maybe this might as well
+# And maybe this will as well
 opt -passes="loop-mssa(loop-rotate,licm)" < out.ll
 ```
 
