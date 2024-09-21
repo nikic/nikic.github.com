@@ -136,6 +136,8 @@ I also maintain the [LLVM compile-time tracker](https://llvm-compile-time-tracke
  * What's new in PHP 8.0? [PHP fwdays'20] <br>
    ([slides](https://www.slideshare.net/nikita_ppv/whats-new-in-php-80),
     [video](https://www.youtube.com/watch?v=NbBRXwu1Md8))
+ * What's new in PHP 8.0? [PHPConChina'20] <br>
+   ([slides](pdf/slides_phpconchina20_whats_new_in_php_8.0.pdf))
  * Just-In-Time Compiler in PHP 8 [betterCode PHP'20] <br>
    ([slides](https://www.slideshare.net/nikita_ppv/justintime-compiler-in-php-8))
  * What's new in PHP 8.0? [SymfonyWorld'20] <br>
