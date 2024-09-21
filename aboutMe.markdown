@@ -130,6 +130,9 @@ I also maintain the [LLVM compile-time tracker](https://llvm-compile-time-tracke
  * PHP performance trivia [PHP Barcelona'19] <br>
    ([slides](https://www.slideshare.net/nikita_ppv/php-performance-trivia),
     [video](https://www.youtube.com/watch?v=JBWgvUrb-q8))
+ * Looking forward to PHP 8 [PHPKonf'19] <br>
+   ([slides](pdf/slides_phpkonf19_looking_forward_to_php_8.pdf),
+    [video](https://www.youtube.com/watch?v=5H77TnoLLcU))
  * What's new in PHP 8.0? [PHP fwdays'20] <br>
    ([slides](https://www.slideshare.net/nikita_ppv/whats-new-in-php-80),
     [video](https://www.youtube.com/watch?v=NbBRXwu1Md8))
