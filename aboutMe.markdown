@@ -140,6 +140,9 @@ I also maintain the [LLVM compile-time tracker](https://llvm-compile-time-tracke
  * Opaque pointers are coming [LLVM CGO'22] <br>
    ([slides](https://www.slideshare.net/nikita_ppv/opaque-pointers-are-coming),
     [video](https://www.youtube.com/watch?v=qWHLf31NnNk))
+ * A whirlwind tour of the LLVM optimizer [EuroLLVM'23] <br>
+   ([slides](https://llvm.org/devmtg/2023-05/slides/Tutorial-May10/01-Popov-AWhirlwindTour-oftheLLVMOptimizer.pdf),
+    [video](https://www.youtube.com/watch?v=7GHXDEIMGIY))
 
 ### Theses and Papers
 
