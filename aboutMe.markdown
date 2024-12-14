@@ -149,7 +149,8 @@ I also maintain the [LLVM compile-time tracker](https://llvm-compile-time-tracke
    ([slides](https://llvm.org/devmtg/2023-05/slides/Tutorial-May10/01-Popov-AWhirlwindTour-oftheLLVMOptimizer.pdf),
     [video](https://www.youtube.com/watch?v=7GHXDEIMGIY))
  * Rust ❤️ LLVM [LLVM developer meeting'24] <br>
-   ([slides](pdf/slides_llvm_dev_meeting24_rust_heart_llvm.pdf))
+   ([slides](pdf/slides_llvm_dev_meeting24_rust_heart_llvm.pdf),
+    [video](https://www.youtube.com/watch?v=Kqz-umsAnk8))
 
 ### Theses and Papers
 
