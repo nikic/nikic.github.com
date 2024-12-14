@@ -5,7 +5,14 @@ title: nikic's Blog
 {% for post in site.posts %}
 <section class="postPreview">
     <header>
-        <h1><a href="{{ post.url }}">{{ post.title }}</a></h1>
+        <h1>
+        {% if post.external_url %}
+            <span style="color: #888">External: </span>
+            <a href="{{ post.external_url }}">{{ post.title }}</a>
+        {% else %}
+            <a href="{{ post.url }}">{{ post.title }}</a>
+        {% endif %}
+        </h1>
         <time datetime="{{ post.date | date: '%Y-%m-%d' }}" pubdate>
             {{ post.date | date: '%d. %B %Y' }}
         </time>

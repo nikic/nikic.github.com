@@ -1,6 +1,9 @@
 ---
 layout: default
 ---
+{% if page.external_url %}
+<meta http-equiv="refresh" content="0;url={{ page.external_url }}" />
+{% endif %}
 <section class="post">
     <header>
         <a href="/" class="backLink">&laquo; Back to article overview.</a>
@@ -15,7 +18,12 @@ layout: default
         {% endif %}
     </header>
     <section>
+        {% if page.external_url %}
+        This article is published on an external site:
+        <a href="{{ page.external_url }}">{{ page.external_url }}</a>
+        {% else %}
         {{ content }}
+        {% endif %}
     </section>
     <footer>
         <section class="followupActions">
