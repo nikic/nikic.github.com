@@ -30,17 +30,21 @@ layout: default
             If you liked this article, you may want to <a href="/">browse my other articles</a> or
             <a href="https://twitter.com/nikita_ppv">follow me on Twitter</a>.
         </section>
-        <div id="disqus_thread"></div>
-        <script type="text/javascript">
-            var disqus_shortname = 'nikic';
-            var disqus_url = '{{site.url }}{{ page.url }}';
-            var disqus_identifier = '{{ page.url }}';
-            (function() {
-                var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-                dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-            })();
+        <script src="https://giscus.app/client.js"
+                data-repo="nikic/nikic.github.com"
+                data-repo-id="MDEwOlJlcG9zaXRvcnkyNjIzMDE1"
+                data-category="Blog posts"
+                data-category-id="DIC_kwDOACgGJ84Cl2x4"
+                data-mapping="pathname"
+                data-strict="0"
+                data-reactions-enabled="1"
+                data-emit-metadata="0"
+                data-input-position="bottom"
+                data-theme="light"
+                data-lang="en"
+                data-loading="lazy"
+                crossorigin="anonymous"
+                async>
         </script>
-        <a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
     </footer>
 </section>
