@@ -74,11 +74,16 @@ blockquote {
     padding-left: 20px;
 }
 
-sub {
+sub, sup {
   font-size: 75%;
   line-height: 0;
   position: relative;
   vertical-align: baseline;
+}
+sup {
+  top: -0.5em;
+}
+sub {
   bottom: -0.25em;
 }
 
@@ -126,6 +131,16 @@ body > header {
 .post > section > h3 {
     font-size: 24px;
     margin: 24px 0 10px 0;
+}
+
+.footnote::before {
+    content: '[';
+}
+.footnote::after {
+    content: ']';
+}
+.footnotes {
+    border-top: 1px solid black;
 }
 
 .followupActions {
