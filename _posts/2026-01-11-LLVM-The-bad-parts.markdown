@@ -41,7 +41,7 @@ LLVM is a huge project. LLVM itself is >2.5 million lines of C++ and the entire 
 
 An additional complication is building with debug info (which I always recommend against), in which case you'll add the extra gotchas of slow link times, high risk of OOM and massive disk usage. There are ways to avoid that (using shared libs or dylib build, using split dwarf, using lld), but it takes some expertise.
 
-Promising changes in this area are the [use of pre-compiled headers][pch] (which significantly improves build time), and changing to use a [dylib build by default][dylib_default] (which reduces disk usage and link time, esp. for debuginfo builds). Another is to [reduce test performance][test_time_improvement] using daemonization (not strictly part of the "build time", but relevant for the development cycle).
+Promising changes in this area are the [use of pre-compiled headers][pch] (which significantly improves build time), and changing to use a [dylib build by default][dylib_default] (which reduces disk usage and link time, esp. for debuginfo builds). Another is to [reduce test overhead][test_time_improvement] using daemonization (not strictly part of the "build time", but relevant for the development cycle).
 
 ### CI stability
 
