@@ -152,7 +152,10 @@ I also maintain the [LLVM compile-time tracker](https://llvm-compile-time-tracke
    ([slides](pdf/slides_llvm_dev_meeting24_rust_heart_llvm.pdf),
     [video](https://www.youtube.com/watch?v=Kqz-umsAnk8))
  * LLVM IR: Past, Present and Future [EuroLLVM'25] <br>
-   ([slides](pdf/slides_eurollvm25_llvm_ir_past_present_and_future.pdf))
+   ([slides](pdf/slides_eurollvm25_llvm_ir_past_present_and_future.pdf),
+    [video](https://www.youtube.com/watch?v=gIQEZ3QJz1w))
+ * All About Alias Analysis [EuroLLVM'26] <br>
+   ([slides](pdf/slides_eurollvm26_all_about_alias_analysis.pdf))
 
 ### Theses and Papers
 
